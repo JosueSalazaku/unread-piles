@@ -1,6 +1,7 @@
 import express from 'express';
 import dotenv from 'dotenv';
 import cors from 'cors';
+import z from 'zod';
 import { usersRoute } from './routes/users';
 import { postsRoute } from './routes/posts';
 
