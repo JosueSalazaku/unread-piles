@@ -13,7 +13,8 @@
         "use": "@vercel/static-build",
         "config": {
           "distDir": "client/dist",
-          "installCommand": "bun install"
+          "installCommand": "bun install",
+          "buildCommand": "bun run build"
         }
       }
     ],
