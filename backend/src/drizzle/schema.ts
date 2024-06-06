@@ -1,7 +1,7 @@
 import { integer, pgTable, serial, text, timestamp, numeric, varchar } from 'drizzle-orm/pg-core';
 
 // Users table definition
-export const users = pgTable('users_table', {
+export const users = pgTable('users', {
    id: serial('id').primaryKey(),
    name: varchar('name').notNull(),
    surname: varchar('surname').notNull(),
@@ -10,7 +10,7 @@ export const users = pgTable('users_table', {
 });
 
 // Posts table definition
-export const posts = pgTable('posts_table', {
+export const posts = pgTable('posts', {
     id: serial('id').primaryKey(),
     title: text('title').notNull(),
     content: text('content').notNull(),
@@ -23,7 +23,7 @@ export const posts = pgTable('posts_table', {
 });
 
 // Post Ratings table definition
-export const postRatings = pgTable('post_ratings_table', {
+export const postRatings = pgTable('post_ratings', {
     id: serial('id').primaryKey(),
     postId: integer('post_id').notNull().references(() => posts.id, { onDelete: 'cascade' }),
     userId: integer('user_id').notNull().references(() => users.id, { onDelete: 'cascade' }),
@@ -32,7 +32,7 @@ export const postRatings = pgTable('post_ratings_table', {
 });
 
 // Books table definition
-export const books = pgTable('books_table', {
+export const books = pgTable('books', {
     id: serial('id').primaryKey(),
     title: text('title').notNull(),
     author: text('author').notNull(),
