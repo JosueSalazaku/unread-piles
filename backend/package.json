@@ -2,14 +2,13 @@
   "name": "unread-piles",
   "module": "index.ts",
   "type": "module",
-  
   "scripts": {
     "start": "bun index.ts",
     "dev": "bun --watch index.ts",
     "db:generate": "drizzle-kit generate",
     "db:drop": "drizzle-kit drop",
     "db:migrate": "bun drizzle-kit migrate src/drizzle/migrations"
-    },
+  },
   "devDependencies": {
     "@types/bun": "latest",
     "@types/cors": "^2.8.17",
@@ -21,11 +20,13 @@
     "typescript": "^5.0.0"
   },
   "dependencies": {
+    "@types/uuid": "^9.0.8",
     "dotenv": "^16.4.5",
     "drizzle-orm": "^0.31.0",
     "express": "^4.19.2",
     "joi": "^17.13.1",
     "postgres": "^3.4.4",
-    "supabase": "^1.172.2"
+    "supabase": "^1.172.2",
+    "uuid": "^9.0.1"
   }
 }

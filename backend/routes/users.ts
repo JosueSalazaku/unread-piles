@@ -1,18 +1,12 @@
 import express from 'express';
-import dotenv from 'dotenv';
+import { getAllUsers, getUserById, createUser, updateUser, deleteUser } from '../controller/users'; // Adjust the path as necessary
 
-export const usersRoute = express.Router()
-    .get('/', (req, res) => {
+export const usersRoute = express.Router();
 
-    })
-    .get('/:id', (req, res) => {
+usersRoute.get('/', getAllUsers);
+usersRoute.get('/:id', getUserById);
+usersRoute.post('/', createUser);
+usersRoute.put('/:id', updateUser);
+usersRoute.delete('/:id', deleteUser);
 
-    })
-    .post('/', (req, res) => {
-
-    })
-    .put('/:id', (req, res) => {
-
-    })
-    .delete('/', (req, res) => { });
-
+export default usersRoute;
