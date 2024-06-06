@@ -19,21 +19,21 @@ export const users = pgTable('users', {
 
 // Posts table definition
 export const posts = pgTable('posts', {
-    id: serial('id').primaryKey(),
+    id: uuid('id').primaryKey().defaultRandom(),
     title: varchar('title', { length: 255 }).notNull(),
     content: text('content').notNull(),
-    userId: uuid('user_id').notNull().references(() => users.id, { onDelete: 'cascade' }),  // Changed to uuid
+    userId: uuid('user_id').notNull().references(() => users.id, { onDelete: 'cascade' }), // Ensure this matches your schema
     createdAt: timestamp('created_at').notNull().defaultNow(),
-    updatedAt: timestamp('updated_at').notNull().defaultNow(),  
+    updatedAt: timestamp('updated_at').notNull().defaultNow(),
     rating: integer('rating').notNull().default(0),
-    averageRating: numeric('average_rating').default('0'),
+    averageRating: integer('average_rating').default(0),
     ratingCount: integer('rating_count').default(0),
 });
 
 // Post Ratings table definition
 export const postRatings = pgTable('post_ratings', {
     id: serial('id').primaryKey(),
-    postId: integer('post_id').notNull().references(() => posts.id, { onDelete: 'cascade' }),
+    postId: uuid('post_id').notNull().references(() => posts.id, { onDelete: 'cascade' }), // Changed to uuid
     userId: uuid('user_id').notNull().references(() => users.id, { onDelete: 'cascade' }),  // Changed to uuid
     rating: integer('rating').notNull(),
     ratedAt: timestamp('rated_at').notNull().defaultNow(),

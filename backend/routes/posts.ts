@@ -1,12 +1,12 @@
 import express from 'express';
-import dotenv from 'dotenv';
+import { getAllPosts, getPostById, createPost, updatePost, deletePost } from '../controller/posts'; 
 
-export const postsRoute = express.Router()
-    .get('/posts', (req, res) => {
+export const postsRoute = express.Router();
 
-        // Your code here
-        // This is where you handle the logic for the '/posts' endpoint
-        // You can access request parameters using req.params
-        // You can send a response using res.send() or res.json()
-    });
-//is this correct?
+postsRoute.get('/', getAllPosts);
+postsRoute.get('/:id', getPostById);
+postsRoute.post('/', createPost);
+postsRoute.put('/:id', updatePost);
+postsRoute.delete('/:id', deletePost);
+
+export default postsRoute;

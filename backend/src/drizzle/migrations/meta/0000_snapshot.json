@@ -1,5 +1,5 @@
 {
-  "id": "dfa57410-fa66-4244-be35-552e04814862",
+  "id": "77cacfdf-df28-485b-828b-4581357135ac",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
@@ -182,7 +182,7 @@
         },
         "post_id": {
           "name": "post_id",
-          "type": "integer",
+          "type": "uuid",
           "primaryKey": false,
           "notNull": true
         },
@@ -244,9 +244,10 @@
       "columns": {
         "id": {
           "name": "id",
-          "type": "serial",
+          "type": "uuid",
           "primaryKey": true,
-          "notNull": true
+          "notNull": true,
+          "default": "gen_random_uuid()"
         },
         "title": {
           "name": "title",
@@ -289,10 +290,10 @@
         },
         "average_rating": {
           "name": "average_rating",
-          "type": "numeric",
+          "type": "integer",
           "primaryKey": false,
           "notNull": false,
-          "default": "'0'"
+          "default": 0
         },
         "rating_count": {
           "name": "rating_count",

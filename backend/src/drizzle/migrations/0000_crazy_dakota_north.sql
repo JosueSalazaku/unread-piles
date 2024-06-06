@@ -32,21 +32,21 @@ CREATE TABLE IF NOT EXISTS "books" (
 --> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "post_ratings" (
 	"id" serial PRIMARY KEY NOT NULL,
-	"post_id" integer NOT NULL,
+	"post_id" uuid NOT NULL,
 	"user_id" uuid NOT NULL,
 	"rating" integer NOT NULL,
 	"rated_at" timestamp DEFAULT now() NOT NULL
 );
 --> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "posts" (
-	"id" serial PRIMARY KEY NOT NULL,
+	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
 	"title" varchar(255) NOT NULL,
 	"content" text NOT NULL,
 	"user_id" uuid NOT NULL,
 	"created_at" timestamp DEFAULT now() NOT NULL,
 	"updated_at" timestamp DEFAULT now() NOT NULL,
 	"rating" integer DEFAULT 0 NOT NULL,
-	"average_rating" numeric DEFAULT '0',
+	"average_rating" integer DEFAULT 0,
 	"rating_count" integer DEFAULT 0
 );
 --> statement-breakpoint
