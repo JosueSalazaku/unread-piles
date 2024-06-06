@@ -1,3 +1,4 @@
+import { password } from 'bun';
 import { integer, pgTable, serial, text, timestamp, numeric, varchar, pgEnum, index, uniqueIndex, uuid } from 'drizzle-orm/pg-core';
 
 export const UserRole = pgEnum('userRole', ['user', 'Admin']);
@@ -10,6 +11,7 @@ export const users = pgTable('users', {
     username: varchar('username', { length: 255 }).notNull().unique(),
     age: integer('age').notNull(),
     email: varchar('email', { length: 255 }).notNull().unique(),
+    password: varchar('password', { length: 255 }).notNull(), // Added password field
     role: UserRole('userRole').default('user').notNull(),
 }, (table) => { // Fixed syntax error by adding parentheses around "table"
     return {
