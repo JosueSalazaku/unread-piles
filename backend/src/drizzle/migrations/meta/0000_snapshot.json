@@ -1,5 +1,5 @@
 {
-  "id": "a004426f-5a98-41a8-96d7-2e50b02c8981",
+  "id": "dfa57410-fa66-4244-be35-552e04814862",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
@@ -49,10 +49,10 @@
           "onDelete": "cascade",
           "onUpdate": "no action"
         },
-        "author_books_table_book_id_books_table_id_fk": {
-          "name": "author_books_table_book_id_books_table_id_fk",
+        "author_books_table_book_id_books_id_fk": {
+          "name": "author_books_table_book_id_books_id_fk",
           "tableFrom": "author_books_table",
-          "tableTo": "books_table",
+          "tableTo": "books",
           "columnsFrom": [
             "book_id"
           ],
@@ -78,13 +78,13 @@
         },
         "name": {
           "name": "name",
-          "type": "text",
+          "type": "varchar(255)",
           "primaryKey": false,
           "notNull": true
         },
         "bio": {
           "name": "bio",
-          "type": "text",
+          "type": "varchar(255)",
           "primaryKey": false,
           "notNull": false,
           "default": "''"
@@ -109,8 +109,8 @@
       "compositePrimaryKeys": {},
       "uniqueConstraints": {}
     },
-    "public.books_table": {
-      "name": "books_table",
+    "public.books": {
+      "name": "books",
       "schema": "",
       "columns": {
         "id": {
@@ -121,13 +121,13 @@
         },
         "title": {
           "name": "title",
-          "type": "text",
+          "type": "varchar(255)",
           "primaryKey": false,
           "notNull": true
         },
         "author": {
           "name": "author",
-          "type": "text",
+          "type": "varchar(255)",
           "primaryKey": false,
           "notNull": true
         },
@@ -145,13 +145,13 @@
         },
         "genre": {
           "name": "genre",
-          "type": "text",
+          "type": "varchar(255)",
           "primaryKey": false,
           "notNull": false
         },
         "description": {
           "name": "description",
-          "type": "text",
+          "type": "varchar(255)",
           "primaryKey": false,
           "notNull": false,
           "default": "''"
@@ -161,8 +161,8 @@
       "foreignKeys": {},
       "compositePrimaryKeys": {},
       "uniqueConstraints": {
-        "books_table_isbn_unique": {
-          "name": "books_table_isbn_unique",
+        "books_isbn_unique": {
+          "name": "books_isbn_unique",
           "nullsNotDistinct": false,
           "columns": [
             "isbn"
@@ -170,8 +170,8 @@
         }
       }
     },
-    "public.post_ratings_table": {
-      "name": "post_ratings_table",
+    "public.post_ratings": {
+      "name": "post_ratings",
       "schema": "",
       "columns": {
         "id": {
@@ -188,7 +188,7 @@
         },
         "user_id": {
           "name": "user_id",
-          "type": "integer",
+          "type": "uuid",
           "primaryKey": false,
           "notNull": true
         },
@@ -208,10 +208,10 @@
       },
       "indexes": {},
       "foreignKeys": {
-        "post_ratings_table_post_id_posts_table_id_fk": {
-          "name": "post_ratings_table_post_id_posts_table_id_fk",
-          "tableFrom": "post_ratings_table",
-          "tableTo": "posts_table",
+        "post_ratings_post_id_posts_id_fk": {
+          "name": "post_ratings_post_id_posts_id_fk",
+          "tableFrom": "post_ratings",
+          "tableTo": "posts",
           "columnsFrom": [
             "post_id"
           ],
@@ -221,10 +221,10 @@
           "onDelete": "cascade",
           "onUpdate": "no action"
         },
-        "post_ratings_table_user_id_users_table_id_fk": {
-          "name": "post_ratings_table_user_id_users_table_id_fk",
-          "tableFrom": "post_ratings_table",
-          "tableTo": "users_table",
+        "post_ratings_user_id_users_id_fk": {
+          "name": "post_ratings_user_id_users_id_fk",
+          "tableFrom": "post_ratings",
+          "tableTo": "users",
           "columnsFrom": [
             "user_id"
           ],
@@ -238,8 +238,8 @@
       "compositePrimaryKeys": {},
       "uniqueConstraints": {}
     },
-    "public.posts_table": {
-      "name": "posts_table",
+    "public.posts": {
+      "name": "posts",
       "schema": "",
       "columns": {
         "id": {
@@ -250,7 +250,7 @@
         },
         "title": {
           "name": "title",
-          "type": "text",
+          "type": "varchar(255)",
           "primaryKey": false,
           "notNull": true
         },
@@ -262,7 +262,7 @@
         },
         "user_id": {
           "name": "user_id",
-          "type": "integer",
+          "type": "uuid",
           "primaryKey": false,
           "notNull": true
         },
@@ -304,10 +304,10 @@
       },
       "indexes": {},
       "foreignKeys": {
-        "posts_table_user_id_users_table_id_fk": {
-          "name": "posts_table_user_id_users_table_id_fk",
-          "tableFrom": "posts_table",
-          "tableTo": "users_table",
+        "posts_user_id_users_id_fk": {
+          "name": "posts_user_id_users_id_fk",
+          "tableFrom": "posts",
+          "tableTo": "users",
           "columnsFrom": [
             "user_id"
           ],
@@ -321,25 +321,32 @@
       "compositePrimaryKeys": {},
       "uniqueConstraints": {}
     },
-    "public.users_table": {
-      "name": "users_table",
+    "public.users": {
+      "name": "users",
       "schema": "",
       "columns": {
         "id": {
           "name": "id",
-          "type": "serial",
+          "type": "uuid",
           "primaryKey": true,
-          "notNull": true
+          "notNull": true,
+          "default": "gen_random_uuid()"
         },
         "name": {
           "name": "name",
-          "type": "varchar",
+          "type": "varchar(255)",
           "primaryKey": false,
           "notNull": true
         },
         "surname": {
           "name": "surname",
-          "type": "varchar",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "username": {
+          "name": "username",
+          "type": "varchar(255)",
           "primaryKey": false,
           "notNull": true
         },
@@ -351,17 +358,48 @@
         },
         "email": {
           "name": "email",
-          "type": "text",
+          "type": "varchar(255)",
           "primaryKey": false,
           "notNull": true
+        },
+        "userRole": {
+          "name": "userRole",
+          "type": "userRole",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'user'"
         }
       },
-      "indexes": {},
+      "indexes": {
+        "emailIndex": {
+          "name": "emailIndex",
+          "columns": [
+            {
+              "expression": "email",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": true,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
       "foreignKeys": {},
       "compositePrimaryKeys": {},
       "uniqueConstraints": {
-        "users_table_email_unique": {
-          "name": "users_table_email_unique",
+        "users_username_unique": {
+          "name": "users_username_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "username"
+          ]
+        },
+        "users_email_unique": {
+          "name": "users_email_unique",
           "nullsNotDistinct": false,
           "columns": [
             "email"
@@ -370,7 +408,16 @@
       }
     }
   },
-  "enums": {},
+  "enums": {
+    "public.userRole": {
+      "name": "userRole",
+      "schema": "public",
+      "values": [
+        "user",
+        "Admin"
+      ]
+    }
+  },
   "schemas": {},
   "_meta": {
     "columns": {},
