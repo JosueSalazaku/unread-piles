@@ -2,22 +2,28 @@
   "name": "unread-piles",
   "module": "index.ts",
   "type": "module",
-  "stripts": {
+  "scripts": {
     "start": "bun index.ts",
-    "dev": "bun --watch index.ts"
+    "dev": "bun --watch index.ts",
+    "db:generate": "drizzle-kit generate",
+    "db:drop": "drizzle-kit drop"
   },
   "devDependencies": {
     "@types/bun": "latest",
     "@types/cors": "^2.8.17",
     "@types/dotenv": "^8.2.0",
-    "@types/express": "^4.17.21"
+    "@types/express": "^4.17.21",
+    "drizzle-kit": "^0.22.3"
   },
   "peerDependencies": {
     "typescript": "^5.0.0"
   },
   "dependencies": {
+    "dotenv": "^16.4.5",
+    "drizzle-orm": "^0.31.0",
     "express": "^4.19.2",
-    "mysql2": "^3.9.7",
-    "zod": "^3.23.8"
+    "joi": "^17.13.1",
+    "postgres": "^3.4.4",
+    "supabase": "^1.172.2"
   }
 }

@@ -1,6 +1,6 @@
 
 
-export default function home() {
+const Home: React.FC = () => {
     console.log('Hello World');
 
   return (
@@ -8,3 +8,4 @@ export default function home() {
   )
 }
 
+export default Home;

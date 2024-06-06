@@ -1,7 +1,6 @@
 import express from 'express';
 import dotenv from 'dotenv';
 import cors from 'cors';
-import z from 'zod';
 import { usersRoute } from './routes/users';
 import { postsRoute } from './routes/posts';
 
@@ -19,6 +18,6 @@ app.get('/', (req, res) => {
   res.send('Hello World');
 });
 
-app.listen(process.env.PORT, () => {
-  console.log(`UnreadPiles is running on http://localhost:${process.env.port}`);
+app.listen(port, () => {
+  console.log(`UnreadPiles is running on http://localhost:${port}`);
 });
