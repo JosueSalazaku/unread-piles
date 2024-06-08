@@ -1,6 +1,6 @@
 import type { Request, Response } from 'express';
-import { db } from '/Users/josuesalazaku/Developer/Projects/unread-piles/backend/db';
-import { users } from '/Users/josuesalazaku/Developer/Projects/unread-piles/backend/src/drizzle/schema';
+import { db } from '/Users/josuesalazaku/Developer/Projects/unread-piles/server/db';
+import { users } from '/Users/josuesalazaku/Developer/Projects/unread-piles/server/src/drizzle/schema';
 import { eq } from 'drizzle-orm';
 import { validate } from 'uuid';
 

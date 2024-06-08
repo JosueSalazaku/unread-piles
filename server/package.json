@@ -4,6 +4,7 @@
   "type": "module",
   "scripts": {
     "start": "bun server.ts",
+    "build": "bun build server.ts",
     "dev": "bun --watch server.ts",
     "db:generate": "drizzle-kit generate",
     "db:drop": "drizzle-kit drop",
