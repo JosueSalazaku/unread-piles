@@ -1,12 +1,12 @@
 {
   "version": 2,
   "functions": {
-    "server.ts": {
+    "api/server.ts": {
       "runtime": "vercel/node@2.0.0"
     }
   },
   "routes": [
-    { "src": "/(.*)", "dest": "/" }
+    { "src": "/(.*)", "dest": "/api/server.ts" }
   ],
   "env": {
     "NODE_OPTIONS": "--openssl-legacy-provider"
