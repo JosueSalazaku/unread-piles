@@ -1,15 +1,17 @@
 {
   "version": 2,
-  "builds": [
-    {
-      "src": "server.ts",
-      "use": "@vercel/node"
+  "functions": {
+    "server.ts": {
+      "runtime": "vercel/node"
     }
-  ],
+  },
   "routes": [
     { "src": "/(.*)", "dest": "server.ts" }
   ],
   "env": {
     "NODE_OPTIONS": "--openssl-legacy-provider"
-  }
+  },
+  "installCommand": "bun install",
+  "buildCommand": "bun build server.ts",
+  "devCommand": "bun start"
 }
