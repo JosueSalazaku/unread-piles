@@ -1,7 +1,6 @@
 import express from 'express';
 import 'dotenv/config';
 import dotenv from 'dotenv';
-import { db } from './db';
 import cors from 'cors';
 import { usersRoute } from './routes/users';
 import { postsRoute } from './routes/posts';
@@ -23,3 +22,4 @@ app.get('/', (req, res) => {
 app.listen(port, () => {
   console.log(`UnreadPiles is running on http://localhost:${port}`);
 });
+
