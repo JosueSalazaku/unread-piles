@@ -2,7 +2,7 @@
   "version": 2,
   "functions": {
     "api/server.ts": {
-      "runtime": "vercel/node@2.10.1"
+      "runtime": "@vercel/node"
     }
   },
   "routes": [
@@ -10,8 +10,5 @@
   ],
   "env": {
     "NODE_OPTIONS": "--openssl-legacy-provider"
-  },
-  "installCommand": "bun install",
-  "buildCommand": "bun build api/server.ts",
-  "devCommand": "bun start"
+  }
 }
