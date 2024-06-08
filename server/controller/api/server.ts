@@ -2,8 +2,8 @@ import express from 'express';
 import 'dotenv/config';
 import dotenv from 'dotenv';
 import cors from 'cors';
-import { usersRoute } from './routes/users';
-import { postsRoute } from './routes/posts';
+import { usersRoute } from '../../routes/users';
+import { postsRoute } from '../../routes/posts';
 
 
 const app = express();
