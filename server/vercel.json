@@ -1,12 +1,13 @@
 {
     "version": 2,
     "builds": [
-        {
-            "src": "server.ts",
-            "use": "@now/node-server"
-        }
+      {
+        "src": "server.ts",
+        "use": "@now/node-server"
+      }
     ],
-    "routes": [
-        { "src": "/(.*)", "dest": "/" }
-    ]
-}
+    "env": {
+      "NODE_OPTIONS": "--openssl-legacy-provider"
+    }
+  }
+  
