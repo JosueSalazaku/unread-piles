@@ -2,7 +2,7 @@
   "version": 2,
   "functions": {
     "api/server.ts": {
-      "runtime": "vercel/node@2.11.1"
+      "runtime": "vercel/node@20.0.0"
     }
   },
   "routes": [
