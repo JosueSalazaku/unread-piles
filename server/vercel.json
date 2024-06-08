@@ -6,12 +6,10 @@
     }
   },
   "routes": [
-    { "src": "/(.*)", "dest": "/server.ts" }
+    { "src": "/(.*)", "dest": "/" }
   ],
   "env": {
     "NODE_OPTIONS": "--openssl-legacy-provider"
-  },
-  "installCommand": "bun install",
-  "buildCommand": "bun build server.ts",
-  "devCommand": "bun start"
+  }
+
 }
