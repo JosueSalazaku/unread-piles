@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { SignedIn, SignedOut, UserButton } from '@clerk/nextjs';
 import Link from 'next/link';
 import { Input } from '@/Components/ui/input';
+import { Button } from '@/Components/ui/button';
 
 export function Nav() {
   const [isOpen, setIsOpen] = useState(false);
@@ -27,8 +28,8 @@ export function Nav() {
           {/* <button onClick={() => signOut()}>Sign Out</button> */}
         </SignedIn>
         <SignedOut>
-          <Link href="/sign-in"><button>Sign In</button></Link>
-          <Link href="/sign-up"><button>Sign Up</button></Link>
+          <Link href="/sign-in"><Button className='font-bold'>Sign In</Button></Link>
+          <Link href="/sign-up"><Button className='font-bold'>Sign Up</Button></Link>
         </SignedOut>
       </div>
 
