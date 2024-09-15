@@ -1,8 +1,11 @@
+import OpenLibraryBooks from '@/Components/OpenLibraryBooks'
 import React from 'react'
 
 function page() {
   return (
-    <div>EXPLORE PAGE</div>
+      <div>EXPLORE PAGE
+          <OpenLibraryBooks/>
+    </div>
   )
 }
 
