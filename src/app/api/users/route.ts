@@ -12,3 +12,11 @@ export async function GET() {
         return NextResponse.json({ error: "Error fetching users" }, { status: 500 });
     }
 }
+
+// export async function POST() { 
+//     try {
+        
+//     } catch (error) {
+        
+//     }
+// }

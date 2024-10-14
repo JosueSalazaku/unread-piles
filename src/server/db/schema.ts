@@ -1,11 +1,6 @@
-import { integer, pgTable, serial, text, timestamp, varchar, pgEnum, uniqueIndex, uuid } from 'drizzle-orm/pg-core';
-import { sql } from 'drizzle-orm';
+import { integer, pgTable, serial, text, timestamp, varchar, uniqueIndex, uuid } from 'drizzle-orm/pg-core';
 
-// UserRole Enum definition
-export const UserRole = pgEnum('userRole', ['user', 'Admin', 'Moderator', 'Publisher']);
 
-// ReadingStatus Enum definition
-export const ReadingStatus = pgEnum('readingStatus', ['reading', 'completed', 'want_to_read']);
 
 // Users table definition
 export const users = pgTable('users', {
@@ -14,14 +9,13 @@ export const users = pgTable('users', {
     firstName: varchar('firstName', { length: 255 }).notNull(),
     username: varchar('username', { length: 255 }).notNull().unique(),
     email: varchar('email', { length: 255 }).notNull().unique(),
-    clerkId: text('clerkId').notNull(),
-    picture: text('picture').notNull(),
-    role: UserRole('role').default('user').notNull(),
-    createdAt: timestamp('created_at', { withTimezone: true }).default(sql`CURRENT_TIMESTAMP`).notNull(),
-    updatedAt: timestamp('updated_at', { withTimezone: true }).default(sql`CURRENT_TIMESTAMP`).notNull(),
-}, (table) => ({
+    clerkId: text('clerk_id').notNull().unique(), // Ensure clerkId is unique
+    pictureUrl: text('picture_url').notNull(),
+    role: varchar('role', { length: 50 }).default('user').notNull(),
+  }, (table) => ({
     emailIndex: uniqueIndex('emailIndex').on(table.email),
-}));
+    clerkIdUniqueIndex: uniqueIndex('clerk_id_unique').on(table.clerkId), 
+  }));
 
 // Books table definition
 export const books = pgTable('books', {
@@ -59,7 +53,7 @@ export const readingLists = pgTable('reading_lists', {
     id: uuid('id').primaryKey().defaultRandom(),
     userId: uuid('user_id').notNull().references(() => users.id, { onDelete: 'cascade' }),
     bookId: uuid('book_id').notNull().references(() => books.id, { onDelete: 'cascade' }),
-    status: ReadingStatus('status').notNull(),
+    status: varchar('status', { length: 50 }).notNull(),
     addedAt: timestamp('added_at', { withTimezone: true }).defaultNow().notNull(),
 });
 
