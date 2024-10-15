@@ -12,7 +12,7 @@ export interface User {
     username: string;
     email: string;
     clerkId: string;
-    picture: string;
+    pictureUrl: string;
     role: UserRole;
     createdAt: Date;
     updatedAt: Date;
