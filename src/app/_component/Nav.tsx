@@ -12,7 +12,7 @@ export function Nav() {
 
   return (
     <nav className="flex h-20 w-full items-center justify-between  px-14">
-      <Link href="/" className="font-didot text-2xl font-bold text-main">
+      <Link href="/home" className="font-didot text-2xl font-bold text-main">
         Unread Piles
       </Link>
       <button onClick={toggle} className="md:hidden">
@@ -40,7 +40,6 @@ export function Nav() {
             <Link href="/people">Explore</Link>
             <Link href="/places">Library</Link>
             <Link href="/pages">Pages</Link>
-            <Input/>
             <UserButton />
             {/* <button onClick={() => signOut()}>Sign Out</button> */}
           </SignedIn>
