@@ -18,6 +18,20 @@ export interface User {
     updatedAt: Date;
 }
 
+export interface ClerkUserEventData {
+    id: string;
+    email_addresses: { email_address: string }[];
+    first_name: string | null;
+    last_name: string | null;
+    username: string | null;
+    image_url: string | null;
+  }
+
+  export interface ClerkWebhookEvent {
+    type: string;
+    data: ClerkUserEventData;
+  }
+
 // Book Interface
 export interface Book {
     id: string;
