@@ -6,9 +6,9 @@ import { users } from '@/server/db/schema';
 import type { ClerkWebhookEvent } from '@/types'
 
 export async function POST(req: Request) {
-  const WEBHOOK_SECRET = process.env.WEBHOOK_SECRET;
+  const WEBHOOKS_SECRET = process.env.WEBHOOKS_SECRET;
 
-  if (!WEBHOOK_SECRET) {
+  if (!WEBHOOKS_SECRET) {
     throw new Error('Please add WEBHOOK_SECRET from Clerk Dashboard to .env.local');
   }
 
@@ -22,7 +22,7 @@ export async function POST(req: Request) {
   }
 
   const body = (await req.json()) as ClerkWebhookEvent; // Cast the body to the expected structure
-  const wh = new Webhook(WEBHOOK_SECRET);
+  const wh = new Webhook(WEBHOOKS_SECRET);
 
   let evt: ClerkWebhookEvent;
 
