@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server'
 import { db } from '@/server/db'
-// import type { User } from '@/types'
+import type { User } from '@/types'
 import { users } from '@/server/db/schema'
 
 export async function GET() {
@@ -13,10 +13,34 @@ export async function GET() {
     }
 }
 
-// export async function POST() { 
-//     try {
-        
-//     } catch (error) {
-        
-//     }
-// }
+// POST: Create a new user
+export async function POST(request: Request) {
+    try {
+      // Validate and parse the request body
+      const user: User = await request.json() as User;
+  
+      // Validate incoming data before inserting into the database
+      if (!user.name || !user.firstName || !user.username || !user.email || !user.clerkId || !user.pictureUrl) {
+        return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
+      }
+  
+      // Insert user into the database
+      const result = await db
+        .insert(users)
+        .values({
+          name: user.name,
+          firstName: user.firstName,
+          username: user.username,
+          email: user.email,
+          clerkId: user.clerkId,
+          pictureUrl: user.pictureUrl,
+        })
+        .returning({ clerkClientId: users.clerkId });
+  
+      // Return the inserted user or success response
+      return NextResponse.json(result);
+    } catch (error) {
+      console.error("Error adding new user:", error);
+      return NextResponse.json({ error: "Error adding new user" }, { status: 500 });
+    }
+  }
