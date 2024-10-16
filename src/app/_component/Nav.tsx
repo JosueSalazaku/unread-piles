@@ -18,14 +18,13 @@ export function Nav() {
       <button onClick={toggle} className="md:hidden">
         {isOpen ? 'Close' : 'Menu'}
       </button>
-      <div className="hidden md:flex flex-row items-center text-black space-x-6">
+      <div className="hidden md:flex flex-row justify-between items-center text-black space-x-6">
         <SignedIn>
+          <Input className='w-[425px]'/>
           <Link href="/people">Explore</Link>
           <Link href="/places">Library</Link>
           <Link href="/pages">Pages</Link>
-          <Input className='w-[225px]'/>
           <UserButton />
-          {/* <button onClick={() => signOut()}>Sign Out</button> */}
         </SignedIn>
         <SignedOut>
           <Link href="/sign-in"><Button className='font-bold'>Sign In</Button></Link>
