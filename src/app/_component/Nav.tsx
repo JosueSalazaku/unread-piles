@@ -19,12 +19,12 @@ export function Nav() {
       <button onClick={toggle} className="md:hidden">
         {isOpen ? 'Close' : 'Menu'}
       </button>
-      <div className="hidden md:flex flex-row justify-between items-center text-black space-x-6">
+      <div className="hidden md:flex flex-row justify-between items-center font-semibold space-x-6">
         <SignedIn>
           <SearchBooks />
           {/* <Input className='w-[425px]'/> */}
-          <Link href="/people">Explore</Link>
-          <Link href="/places">Library</Link>
+          <Link href="/explore">Explore</Link>
+          <Link href="/library">Library</Link>
           <Link href="/pages">Pages</Link>
           <UserButton />
         </SignedIn>

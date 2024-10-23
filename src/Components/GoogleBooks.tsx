@@ -58,7 +58,7 @@ export default function GoogleBooks() {
               <div className="flex-1">
                 <h2 className="text-2xl font-semibold mb-2">{book.volumeInfo.title}</h2>
                 {book.volumeInfo.authors && (
-                  <p className="text-gray-700 mb-1">
+                  <p className="text-gray-400 mb-1">
                     <strong>Authors:</strong> {book.volumeInfo.authors.join(', ')}
                   </p>
                 )}
@@ -67,7 +67,7 @@ export default function GoogleBooks() {
                     <strong>Published:</strong> {book.volumeInfo.publishedDate}
                   </p>
                 )}
-                <p className="text-gray-800">{book.volumeInfo.description}</p>
+                <p className="text-gray-400">{book.volumeInfo.description}</p>
               </div>
             </div>
           </li>

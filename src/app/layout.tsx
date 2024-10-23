@@ -29,12 +29,13 @@ export default function RootLayout({
     <ClerkProvider>
       <html lang="en">
         <body
-          className={`${geistSans.variable} ${geistMono.variable} antialiased bg-slate-950 text-white`}
+          className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen flex flex-col bg-gradient-to-b from-[#1A1425] via-[#2B1E38] to-[#332C47] text-white`}
         >
           <Nav />
-          {children}
+          <main className="flex-1">{children}</main>
         </body>
       </html>
     </ClerkProvider>
   );
+  
 }
