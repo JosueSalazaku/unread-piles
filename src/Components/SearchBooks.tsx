@@ -20,13 +20,13 @@ export default function SearchBooks() {
     }
 
   return (
-      <div>
-          <Input type="text" placeholder='Enter your book here'
-          value={search}
-          onChange={e => setSearch(e.target.value)}
-          onKeyPress={searchBook}
-          className='text-white font-thin text-xl w-[400px] bg-none'
-          />
+    <div>
+        <Input type="text" placeholder='Enter your book here'
+        value={search}
+        onChange={e => setSearch(e.target.value)}
+        onKeyPress={searchBook}
+        className='text-white font-thin text-xl w-[400px] h-12 border border-white border-opacity-30'
+        />
     </div>
   )
 }

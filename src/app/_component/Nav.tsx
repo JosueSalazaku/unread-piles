@@ -2,7 +2,6 @@
 import { useState } from 'react';
 import { SignedIn, SignedOut, UserButton } from '@clerk/nextjs';
 import Link from 'next/link';
-// import { Input } from '@/Components/ui/input';
 import { Button } from '@/Components/ui/button';
 import SearchBooks from '@/Components/SearchBooks';
 
@@ -22,7 +21,6 @@ export function Nav() {
       <div className="hidden md:flex flex-row justify-between items-center font-semibold space-x-6">
         <SignedIn>
           <SearchBooks />
-          {/* <Input className='w-[425px]'/> */}
           <Link href="/explore">Explore</Link>
           <Link href="/library">Library</Link>
           <Link href="/pages">Pages</Link>
