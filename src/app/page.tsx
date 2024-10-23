@@ -1,8 +1,14 @@
+import GoogleBooks from '@/Components/GoogleBooks'
+import { SignedIn } from '@clerk/nextjs'
+import React from 'react'
 
 export default function Home() {
   return (
-    <div className="min-h-screen flex flex-row ">
-
+    <div>
+      <SignedIn>
+        <GoogleBooks />
+      </SignedIn>
     </div>
-  );
+  )
 }
+
