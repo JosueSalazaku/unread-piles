@@ -39,35 +39,41 @@ export default function GoogleBooks() {
     return <div>Error: {error}</div>;
   }
 
- return (
-  <div className='p-4'>
-    <h1>Google Books</h1>
-    <ul>
-      {books.map((book) => (
-        <li key={book.id} className="border rounded-md gap-3 mb-4 p-6">
-          <div className="flex items-start">
-            {book.volumeInfo.imageLinks?.thumbnail && (
-              <Image
-                src={book.volumeInfo.imageLinks.thumbnail}
-                alt={book.volumeInfo.title}
-                width={110}
-                height={110}
-              />
-            )}
-            <div>
-              <h2 className="text-xl font-semibold">{book.volumeInfo.title}</h2>
-              {book.volumeInfo.authors && (
-                <p>Authors: {book.volumeInfo.authors.join(', ')}</p>
+  return (
+    <div className="p-6 max-w-4xl mx-auto">
+      <h1 className="text-3xl font-bold mb-8 text-center">Google Books</h1>
+      <ul>
+        {books.map((book) => (
+          <li key={book.id} className="border rounded-md mb-8 shadow-md p-6 hover:shadow-lg transition-shadow duration-300">
+            <div className="flex items-start gap-6">
+              {book.volumeInfo.imageLinks?.thumbnail && (
+                <Image
+                  src={book.volumeInfo.imageLinks.thumbnail}
+                  alt={book.volumeInfo.title}
+                  width={128}
+                  height={192}
+                  className="rounded-md"
+                />
               )}
-              {book.volumeInfo.publishedDate && (
-                <p>Published: {book.volumeInfo.publishedDate}</p>
-              )}
-               <p>{book.volumeInfo.description}</p>
+              <div className="flex-1">
+                <h2 className="text-2xl font-semibold mb-2">{book.volumeInfo.title}</h2>
+                {book.volumeInfo.authors && (
+                  <p className="text-gray-700 mb-1">
+                    <strong>Authors:</strong> {book.volumeInfo.authors.join(', ')}
+                  </p>
+                )}
+                {book.volumeInfo.publishedDate && (
+                  <p className="text-gray-600 mb-4">
+                    <strong>Published:</strong> {book.volumeInfo.publishedDate}
+                  </p>
+                )}
+                <p className="text-gray-800">{book.volumeInfo.description}</p>
+              </div>
             </div>
-           </div>
-         </li>
-       ))}
+          </li>
+        ))}
       </ul>
-   </div>
+    </div>
   );
+  
 }
