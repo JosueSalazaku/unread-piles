@@ -1,8 +1,11 @@
+import GoogleBooks from '@/Components/GoogleBooks'
 import React from 'react'
 
 function page() {
   return (
-    <div>HOME</div>
+    <div>
+      <GoogleBooks />
+    </div>
   )
 }
 

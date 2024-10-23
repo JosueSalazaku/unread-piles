@@ -46,6 +46,22 @@ export interface Book {
     updatedAt: Date;
 }
 
+export interface VolumeInfo {
+    title: string;
+    authors?: string[]; // Optional, as it may be missing
+    publishedDate?: string; // Optional, as it may be missing
+    description?: string; // Optional
+    imageLinks?: {
+      thumbnail?: string; // Optional thumbnail URL
+    };
+  }
+  
+  export interface GoogleBook {
+    id: string;
+    volumeInfo: VolumeInfo;
+  }
+  
+
 // Author Interface
 export interface Author {
     id: string;
