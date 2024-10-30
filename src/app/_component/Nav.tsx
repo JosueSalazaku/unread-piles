@@ -41,7 +41,7 @@ export function Nav() {
             <Link href="/places">Library</Link>
             <Link href="/pages">Pages</Link>
             <UserButton />
-            {/* <button onClick={() => signOut()}>Sign Out</button> */}
+
           </SignedIn>
           <SignedOut>
             <Link href="/sign-in"><button>Sign In</button></Link>

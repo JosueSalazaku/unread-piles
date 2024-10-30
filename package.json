@@ -13,6 +13,7 @@
     "start": "next start"
   },
   "dependencies": {
+    "@clerk/elements": "^0.17.1",
     "@clerk/nextjs": "^5.5.2",
     "@neondatabase/serverless": "^0.9.5",
     "@radix-ui/react-slot": "^1.1.0",
