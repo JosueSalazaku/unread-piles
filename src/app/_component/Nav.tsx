@@ -10,7 +10,7 @@ export function Nav() {
   // const { signOut } = useAuth();
 
   return (
-    <nav className="flex h-20 w-full items-center justify-between  px-14">
+    <nav className="flex h-20 w-full items-center justify-between  px-6">
       <Link href="/" className="font-didot text-2xl font-bold text-main">
         Unread Piles
       </Link>
