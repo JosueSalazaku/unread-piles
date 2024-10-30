@@ -55,7 +55,7 @@ export default function OpenLibraryBooks() {
                   src={`https://covers.openlibrary.org/b/id/${book.cover_i}-M.jpg`}
                   alt={book.title}
                   width={48}
-                  height={72}
+                  height={48}
                   className="rounded-md"
                 />
               )}
