@@ -2,7 +2,6 @@
 import { useState } from 'react';
 import { SignedIn, SignedOut, UserButton } from '@clerk/nextjs';
 import Link from 'next/link';
-import { Button } from '@/Components/ui/button';
 import SearchBooks from '@/Components/SearchBooks';
 
 export function Nav() {
@@ -27,8 +26,8 @@ export function Nav() {
           <UserButton />
         </SignedIn>
         <SignedOut>
-          <Link href="/sign-in"><Button className='font-bold'>Sign In</Button></Link>
-          <Link href="/sign-up"><Button className='font-bold'>Sign Up</Button></Link>
+          <Link href="/sign-in"><button className='font-bold'>Sign In</button></Link>
+          <Link href="/sign-up"><button className='font-bold'>Sign Up</button></Link>
         </SignedOut>
       </div>
 

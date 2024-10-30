@@ -1,6 +1,5 @@
 import { useState } from 'react'
 import axios from 'axios';
-import { Input } from '@/Components/ui/input';
 
 export default function SearchBooks() {
     const APIKey = process.env.NEXT_PUBLIC_GOOGLE_BOOKS_API_KEY;
@@ -21,7 +20,7 @@ export default function SearchBooks() {
 
   return (
     <div>
-        <Input type="text" placeholder='Enter your book here'
+        <input type="text" placeholder='Enter your book here'
         value={search}
         onChange={e => setSearch(e.target.value)}
         onKeyPress={searchBook}

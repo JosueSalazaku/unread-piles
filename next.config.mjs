@@ -3,7 +3,7 @@ const nextConfig = {
   images: {
     remotePatterns: [
       {
-        protocol: 'http',  // Change to 'http' since the image URL uses http
+        protocol: 'http', 
         hostname: 'books.google.com',
         pathname: '/books/content/**',
       },
