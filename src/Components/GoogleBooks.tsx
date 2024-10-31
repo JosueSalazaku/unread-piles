@@ -67,7 +67,7 @@ export default function GoogleBooks() {
                     <strong>Published:</strong> {book.volumeInfo.publishedDate}
                   </p>
                 )}
-                <p className="text-gray-400">{book.volumeInfo.description}</p>
+                <p className="text-gray-300 font-thin">{book.volumeInfo.description}</p>
               </div>
             </div>
           </li>
