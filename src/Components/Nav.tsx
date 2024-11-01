@@ -33,7 +33,7 @@ export function Nav() {
 
       {/* Small screen */}
       {isOpen && (
-        <div className="absolute top-20 left-0 right-0 z-50 bg-zinc-400 p-5 flex flex-col text-6xl space-y-10 text-main md:hidden">
+        <div className="absolute top-20 left-0 right-0 z-50 bg-zincgp-400 p-5 flex flex-col text-6xl space-y-10 text-main md:hidden">
           <SignedIn>
           <SearchBooks />
             <Link href="/people">Explore</Link>
