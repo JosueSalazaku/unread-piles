@@ -41,12 +41,11 @@ export async function POST(req: Request) {
     const userData = evt.data;
 
     const newUser = {
-      name: userData.first_name ?? userData.last_name ?? 'Unknown', 
+      name: userData.first_name ?? 'Unknown', 
       clerkId: userData.id,
       email: userData.email_addresses[0]?.email_address ?? 'no-email@domain.com', 
       username: userData.username ?? userData.first_name ?? userData.last_name ?? 'unknown_user',
       firstName: userData.first_name ?? '',
-      lastName: userData.last_name ?? '',
       pictureUrl: userData.image_url ?? '', 
     };
 
