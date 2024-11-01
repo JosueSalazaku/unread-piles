@@ -2,7 +2,7 @@
 import { eq } from "drizzle-orm";
 import { db } from "../src/server/db/index"
 import { users } from "../src/server/db/schema"
-import type { User } from '@/tpyes'; 
+import type { User } from '@/types'; 
 
 export const getAllUsers = async () => {
     try {
