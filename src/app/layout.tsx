@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { ClerkProvider } from "@clerk/nextjs";
-import { Nav } from "./_component/Nav";
+import { Nav } from "@/Components/Nav";
 
 export const metadata: Metadata = {
   title: "Unread Piles",

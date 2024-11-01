@@ -11,7 +11,6 @@ export default function GoogleBooks() {
     const [books, setBooks] = useState<GoogleBook[]>([]);
     const [error, setError] = useState<string | null>(null);
     
-
   useEffect(() => {
     async function fetchBooks() {
       if (!APIKey) {
@@ -58,16 +57,16 @@ export default function GoogleBooks() {
               <div className="flex-1">
                 <h2 className="text-2xl font-semibold mb-2">{book.volumeInfo.title}</h2>
                 {book.volumeInfo.authors && (
-                  <p className="text-gray-400 mb-1">
+                  <p className="text-gray-700 mb-1">
                     <strong>Authors:</strong> {book.volumeInfo.authors.join(', ')}
                   </p>
                 )}
                 {book.volumeInfo.publishedDate && (
-                  <p className="text-gray-600 mb-4">
+                  <p className="text-gray-800 mb-4">
                     <strong>Published:</strong> {book.volumeInfo.publishedDate}
                   </p>
                 )}
-                <p className="text-gray-300 font-thin">{book.volumeInfo.description}</p>
+                <p className="text-gray-500 font-thin">{book.volumeInfo.description}</p>
               </div>
             </div>
           </li>

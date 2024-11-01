@@ -9,7 +9,7 @@ export const getAllUsers = async () => {
         const data = await db.select().from(users);
         console.log(data)
         return data
-    } catch (error) {
+    } catch {
         console.error('Error, users not found')
     }
 
