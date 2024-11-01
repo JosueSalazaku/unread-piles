@@ -43,4 +43,4 @@ export async function POST(request: Request) {
       console.error("Error adding new user:", error);
       return NextResponse.json({ error: "Error adding new user" }, { status: 500 });
     }
-  }
+}

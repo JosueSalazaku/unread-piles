@@ -6,7 +6,7 @@ import { Webhook } from 'svix';
 import { headers } from 'next/headers';
 import { db } from '@/server/db'; 
 import { users } from '@/server/db/schema'; 
-import type { ClerkWebhookEvent } from '@/tpyes'
+import type { ClerkWebhookEvent } from '@/types';
 
 export async function POST(req: Request) {
   const WEBHOOKS_SECRET = process.env.WEBHOOKS_SECRET;
