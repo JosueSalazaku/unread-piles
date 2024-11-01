@@ -1,7 +1,7 @@
 import "@/styles/globals.css";
 import type { Metadata } from "next";
 import { ClerkProvider } from "@clerk/nextjs";
-// import { Nav } from "../Components/Nav";
+import { Nav } from "@/components/Nav";
 
 export const metadata: Metadata = {
   title: "Unread Piles",
@@ -17,7 +17,7 @@ export default function RootLayout({
     <ClerkProvider>
       <html lang="en">
         <body className="bg-blue-800">
-          {/* <Nav /> */}
+          <Nav />
           <main className="flex-1">{children}</main>
         </body>
       </html>
