@@ -10,7 +10,6 @@ export default function SearchBooks() {
     if (event.key === "Enter") {
       try {
         const response = await axios.get(url);
-        console.log(response);
         setSearch(response.data);
       } catch (err) {
         console.log(err);
@@ -26,7 +25,7 @@ export default function SearchBooks() {
         value={search}
         onChange={(e) => setSearch(e.target.value)}
         onKeyPress={searchBook}
-        className="text-black font-normal text-xl w-[300px] h-12 rounded-lg border"
+        className="text-black font-normal  text-xl w-[300px] h-12 rounded-lg border"
       />
     </div>
   );
