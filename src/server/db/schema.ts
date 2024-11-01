@@ -1,7 +1,5 @@
 import { integer, pgTable, serial, text, timestamp, varchar, uniqueIndex, uuid } from 'drizzle-orm/pg-core';
 
-
-
 // Users table definition
 export const users = pgTable('users', {
     id: uuid('id').primaryKey().defaultRandom(),

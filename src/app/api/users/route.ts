@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server'
 import { db } from '@/server/db'
-import type { User } from '@/types'
+import type { User } from '@/tpyes'
 import { users } from '@/server/db/schema'
 
 export async function GET() {

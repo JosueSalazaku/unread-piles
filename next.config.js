@@ -1,17 +1,20 @@
-/** @type {import('next').NextConfig} */
-const nextConfig = {
-  reactStrictMode: true,
-  swcMinify: true,
+/**
+ * Run `build` or `dev` with `SKIP_ENV_VALIDATION` to skip env validation. This is especially useful
+ * for Docker builds.
+ */
+import "./src/env.js";
 
-  images: {
-    remotePatterns: [
-      {
-        protocol: 'http', 
-        hostname: 'books.google.com',
-        pathname: '/books/content/**',
+/** @type {import("next").NextConfig} */
+const config = {
+    images: {
+        remotePatterns: [
+          {
+            protocol: 'http', 
+            hostname: 'books.google.com',
+            pathname: '/books/content/**',
+          },
+        ],
       },
-    ],
-  },
 };
 
-module.exports = nextConfig;
+export default config;

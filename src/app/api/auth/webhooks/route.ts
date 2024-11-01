@@ -1,9 +1,12 @@
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+/* eslint-disable @typescript-eslint/no-unsafe-call */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { NextResponse } from 'next/server';
 import { Webhook } from 'svix';
 import { headers } from 'next/headers';
 import { db } from '@/server/db'; 
 import { users } from '@/server/db/schema'; 
-import type { ClerkWebhookEvent } from '@/types'
+import type { ClerkWebhookEvent } from '@/tpyes'
 
 export async function POST(req: Request) {
   const WEBHOOKS_SECRET = process.env.WEBHOOKS_SECRET;
@@ -12,7 +15,7 @@ export async function POST(req: Request) {
     throw new Error('Please add WEBHOOK_SECRET from Clerk Dashboard to .env.local');
   }
 
-  const headerPayload = await headers();
+  const headerPayload = headers();
   const svixId = headerPayload.get('svix-id');
   const svixTimestamp = headerPayload.get('svix-timestamp');
   const svixSignature = headerPayload.get('svix-signature');
