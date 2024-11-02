@@ -1,19 +1,15 @@
-import { integer, pgTable, serial, text, timestamp, varchar, uniqueIndex, uuid } from 'drizzle-orm/pg-core';
+import { pgTable, integer, serial, text, timestamp, uuid, varchar } from 'drizzle-orm/pg-core';
 
 // Users table definition
 export const users = pgTable('users', {
-    id: uuid('id').primaryKey().defaultRandom(),
-    name: varchar('name', { length: 255 }).notNull(),
-    firstName: varchar('firstName', { length: 255 }).notNull(),
-    username: varchar('username', { length: 255 }).notNull().unique(),
-    email: varchar('email', { length: 255 }).notNull().unique(),
-    clerkId: text('clerk_id').notNull().unique(), // Ensure clerkId is unique
-    pictureUrl: text('picture_url').notNull(),
-    role: varchar('role', { length: 50 }).default('user').notNull(),
-  }, (table) => ({
-    emailIndex: uniqueIndex('emailIndex').on(table.email),
-    clerkIdUniqueIndex: uniqueIndex('clerk_id_unique').on(table.clerkId), 
-  }));
+    id: uuid('id').primaryKey().defaultRandom(), 
+    name: varchar('name', { length: 255 }),      
+    email: varchar('email', { length: 255 }).notNull().unique(), 
+    image: text('image'),                         
+    providerId: text('provider_id').notNull(),   
+    createdAt: timestamp('created_at').defaultNow().notNull(),
+    updatedAt: timestamp('updated_at').defaultNow().notNull(),
+  });
 
 // Books table definition
 export const books = pgTable('books', {
@@ -38,7 +34,7 @@ export const authors = pgTable('authors', {
     updatedAt: timestamp('updated_at', { withTimezone: true }).defaultNow().notNull(),
 });
 
-// Author-Books relationship table
+// Author-Books relationship table for many-to-many association
 export const authorBooks = pgTable('author_books', {
     id: serial('id').primaryKey(),
     authorId: uuid('author_id').notNull().references(() => authors.id, { onDelete: 'cascade' }),
@@ -46,16 +42,16 @@ export const authorBooks = pgTable('author_books', {
     contributedAt: timestamp('contributed_at').notNull().defaultNow(),
 });
 
-// User Reading List table to track book status (reading, completed, want_to_read)
+// Reading Lists table to track user's reading list with status
 export const readingLists = pgTable('reading_lists', {
     id: uuid('id').primaryKey().defaultRandom(),
     userId: uuid('user_id').notNull().references(() => users.id, { onDelete: 'cascade' }),
     bookId: uuid('book_id').notNull().references(() => books.id, { onDelete: 'cascade' }),
-    status: varchar('status', { length: 50 }).notNull(),
+    status: varchar('status', { length: 50 }).notNull(), // reading, completed, want_to_read
     addedAt: timestamp('added_at', { withTimezone: true }).defaultNow().notNull(),
 });
 
-// Table to track user-specific book progress (e.g., pages read)
+// User Books table to track user-specific book progress
 export const userBooks = pgTable('user_books', {
     id: uuid('id').primaryKey().defaultRandom(),
     userId: uuid('user_id').notNull().references(() => users.id, { onDelete: 'cascade' }),
@@ -64,7 +60,7 @@ export const userBooks = pgTable('user_books', {
     completedAt: timestamp('completed_at', { withTimezone: true }),
 });
 
-// Book Ratings table
+// Book Ratings table for users to rate books
 export const bookRatings = pgTable('book_ratings', {
     id: serial('id').primaryKey(),
     bookId: uuid('book_id').notNull().references(() => books.id, { onDelete: 'cascade' }),
@@ -73,7 +69,7 @@ export const bookRatings = pgTable('book_ratings', {
     ratedAt: timestamp('rated_at').defaultNow().notNull(),
 });
 
-// Book Comments table
+// Book Comments table for user comments on books
 export const bookComments = pgTable('book_comments', {
     id: serial('id').primaryKey(),
     bookId: uuid('book_id').notNull().references(() => books.id, { onDelete: 'cascade' }),

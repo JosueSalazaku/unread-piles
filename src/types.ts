@@ -1,23 +1,19 @@
-// UserRole Enum definition as a TypeScript Type
-export type UserRole = 'user' | 'Admin' | 'Moderator' | 'Publisher';
-
 // ReadingStatus Enum definition as a TypeScript Type
 export type ReadingStatus = 'reading' | 'completed' | 'want_to_read';
 
 // User Interface
 export interface User {
-    id: string;
-    name: string;
-    firstName: string;
-    username: string;
-    email: string;
-    clerkId: string;
-    pictureUrl: string;
-    role: UserRole;
+    id: string;  
+    name?: string | null;  
+    email: string | null;  
+    image?: string | null; 
+    providerId: string;    
     createdAt: Date;
     updatedAt: Date;
-}
+  }
+  
 
+// Clerk User Event Data Interface
 export interface ClerkUserEventData {
     id: string;
     email_addresses: { email_address: string }[];
@@ -25,12 +21,12 @@ export interface ClerkUserEventData {
     last_name: string | null;
     username: string | null;
     image_url: string | null;
-  }
+}
 
-  export interface ClerkWebhookEvent {
+export interface ClerkWebhookEvent {
     type: string;
     data: ClerkUserEventData;
-  }
+}
 
 // Book Interface
 export interface Book {
@@ -48,19 +44,18 @@ export interface Book {
 
 export interface VolumeInfo {
     title: string;
-    authors?: string[]; // Optional, as it may be missing
-    publishedDate?: string; // Optional, as it may be missing
-    description?: string; // Optional
+    authors?: string[];
+    publishedDate?: string;
+    description?: string;
     imageLinks?: {
-      thumbnail?: string; // Optional thumbnail URL
+        thumbnail?: string;
     };
-  }
-  
-  export interface GoogleBook {
+}
+
+export interface GoogleBook {
     id: string;
     volumeInfo: VolumeInfo;
-  }
-  
+}
 
 // Author Interface
 export interface Author {
