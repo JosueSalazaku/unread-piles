@@ -1,10 +1,10 @@
 "use server";
 import NextAuth, { type NextAuthOptions } from "next-auth";
-import type { NextApiHandler } from "next";
 import GitHubProvider from "next-auth/providers/github";
 import GoogleProvider from "next-auth/providers/google";
+import type { NextApiHandler } from "next";
 
-export const authOptions: NextAuthOptions = {
+const authOptions: NextAuthOptions = {
     providers: [
         GoogleProvider({
             clientId: process.env.GOOGLE_CLIENT_ID!,
@@ -18,5 +18,5 @@ export const authOptions: NextAuthOptions = {
     // Optional: Add callbacks, session management, and other options as needed
 };
 
-const handler = NextAuth(authOptions) as NextApiHandler;
+const handler = NextAuth(authOptions) as unknown as NextApiHandler;
 export { handler as GET, handler as POST };
