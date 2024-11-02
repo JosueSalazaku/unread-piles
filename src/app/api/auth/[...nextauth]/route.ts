@@ -1,4 +1,3 @@
-"use server";
 import NextAuth, { type NextAuthOptions } from "next-auth";
 import GitHubProvider from "next-auth/providers/github";
 import GoogleProvider from "next-auth/providers/google";
@@ -18,5 +17,5 @@ const authOptions: NextAuthOptions = {
     // Optional: Add callbacks, session management, and other options as needed
 };
 
-const handler = NextAuth(authOptions) as unknown as NextApiHandler;
+const handler = NextAuth(authOptions) as NextApiHandler;
 export { handler as GET, handler as POST };
