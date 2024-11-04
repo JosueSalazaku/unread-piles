@@ -1,15 +1,15 @@
 import { pgTable, integer, serial, text, timestamp, uuid, varchar } from 'drizzle-orm/pg-core';
 
-// Users table definition
 export const users = pgTable('users', {
-    id: uuid('id').primaryKey().defaultRandom(), 
-    name: varchar('name', { length: 255 }),      
-    email: varchar('email', { length: 255 }).notNull().unique(), 
-    image: text('image'),                         
-    providerId: text('provider_id').notNull(),   
+    id: uuid('id').primaryKey().defaultRandom(),
+    name: varchar('name', { length: 255 }),
+    email: varchar('email', { length: 255 }).notNull().unique(),
+    image: text('image'),
+    passwordHash: text('password_hash'),  // Add this line for password storage
+    providerId: text('provider_id').notNull(),
     createdAt: timestamp('created_at').defaultNow().notNull(),
     updatedAt: timestamp('updated_at').defaultNow().notNull(),
-  });
+});
 
 // Books table definition
 export const books = pgTable('books', {
