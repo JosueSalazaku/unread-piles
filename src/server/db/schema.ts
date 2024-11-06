@@ -5,10 +5,20 @@ export const users = pgTable('users', {
     name: varchar('name', { length: 255 }),
     email: varchar('email', { length: 255 }).notNull().unique(),
     image: text('image'),
-    passwordHash: text('password_hash'),  // Add this line for password storage
+    passwordHash: text('password_hash'), 
     providerId: text('provider_id').notNull(),
     createdAt: timestamp('created_at').defaultNow().notNull(),
     updatedAt: timestamp('updated_at').defaultNow().notNull(),
+});
+
+// Add the verification table definition
+export const verification = pgTable('verification', {
+    id: uuid('id').primaryKey().defaultRandom(),
+    userId: uuid('user_id').notNull().references(() => users.id, { onDelete: 'cascade' }),
+    token: text('token').notNull(),
+    type: text('type').notNull(), // e.g., "email_verification", "password_reset"
+    createdAt: timestamp('created_at').defaultNow().notNull(),
+    expiresAt: timestamp('expires_at').notNull(), // Expiration time for the token
 });
 
 // Books table definition

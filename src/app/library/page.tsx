@@ -1,8 +1,12 @@
+import SingIn from '@/components/sing-in'
 import React from 'react'
 
 function page() {
   return (
-    <div>LIBRARY</div>
+    <div>
+      LIBRARY
+    <SingIn />
+    </div>
   )
 }
 
