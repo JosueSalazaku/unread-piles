@@ -1,15 +1,15 @@
 import { betterAuth } from "better-auth";
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
 import { db } from "@/server/db";
-import { users, verification } from "@/server/db/schema"; 
-import { eq } from "drizzle-orm/expressions"; 
+import { users, verification } from "@/server/db/schema";
 import type { User } from "@/types";
 import { verifyPassword } from "@/utils/auth";
+import { eq } from "drizzle-orm/expressions";
 
-const auth = betterAuth({
+export const auth = betterAuth({
     database: drizzleAdapter(db, {
         provider: "pg",
-        schema: { users, verification } // Ensure schema contains `users` and `verification`
+        schema: { users, verification },
     }),
     socialProviders: {
         google: {
@@ -47,4 +47,4 @@ const auth = betterAuth({
     }
 });
 
-export { auth };
+export default auth;
