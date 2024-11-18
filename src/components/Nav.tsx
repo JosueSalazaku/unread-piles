@@ -21,8 +21,8 @@ export function Nav() {
           <Link href="/explore">Explore</Link>
           <Link href="/library">Library</Link>
           <Link href="/pages">Pages</Link>
-          <Link href="/sign-in"><button className='font-bold'>Sign In</button></Link>
-          <Link href="/sign-up"><button className='font-bold'>Sign Up</button></Link>
+          <Link href="/api/auth/sign-in"><button className='font-bold'>Sign In</button></Link>
+          <Link href="/api/auth/sign-in"><button className='font-bold'>Sign Up</button></Link>
       </div>
 
       {/* Small screen */}
@@ -33,8 +33,8 @@ export function Nav() {
             <Link href="/places">Library</Link>
             <Link href="/pages">Pages</Link>
 
-            <Link href="/sign-in"><button>Sign In</button></Link>
-            <Link href="/sign-up"><button>Sign Up</button></Link>
+            <Link href="/api/auth/sign-in"><button>Sign In</button></Link>
+            <Link href="/api/auth/sign-in"><button>Sign Up</button></Link>
         </div>
       )}
     </nav>

@@ -1,38 +1,38 @@
-import { pgTable, integer, serial, text, timestamp, uuid, varchar } from 'drizzle-orm/pg-core';
+// import { pgTable, integer, serial, text, timestamp, uuid, varchar } from 'drizzle-orm/pg-core';
 
-export const users = pgTable('users', {
-    id: uuid('id').primaryKey().defaultRandom(),
-    name: varchar('name', { length: 255 }),
-    email: varchar('email', { length: 255 }).notNull().unique(),
-    image: text('image'),
-    passwordHash: text('password_hash'), 
-    createdAt: timestamp('created_at').defaultNow().notNull(),
-    updatedAt: timestamp('updated_at').defaultNow().notNull(),
-});
+// export const users = pgTable('users', {
+//     id: uuid('id').primaryKey().defaultRandom(),
+//     name: varchar('name', { length: 255 }),
+//     email: varchar('email', { length: 255 }).notNull().unique(),
+//     image: text('image'),
+//     passwordHash: text('password_hash'), 
+//     createdAt: timestamp('created_at').defaultNow().notNull(),
+//     updatedAt: timestamp('updated_at').defaultNow().notNull(),
+// });
 
-// Add the verification table definition
-export const verification = pgTable('verification', {
-    id: uuid('id').primaryKey().defaultRandom(),
-    userId: uuid('user_id').notNull().references(() => users.id, { onDelete: 'cascade' }),
-    token: text('token').notNull(),
-    type: text('type').notNull(), // e.g., "email_verification", "password_reset"
-    createdAt: timestamp('created_at').defaultNow().notNull(),
-    expiresAt: timestamp('expires_at').notNull(), // Expiration time for the token
-});
+// // Add the verification table definition
+// export const verification = pgTable('verification', {
+//     id: uuid('id').primaryKey().defaultRandom(),
+//     userId: uuid('user_id').notNull().references(() => users.id, { onDelete: 'cascade' }),
+//     token: text('token').notNull(),
+//     type: text('type').notNull(), // e.g., "email_verification", "password_reset"
+//     createdAt: timestamp('created_at').defaultNow().notNull(),
+//     expiresAt: timestamp('expires_at').notNull(), // Expiration time for the token
+// });
 
-// Books table definition
-export const books = pgTable('books', {
-    id: uuid('id').primaryKey().defaultRandom(),
-    title: varchar('title', { length: 255 }).notNull(),
-    author: varchar('author', { length: 255 }).notNull(),
-    isbn: text('isbn').notNull().unique(),
-    publicationDate: timestamp('publication_date').notNull(),
-    genre: varchar('genre', { length: 255 }),
-    description: text('description').default(''),
-    totalPages: integer('total_pages').notNull(),
-    createdAt: timestamp('created_at', { withTimezone: true }).defaultNow().notNull(),
-    updatedAt: timestamp('updated_at', { withTimezone: true }).defaultNow().notNull(),
-});
+// // Books table definition
+// export const books = pgTable('books', {
+//     id: uuid('id').primaryKey().defaultRandom(),
+//     title: varchar('title', { length: 255 }).notNull(),
+//     author: varchar('author', { length: 255 }).notNull(),
+//     isbn: text('isbn').notNull().unique(),
+//     publicationDate: timestamp('publication_date').notNull(),
+//     genre: varchar('genre', { length: 255 }),
+//     description: text('description').default(''),
+//     totalPages: integer('total_pages').notNull(),
+//     createdAt: timestamp('created_at', { withTimezone: true }).defaultNow().notNull(),
+//     updatedAt: timestamp('updated_at', { withTimezone: true }).defaultNow().notNull(),
+// });
 
 // // Authors table definition
 // export const authors = pgTable('authors', {
