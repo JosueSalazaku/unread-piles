@@ -5,28 +5,12 @@ export type ReadingStatus = 'reading' | 'completed' | 'want_to_read';
 // src/types/index.ts or wherever you define types
 export interface User {
     id: string;
-    name?: string | null;
+    name: string | null;
     email: string | null;
-    image?: string | null;
+    image: string | null;
     passwordHash?: string;  // Add this to the interface
-    providerId: string;
     createdAt: Date;
     updatedAt: Date;
-}
-
-// Clerk User Event Data Interface
-export interface ClerkUserEventData {
-    id: string;
-    email_addresses: { email_address: string }[];
-    first_name: string | null;
-    last_name: string | null;
-    username: string | null;
-    image_url: string | null;
-}
-
-export interface ClerkWebhookEvent {
-    type: string;
-    data: ClerkUserEventData;
 }
 
 // Book Interface
