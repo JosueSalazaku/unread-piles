@@ -2,15 +2,16 @@
 export type ReadingStatus = 'reading' | 'completed' | 'want_to_read';
 
 // User Interface
+// src/types/index.ts or wherever you define types
 export interface User {
     id: string;
-    name: string;
-    email: string;
-    emailVerified: boolean;
-    image: string;
+    name: string | null;
+    email: string | null;
+    image: string | null;
+    passwordHash?: string;  // Add this to the interface
     createdAt: Date;
     updatedAt: Date;
-  }
+}
 
 // Book Interface
 export interface Book {

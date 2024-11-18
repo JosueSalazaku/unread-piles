@@ -3,8 +3,6 @@ import {
   text,
   timestamp,
   boolean,
-  varchar,
-  integer,
 } from "drizzle-orm/pg-core";
 
 export const user = pgTable("user", {
@@ -47,21 +45,4 @@ export const verification = pgTable("verification", {
   value: text("value").notNull(),
   expiresAt: timestamp("expiresAt").notNull(),
   createdAt: timestamp("createdAt"),
-});
-
-export const books = pgTable("books", {
-  id: text("id").primaryKey(),
-  title: varchar("title", { length: 255 }).notNull(),
-  author: varchar("author", { length: 255 }).notNull(),
-  isbn: text("isbn").notNull().unique(),
-  publicationDate: timestamp("publication_date").notNull(),
-  genre: varchar("genre", { length: 255 }),
-  description: text("description").default(""),
-  totalPages: integer("total_pages").notNull(),
-  createdAt: timestamp("created_at", { withTimezone: true })
-    .defaultNow()
-    .notNull(),
-  updatedAt: timestamp("updated_at", { withTimezone: true })
-    .defaultNow()
-    .notNull(),
 });
