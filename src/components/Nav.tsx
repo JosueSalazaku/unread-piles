@@ -9,7 +9,7 @@ import { signOut } from "@/app/lib/auth-client";
 export function Nav() {
   const session = useCustomSession();
   const handleSignOut = () => signOut();
-  
+
   const [isOpen, setIsOpen] = useState(false);
   const toggle = () => setIsOpen(!isOpen);
 
@@ -48,12 +48,36 @@ export function Nav() {
           </Link>
         )}
         {isOpen && (
-          <div className="absolute right-5 top-16 z-50 flex w-52 flex-col space-y-10 rounded-lg bg-zinc-400">
-            <h1>{name}</h1>
-            <Link href="/profile">Profile</Link>
-            <Link href="/settings">Settings</Link>
-            <button onClick={handleSignOut}>Sign Out</button>
+          <div className="absolute right-5 top-16 z-50 w-56 rounded-lg border border-gray-200 bg-white shadow-lg">
+            <div className="flex flex-col items-center border-b border-gray-300 p-4">
+              <h1 className="text-lg font-semibold text-gray-800">
+                {name ?? "User"}
+              </h1>
+              <p className="text-sm text-gray-500">
+                {email ?? "No email available"}
+              </p>
+            </div>
 
+            <div className="flex flex-col py-2">
+              <Link
+                href="/profile"
+                className="block px-4 py-2 text-gray-700 hover:bg-gray-100"
+              >
+                Profile
+              </Link>
+              <Link
+                href="/settings"
+                className="block px-4 py-2 text-gray-700 hover:bg-gray-100"
+              >
+                Settings
+              </Link>
+              <button
+                onClick={handleSignOut}
+                className="block w-full px-4 py-2 text-left font-semibold text-red-500 hover:bg-gray-100"
+              >
+                Sign Out
+              </button>
+            </div>
           </div>
         )}
       </div>
