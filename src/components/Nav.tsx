@@ -2,6 +2,7 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import SearchBooks from '@/components/SearchBooks';
+import { useSession } from '@/app/lib/auth-client';
 
 export function Nav() {
   const [isOpen, setIsOpen] = useState(false);
