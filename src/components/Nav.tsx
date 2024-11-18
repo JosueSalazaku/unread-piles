@@ -2,8 +2,7 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import SearchBooks from '@/components/SearchBooks';
-import { useSession } from '@/app/lib/auth-client';
-
+import { useCustomSession } from './SessionProvider';
 export function Nav() {
   const [isOpen, setIsOpen] = useState(false);
   const toggle = () => setIsOpen(!isOpen);
