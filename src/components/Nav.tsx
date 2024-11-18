@@ -6,7 +6,6 @@ import SearchBooks from '@/components/SearchBooks';
 export function Nav() {
   const [isOpen, setIsOpen] = useState(false);
   const toggle = () => setIsOpen(!isOpen);
-  // const { signOut } = useAuth();
 
   return (
     <nav className="flex h-20 w-full items-center justify-between  px-6">
