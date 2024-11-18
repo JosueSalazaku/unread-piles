@@ -49,6 +49,7 @@ export function Nav() {
         )}
         {isOpen && (
           <div className="absolute right-5 top-16 z-50 flex w-52 flex-col space-y-10 rounded-lg bg-zinc-400">
+            <h1>{name}</h1>
             <Link href="/profile">Profile</Link>
             <Link href="/settings">Settings</Link>
             <button onClick={handleSignOut}>Sign Out</button>
