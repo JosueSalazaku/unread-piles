@@ -22,6 +22,20 @@
       "when": 1730750584987,
       "tag": "0002_quick_ironclad",
       "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1731935814518,
+      "tag": "0003_marvelous_khan",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1731935891440,
+      "tag": "0004_wild_mad_thinker",
+      "breakpoints": true
     }
   ]
 }

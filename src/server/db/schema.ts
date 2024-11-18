@@ -34,55 +34,55 @@ export const books = pgTable('books', {
     updatedAt: timestamp('updated_at', { withTimezone: true }).defaultNow().notNull(),
 });
 
-// Authors table definition
-export const authors = pgTable('authors', {
-    id: uuid('id').primaryKey().defaultRandom(),
-    name: varchar('name', { length: 255 }).notNull(),
-    bio: text('bio').default(''),
-    createdAt: timestamp('created_at', { withTimezone: true }).defaultNow().notNull(),
-    updatedAt: timestamp('updated_at', { withTimezone: true }).defaultNow().notNull(),
-});
+// // Authors table definition
+// export const authors = pgTable('authors', {
+//     id: uuid('id').primaryKey().defaultRandom(),
+//     name: varchar('name', { length: 255 }).notNull(),
+//     bio: text('bio').default(''),
+//     createdAt: timestamp('created_at', { withTimezone: true }).defaultNow().notNull(),
+//     updatedAt: timestamp('updated_at', { withTimezone: true }).defaultNow().notNull(),
+// });
 
-// Author-Books relationship table for many-to-many association
-export const authorBooks = pgTable('author_books', {
-    id: serial('id').primaryKey(),
-    authorId: uuid('author_id').notNull().references(() => authors.id, { onDelete: 'cascade' }),
-    bookId: uuid('book_id').notNull().references(() => books.id, { onDelete: 'cascade' }),
-    contributedAt: timestamp('contributed_at').notNull().defaultNow(),
-});
+// // Author-Books relationship table for many-to-many association
+// export const authorBooks = pgTable('author_books', {
+//     id: serial('id').primaryKey(),
+//     authorId: uuid('author_id').notNull().references(() => authors.id, { onDelete: 'cascade' }),
+//     bookId: uuid('book_id').notNull().references(() => books.id, { onDelete: 'cascade' }),
+//     contributedAt: timestamp('contributed_at').notNull().defaultNow(),
+// });
 
-// Reading Lists table to track user's reading list with status
-export const readingLists = pgTable('reading_lists', {
-    id: uuid('id').primaryKey().defaultRandom(),
-    userId: uuid('user_id').notNull().references(() => users.id, { onDelete: 'cascade' }),
-    bookId: uuid('book_id').notNull().references(() => books.id, { onDelete: 'cascade' }),
-    status: varchar('status', { length: 50 }).notNull(), // reading, completed, want_to_read
-    addedAt: timestamp('added_at', { withTimezone: true }).defaultNow().notNull(),
-});
+// // Reading Lists table to track user's reading list with status
+// export const readingLists = pgTable('reading_lists', {
+//     id: uuid('id').primaryKey().defaultRandom(),
+//     userId: uuid('user_id').notNull().references(() => users.id, { onDelete: 'cascade' }),
+//     bookId: uuid('book_id').notNull().references(() => books.id, { onDelete: 'cascade' }),
+//     status: varchar('status', { length: 50 }).notNull(), // reading, completed, want_to_read
+//     addedAt: timestamp('added_at', { withTimezone: true }).defaultNow().notNull(),
+// });
 
-// User Books table to track user-specific book progress
-export const userBooks = pgTable('user_books', {
-    id: uuid('id').primaryKey().defaultRandom(),
-    userId: uuid('user_id').notNull().references(() => users.id, { onDelete: 'cascade' }),
-    bookId: uuid('book_id').notNull().references(() => books.id, { onDelete: 'cascade' }),
-    pagesRead: integer('pages_read').default(0),
-    completedAt: timestamp('completed_at', { withTimezone: true }),
-});
+// // User Books table to track user-specific book progress
+// export const userBooks = pgTable('user_books', {
+//     id: uuid('id').primaryKey().defaultRandom(),
+//     userId: uuid('user_id').notNull().references(() => users.id, { onDelete: 'cascade' }),
+//     bookId: uuid('book_id').notNull().references(() => books.id, { onDelete: 'cascade' }),
+//     pagesRead: integer('pages_read').default(0),
+//     completedAt: timestamp('completed_at', { withTimezone: true }),
+// });
 
-// Book Ratings table for users to rate books
-export const bookRatings = pgTable('book_ratings', {
-    id: serial('id').primaryKey(),
-    bookId: uuid('book_id').notNull().references(() => books.id, { onDelete: 'cascade' }),
-    userId: uuid('user_id').notNull().references(() => users.id, { onDelete: 'cascade' }),
-    rating: integer('rating').notNull(),
-    ratedAt: timestamp('rated_at').defaultNow().notNull(),
-});
+// // Book Ratings table for users to rate books
+// export const bookRatings = pgTable('book_ratings', {
+//     id: serial('id').primaryKey(),
+//     bookId: uuid('book_id').notNull().references(() => books.id, { onDelete: 'cascade' }),
+//     userId: uuid('user_id').notNull().references(() => users.id, { onDelete: 'cascade' }),
+//     rating: integer('rating').notNull(),
+//     ratedAt: timestamp('rated_at').defaultNow().notNull(),
+// });
 
-// Book Comments table for user comments on books
-export const bookComments = pgTable('book_comments', {
-    id: serial('id').primaryKey(),
-    bookId: uuid('book_id').notNull().references(() => books.id, { onDelete: 'cascade' }),
-    userId: uuid('user_id').notNull().references(() => users.id, { onDelete: 'cascade' }),
-    content: text('content').notNull(),
-    createdAt: timestamp('created_at', { withTimezone: true }).defaultNow().notNull(),
-});
+// // Book Comments table for user comments on books
+// export const bookComments = pgTable('book_comments', {
+//     id: serial('id').primaryKey(),
+//     bookId: uuid('book_id').notNull().references(() => books.id, { onDelete: 'cascade' }),
+//     userId: uuid('user_id').notNull().references(() => users.id, { onDelete: 'cascade' }),
+//     content: text('content').notNull(),
+//     createdAt: timestamp('created_at', { withTimezone: true }).defaultNow().notNull(),
+// });
