@@ -10,6 +10,7 @@ export default function SearchBooks() {
     if (event.key === "Enter") {
       try {
         const response = await axios.get(url);
+        console.log(response.data); // Added console log to see the API data
         setSearch(JSON.stringify(response.data));
       } catch (err) {
         console.log(err);

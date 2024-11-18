@@ -1,35 +1,44 @@
-// UserRole Enum definition as a TypeScript Type
-export type UserRole = 'user' | 'Admin' | 'Moderator' | 'Publisher';
-
 // ReadingStatus Enum definition as a TypeScript Type
 export type ReadingStatus = 'reading' | 'completed' | 'want_to_read';
 
 // User Interface
+// src/types/index.ts or wherever you define types
 export interface User {
     id: string;
-    name: string;
-    firstName: string;
-    username: string;
-    email: string;
-    clerkId: string;
-    pictureUrl: string;
-    role: UserRole;
+    name: string | null;
+    email: string | null;
+    image: string | null;
+    passwordHash?: string;  // Add this to the interface
     createdAt: Date;
     updatedAt: Date;
 }
 
-export interface ClerkUserEventData {
+export interface Session {
     id: string;
-    email_addresses: { email_address: string }[];
-    first_name: string | null;
-    last_name: string | null;
-    username: string | null;
-    image_url: string | null;
+    expiresAt: Date;
+    ipAddress?: string;
+    userAgent?: string;
+    userId: string;
   }
-
-  export interface ClerkWebhookEvent {
-    type: string;
-    data: ClerkUserEventData;
+  
+  export interface Account {
+    id: string;
+    accountId: string;
+    providerId: string;
+    userId: string;
+    accessToken?: string;
+    refreshToken?: string;
+    idToken?: string;
+    expiresAt?: Date;
+    password?: string;
+  }
+  
+  export interface Verification {
+    id: string;
+    identifier: string;
+    value: string;
+    expiresAt: Date;
+    createdAt?: Date;
   }
 
 // Book Interface
@@ -48,19 +57,18 @@ export interface Book {
 
 export interface VolumeInfo {
     title: string;
-    authors?: string[]; // Optional, as it may be missing
-    publishedDate?: string; // Optional, as it may be missing
-    description?: string; // Optional
+    authors?: string[];
+    publishedDate?: string;
+    description?: string;
     imageLinks?: {
-      thumbnail?: string; // Optional thumbnail URL
+        thumbnail?: string;
     };
-  }
-  
-  export interface GoogleBook {
+}
+
+export interface GoogleBook {
     id: string;
     volumeInfo: VolumeInfo;
-  }
-  
+}
 
 // Author Interface
 export interface Author {

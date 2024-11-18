@@ -1,7 +1,8 @@
 import "@/styles/globals.css";
 import type { Metadata } from "next";
-import { ClerkProvider } from "@clerk/nextjs";
 import { Nav } from "@/components/Nav";
+import { SessionProvider } from "@/components/SessionProvider";
+
 
 export const metadata: Metadata = {
   title: "Unread Piles",
@@ -14,13 +15,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <ClerkProvider>
-      <html lang="en">
-        <body className="bg-blue-800">
+    <html lang="en">
+      <body className="bg-blue-800">
+        <SessionProvider>
           <Nav />
           <main className="flex-1">{children}</main>
-        </body>
-      </html>
-    </ClerkProvider>
+        </SessionProvider>
+      </body>
+    </html>
   );
 }
