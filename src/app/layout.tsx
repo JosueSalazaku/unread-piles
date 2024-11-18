@@ -1,7 +1,8 @@
 import "@/styles/globals.css";
 import type { Metadata } from "next";
 import { Nav } from "@/components/Nav";
-import SessionProvider from "@/components/SessionProvider";
+import { SessionProvider } from "@/components/SessionProvider";
+
 
 export const metadata: Metadata = {
   title: "Unread Piles",

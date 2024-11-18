@@ -13,6 +13,34 @@ export interface User {
     updatedAt: Date;
 }
 
+export interface Session {
+    id: string;
+    expiresAt: Date;
+    ipAddress?: string;
+    userAgent?: string;
+    userId: string;
+  }
+  
+  export interface Account {
+    id: string;
+    accountId: string;
+    providerId: string;
+    userId: string;
+    accessToken?: string;
+    refreshToken?: string;
+    idToken?: string;
+    expiresAt?: Date;
+    password?: string;
+  }
+  
+  export interface Verification {
+    id: string;
+    identifier: string;
+    value: string;
+    expiresAt: Date;
+    createdAt?: Date;
+  }
+
 // Book Interface
 export interface Book {
     id: string;
