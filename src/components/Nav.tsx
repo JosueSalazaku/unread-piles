@@ -84,16 +84,56 @@ export function Nav() {
 
       {/* Small screen */}
       {isOpen && (
-        <div className="text-main absolute left-0 right-0 top-20 z-50 flex flex-col space-y-10 bg-zinc-400 p-5 text-6xl md:hidden">
-          <SearchBooks />
-          <Link href="/people">Explore</Link>
-          <Link href="/places">Library</Link>
-          <Link href="/pages">Pages</Link>
-          <Link href="/api/auth/sign-in">
-            <button>Sign In</button>
+        <div className="text-main absolute left-0 right-0 top-20 z-50 flex flex-col bg-zinc-400 p-5 text-lg md:hidden">
+          {session.data?.user ? (
+            <>
+              <div className="flex flex-row gap-2 items-center border-b border-gray-300 py-4">
+                {image && (
+                  <Image
+                    src={image}
+                    alt={name ?? "User"}
+                    width={60}
+                    height={60}
+                    className="rounded-full"
+                  />
+                )}
+                <h1 className="mt-2 text-lg font-semibold">{name ?? "User"}</h1>
+              </div>
+              <Link
+                href="/profile"
+                className="rounded py-2 text-gray-700 hover:bg-gray-100"
+              >
+                Profile
+              </Link>
+              <Link
+                href="/settings"
+                className="rounded py-2 text-gray-700 hover:bg-gray-100"
+              >
+                Settings
+              </Link>
+              <button
+                onClick={handleSignOut}
+                className="rounded py-2 font-semibold text-red-500 hover:bg-gray-100"
+              >
+                Sign Out
+              </button>
+            </>
+          ) : (
+            <Link
+              href="/api/auth/sign-in"
+              className="rounded py-2 font-bold text-gray-700 hover:bg-gray-100"
+            >
+              Login / Sign Up
+            </Link>
+          )}
+          <Link href="/explore" className="rounded py-2 hover:bg-gray-100">
+            Explore
           </Link>
-          <Link href="/api/auth/sign-in">
-            <button>Sign Up</button>
+          <Link href="/library" className="rounded py-2 hover:bg-gray-100">
+            Library
+          </Link>
+          <Link href="/pages" className="rounded py-2 hover:bg-gray-100">
+            Pages
           </Link>
         </div>
       )}
