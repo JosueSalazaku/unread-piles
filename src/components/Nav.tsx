@@ -44,7 +44,10 @@ export function Nav() {
   return (
     <nav className="flex h-16 w-full items-center justify-between border-b-2 border-dark-brown px-4 sm:px-6">
       {/* Logo */}
-      <Link href="/" className="text-main text-main text-xl font-bold sm:text-2xl">
+      <Link
+        href="/"
+        className="text-main text-main text-xl font-bold sm:text-2xl"
+      >
         UP
       </Link>
 
@@ -83,7 +86,7 @@ export function Nav() {
             </button>
           ) : (
             <Link href="/api/auth/sign-in">
-              <button className="hover:text-white rounded-md border border-dark-brown px-4 py-2 hover:border-none hover:bg-main-orange">
+              <button className="rounded-md border border-dark-brown px-4 py-2 hover:border-transparent hover:bg-main-orange hover:text-white">
                 Login / Sign Up
               </button>
             </Link>
@@ -108,26 +111,26 @@ export function Nav() {
       {isOpen && session.data?.user && (
         <div
           ref={dropdownRef}
-          className="border-gray-200 bg-white absolute right-5 top-16 z-50 w-56 rounded-md border shadow-lg"
+          className="absolute right-5 top-16 z-50 w-56 rounded-md border border-gray-200 bg-white shadow-lg"
         >
-          <div className="border-gray-300 border-b p-4 text-center">
-            <h1 className="text-gray-800 text-lg font-semibold">
+          <div className="border-b border-gray-300 p-4 text-center">
+            <h1 className="text-lg font-semibold text-gray-800">
               {name ?? "User"}
             </h1>
-            <p className="text-gray-500 text-sm">
+            <p className="text-sm text-gray-500">
               {email ?? "No email available"}
             </p>
           </div>
           <div className="py-2">
             <Link
               href="/profile"
-              className="text-gray-700 hover:bg-gray-100 block px-4 py-2"
+              className="block px-4 py-2 text-gray-700 hover:bg-gray-100"
             >
               Profile
             </Link>
             <Link
               href="/settings"
-              className="text-gray-700 hover:bg-gray-100 block px-4 py-2"
+              className="block px-4 py-2 text-gray-700 hover:bg-gray-100"
             >
               Settings
             </Link>
@@ -140,7 +143,7 @@ export function Nav() {
                   console.error("Failed to sign out:", error);
                 }
               }}
-              className="text-red-500 hover:bg-gray-100 w-full px-4 py-2 text-left"
+              className="w-full px-4 py-2 text-left text-red-500 hover:bg-gray-100"
             >
               Sign Out
             </button>
@@ -150,10 +153,10 @@ export function Nav() {
 
       {/* Mobile Dropdown Menu */}
       {isOpen && (
-        <div className="bg-zinc-400 absolute left-0 right-0 top-16 z-50 flex flex-col space-y-4 p-4 text-lg md:hidden">
+        <div className="absolute left-0 right-0 top-16 z-50 flex flex-col space-y-4 bg-zinc-400 p-4 text-lg md:hidden">
           {session.data?.user ? (
             <>
-              <div className="border-gray-300 flex items-center border-b pb-4">
+              <div className="flex items-center border-b border-gray-300 pb-4">
                 {image && (
                   <Image
                     src={image}
@@ -165,7 +168,7 @@ export function Nav() {
                 )}
                 <div className="ml-2">
                   <h1 className="text-sm font-semibold">{name ?? "User"}</h1>
-                  <p className="text-gray-500 text-xs">
+                  <p className="text-xs text-gray-500">
                     {email ?? "No email available"}
                   </p>
                 </div>
@@ -173,14 +176,14 @@ export function Nav() {
               <Link
                 href="/profile"
                 onClick={() => setIsOpen(false)}
-                className="hover:bg-gray-100 rounded py-2"
+                className="rounded py-2 hover:bg-gray-100"
               >
                 Profile
               </Link>
               <Link
                 href="/settings"
                 onClick={() => setIsOpen(false)}
-                className="hover:bg-gray-100 rounded py-2"
+                className="rounded py-2 hover:bg-gray-100"
               >
                 Settings
               </Link>
@@ -193,7 +196,7 @@ export function Nav() {
                     console.error("Failed to sign out:", error);
                   }
                 }}
-                className="text-red-500 hover:bg-gray-100 rounded py-2 text-left"
+                className="rounded py-2 text-left text-red-500 hover:bg-gray-100"
               >
                 Sign Out
               </button>
@@ -202,7 +205,7 @@ export function Nav() {
             <Link
               href="/api/auth/sign-in"
               onClick={() => setIsOpen(false)}
-              className="hover:bg-gray-100 rounded py-2 font-bold"
+              className="rounded py-2 font-bold hover:bg-gray-100"
             >
               Login / Sign Up
             </Link>
@@ -213,14 +216,14 @@ export function Nav() {
               <Link
                 href="/explore"
                 onClick={() => setIsOpen(false)}
-                className="hover:bg-gray-100 rounded py-2"
+                className="rounded py-2 hover:bg-gray-100"
               >
                 Explore
               </Link>
               <Link
                 href="/library"
                 onClick={() => setIsOpen(false)}
-                className="hover:bg-gray-100 rounded py-2"
+                className="rounded py-2 hover:bg-gray-100"
               >
                 Library
               </Link>
