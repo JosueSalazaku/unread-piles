@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import SearchBooks from "@/components/SearchBooks";
 import { useCustomSession } from "./SessionProvider";
@@ -13,8 +13,32 @@ export function Nav() {
   const session = useCustomSession();
   const handleSignOut = () => signOut();
 
+  const dropdownRef = useRef<HTMLDivElement>(null);
+  const buttonRef = useRef<HTMLButtonElement>(null); // Separate ref for the button
+
   const [isOpen, setIsOpen] = useState(false);
   const toggle = () => setIsOpen(!isOpen);
+
+  useEffect(() => {
+    function handleOutsideClick(event: MouseEvent) {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target as Node) &&
+        buttonRef.current &&
+        !buttonRef.current.contains(event.target as Node)
+      ) {
+        setIsOpen(false)
+      }
+    }
+    if (isOpen) {
+      document.addEventListener("mousedown", handleOutsideClick);
+    } 
+
+    return () => {
+      document.addEventListener("mousedown", handleOutsideClick);
+
+    }
+  })
 
   const { name, email, image } = session.data?.user ?? {};
 
@@ -33,13 +57,13 @@ export function Nav() {
       </div>
       <div className="hidden flex-row items-center justify-between space-x-6 font-semibold md:flex">
         <SearchBooks />
-        <Link href="/explore">Explore</Link>
-        <Link href="/library">Library</Link>
-        <Link href="/pages">Pages</Link>
+        <Link href="/explore" onClick={() => {setIsOpen(false)}}>Explore</Link>
+        <Link href="/library" onClick={() => {setIsOpen(false)}}>Library</Link>
+        <Link href="/pages" onClick={() => {setIsOpen(false)}}>Pages</Link>
         {session.data?.user ? (
           <div className="flex items-center space-x-4">
             {image && (
-              <button onClick={toggle}>
+              <button ref={buttonRef} onClick={toggle}>
                 <Image
                   src={image}
                   alt={name ?? "User"}
@@ -56,7 +80,7 @@ export function Nav() {
           </Link>
         )}
         {isOpen && (
-          <div className="border-gray-200 bg-white absolute right-5 top-16 z-50 w-56 rounded-lg border shadow-lg">
+          <div ref={dropdownRef} className="border-gray-200 bg-white absolute right-5 top-16 z-50 w-56 rounded-lg border shadow-lg">
             <div className="border-gray-300 flex flex-col items-center border-b p-4">
               <h1 className="text-gray-800 text-lg font-semibold">
                 {name ?? "User"}
@@ -68,19 +92,19 @@ export function Nav() {
 
             <div className="flex flex-col py-2">
               <Link
-                href="/profile"
+                href="/profile" onClick={() => {setIsOpen(false)}}
                 className="text-gray-700 hover:bg-gray-100 block px-4 py-2"
               >
                 Profile
               </Link>
               <Link
-                href="/settings"
+                href="/settings" onClick={() => {setIsOpen(false)}}
                 className="text-gray-700 hover:bg-gray-100 block px-4 py-2"
               >
                 Settings
               </Link>
               <button
-                onClick={handleSignOut}
+                onClick={async () => { await handleSignOut(); setIsOpen(false); }}
                 className="text-red-500 hover:bg-gray-100 block w-full px-4 py-2 text-left font-semibold"
               >
                 Sign Out
@@ -92,7 +116,7 @@ export function Nav() {
 
       {/* Small screen */}
       {isOpen && (
-        <div className="text-main bg-zinc-400 absolute left-0 right-0 top-20 z-50 flex flex-col p-5 text-lg md:hidden">
+        <div ref={dropdownRef} className="text-main bg-zinc-400 absolute left-0 right-0 top-20 z-50 flex flex-col p-5 text-lg md:hidden">
           {session.data?.user ? (
             <>
               <div className="border-gray-300 flex flex-row items-center gap-2 border-b py-4">
@@ -108,19 +132,19 @@ export function Nav() {
                 <h1 className="mt-2 text-lg font-semibold">{name ?? "User"}</h1>
               </div>
               <Link
-                href="/profile"
+                href="/profile" onClick={() => {setIsOpen(false)}}
                 className="text-gray-700 hover:bg-gray-100 rounded py-2"
               >
                 Profile
               </Link>
               <Link
-                href="/settings"
+                href="/settings" onClick={() => {setIsOpen(false)}}
                 className="text-gray-700 hover:bg-gray-100 rounded py-2"
               >
                 Settings
               </Link>
               <button
-                onClick={handleSignOut}
+                onClick={async () => { await handleSignOut(); setIsOpen(false); }}
                 className="text-red-500 hover:bg-gray-100 rounded py-2 font-semibold"
               >
                 Sign Out
@@ -128,19 +152,19 @@ export function Nav() {
             </>
           ) : (
             <Link
-              href="/api/auth/sign-in"
+              href="/api/auth/sign-in" onClick={() => {setIsOpen(false)}}
               className="text-gray-700 hover:bg-gray-100 rounded py-2 font-bold"
             >
               Login / Sign Up
             </Link>
           )}
-          <Link href="/explore" className="hover:bg-gray-100 rounded py-2">
+          <Link href="/explore"  onClick={() => {setIsOpen(false)}} className="hover:bg-gray-100 rounded py-2">
             Explore
           </Link>
-          <Link href="/library" className="hover:bg-gray-100 rounded py-2">
+          <Link href="/library" onClick={() => {setIsOpen(false)}} className="hover:bg-gray-100 rounded py-2">
             Library
           </Link>
-          <Link href="/pages" className="hover:bg-gray-100 rounded py-2">
+          <Link href="/pages"  onClick={() => {setIsOpen(false)}}className="hover:bg-gray-100 rounded py-2">
             Pages
           </Link>
         </div>
