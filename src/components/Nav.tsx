@@ -52,10 +52,9 @@ export function Nav() {
       <div className="flex items-center space-x-4">
         {/* Large screen: ModdeToggle and Nav Items */}
         <div className="hidden items-center space-x-6 md:flex">
-          <SearchBooks />
+          {/* <SearchBooks /> */}
           <Link href="/explore">Explore</Link>
           <Link href="/library">Library</Link>
-          <Link href="/pages">Pages</Link>
           <ModdeToggle />
           {session.data?.user ? (
             <button ref={buttonRef} onClick={toggle} className="relative">
