@@ -6,10 +6,6 @@ import Image from "next/image";
 export default function Profile() {
   const session = useCustomSession();
 
-  if (session.isPending) {
-    return <div>Loading...</div>; 
-  }
-
   if (!session.data?.user) {
     return (
       <div>You are not logged in. Please sign in to view your information.</div>

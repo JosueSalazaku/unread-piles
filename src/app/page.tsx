@@ -7,22 +7,26 @@ export default function Home() {
   const session = useCustomSession();
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-background-light dark:bg-background-dark text-dark-brown dark:text-white">
+    <div className="flex px-12 min-h-screen flex-col items-center justify-center bg-background-light text-dark-brown dark:bg-background-dark dark:text-white">
       {session.data?.user ? (
         <>
-          <h1 className="text-2xl font-bold">Welcome back, {session.data.user.name}!</h1>
-          <p className="mt-2">Enjoy exploring your personalized book collection!</p>
+          <h1 className="text-2xl font-bold">
+            Welcome back, {session.data.user.name}!
+          </h1>
+          <p className="mt-2">
+            Enjoy exploring your personalized book collection!
+          </p>
           <GoogleBooks />
         </>
       ) : (
-        <div className="text-center">
-          <h1 className="text-4xl">Welcome to Unread Piles</h1>
-          <p className="mt-2 text-lg">
-            Discover, organize, and track your favorite books.
+        <div className="flex flex-col gap-4">
+          <h1 className="text-6xl">Dive into a world of books.</h1>
+          <p className="text-xl">
+            Organize, explore and rediscover your favorite reads.
           </p>
-          <p className="mt-4 text-base text-gray-600 dark:text-gray-300">
-            Log in to access your library and personalized recommendations.
-          </p>
+          <button className="rounded-md w-36 border border-dark-brown px-4 py-2 hover:border-transparent hover:bg-main-orange hover:text-white">
+            Login / Sign Up
+          </button>
         </div>
       )}
     </div>
