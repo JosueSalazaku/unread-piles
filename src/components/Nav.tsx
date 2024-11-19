@@ -23,10 +23,10 @@ export function Nav() {
       <Link href="/" className="font-didot text-main text-2xl font-bold">
         Unread Piles
       </Link>
-      <div className="flex items-center gap-2">
+      <div className="flex h-5 items-center gap-2">
         <ModdeToggle />
         <button onClick={toggle} className="md:hidden">
-          {isOpen ? <MdClose size={30}/> : <GiHamburgerMenu size={24} />}
+          {isOpen ? <MdClose size={30} /> : <GiHamburgerMenu size={24} />}
         </button>
       </div>
       <div className="hidden flex-row items-center justify-between space-x-6 font-semibold md:flex">

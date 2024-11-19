@@ -16,13 +16,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className="">
-        <ThemeProvider
-          // attribute="class"
-          // defaultTheme="system"
-          // enableSystem
-          // disableTransitionOnChange
-        >
+      <body className="dark:bg-dark-brown dark:text-white">
+        <ThemeProvider>
           <SessionProvider>
             <Nav />
             <main className="flex-1">{children}</main>
