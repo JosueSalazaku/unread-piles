@@ -5,6 +5,7 @@ import SearchBooks from "@/components/SearchBooks";
 import { useCustomSession } from "./SessionProvider";
 import Image from "next/image";
 import { signOut } from "@/app/lib/auth-client";
+import { GiHamburgerMenu } from "react-icons/gi";
 
 export function Nav() {
   const session = useCustomSession();
@@ -21,7 +22,7 @@ export function Nav() {
         Unread Piles
       </Link>
       <button onClick={toggle} className="md:hidden">
-        {isOpen ? "Close" : "Menu"}
+        {isOpen ? "Close" : <GiHamburgerMenu size={24} />}
       </button>
       <div className="hidden flex-row items-center justify-between space-x-6 font-semibold md:flex">
         <SearchBooks />
