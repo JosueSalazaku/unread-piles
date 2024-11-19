@@ -1,6 +1,6 @@
 "use client";
-
-import { IoMoonSharp, IoSunnySharp } from "react-icons/io5";
+import { Moon } from 'lucide-react';
+import { Sun } from 'lucide-react';
 import { useTheme } from "./theme-provider";
 
 export default function ModdeToggle() {
@@ -9,13 +9,14 @@ export default function ModdeToggle() {
   return (
     <button
       onClick={toggleTheme}
-      className="flex items-center justify-center rounded-md p-2 hover:bg-dark-brown"
+      className="flex items-center justify-center rounded-md p-2 hover:bg-main-blue  dark:hover:bg-dark-brown"
     >
       {theme === "dark" ? (
-        <IoSunnySharp size={25} />
+        <Sun size={25} className='' />
       ) : (
-        <IoMoonSharp size={25} />
+        <Moon size={25} color="blue" />
       )}
     </button>
   );
 }
+

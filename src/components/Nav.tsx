@@ -24,7 +24,9 @@ export function Nav() {
        UNREAD PILES
       </Link>
       <div className="flex h-5 items-center gap-2">
+        <div className="lg:hidden">
         <ModdeToggle />
+        </div>
         <button onClick={toggle} className="md:hidden">
           {isOpen ? <MdClose size={30} /> : <GiHamburgerMenu size={24} />}
         </button>
