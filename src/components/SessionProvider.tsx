@@ -1,6 +1,7 @@
 "use client";
 import { useSession } from "@/app/lib/auth-client";
-import { ReactNode, createContext, useContext } from "react";
+import { createContext, useContext } from "react";
+import type { ReactNode } from "react";
 
 // Define the type for the session returned by `useSession`
 export interface Session {

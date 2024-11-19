@@ -27,8 +27,8 @@ export default function SearchBooks() {
         value={search}
         onChange={(e) => setSearch(e.target.value)}
         onKeyPress={searchBook}
-        className="text-black font-normal bg-transparent text-xl w-[300px] h-12 rounded-lg border"
-      />
+        className="h-10 px-3 py-2 border border-gray-300 rounded-md focus:outline-none"      />
     </div>
   );
 }
+
