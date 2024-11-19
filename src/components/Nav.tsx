@@ -6,6 +6,7 @@ import { useCustomSession } from "./SessionProvider";
 import Image from "next/image";
 import { signOut } from "@/app/lib/auth-client";
 import { GiHamburgerMenu } from "react-icons/gi";
+import { MdClose } from "react-icons/md";
 import ModdeToggle from "./ModdeToggle";
 
 export function Nav() {
@@ -22,10 +23,12 @@ export function Nav() {
       <Link href="/" className="font-didot text-main text-2xl font-bold">
         Unread Piles
       </Link>
-      <ModdeToggle />
-      <button onClick={toggle} className="md:hidden">
-        {isOpen ? "Close" : <GiHamburgerMenu size={24} />}
-      </button>
+      <div className="flex items-center gap-2">
+        <ModdeToggle />
+        <button onClick={toggle} className="md:hidden">
+          {isOpen ? <MdClose size={30}/> : <GiHamburgerMenu size={24} />}
+        </button>
+      </div>
       <div className="hidden flex-row items-center justify-between space-x-6 font-semibold md:flex">
         <SearchBooks />
         <Link href="/explore">Explore</Link>

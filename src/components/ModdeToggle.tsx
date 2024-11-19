@@ -5,14 +5,14 @@ import { IoMoonSharp, IoSunnySharp } from "react-icons/io5";
 export default function ModdeToggle() {
   const { theme, setTheme } = useTheme();
   return (
-    <div className="mt-10 flex gap-10 rounded-md border p-1 text-4xl">
+    <div className="mt-10 flex rounded-md border">
       {theme === "dark" ? (
         <button onClick={() => setTheme("light")}>
-          <IoSunnySharp size={30} />
+          <IoSunnySharp size={25} />
         </button>
       ) : (
         <button onClick={() => setTheme("dark")}>
-          <IoMoonSharp size={30} />
+          <IoMoonSharp size={25} />
         </button>
       )}
     </div>
