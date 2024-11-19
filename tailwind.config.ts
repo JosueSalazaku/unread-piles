@@ -13,7 +13,7 @@ const config: Config = {
       colors: {
         "background-dark": "#140300",
         "background-light": "#fcf0ee",
-        "dark-brown": "#19100D",
+        "dark-brown": "#3e2f2a",
         "main-orange": "#912b12",
         "light-orange": "#ed876e",
         "dark-blue": "#0A054B",
