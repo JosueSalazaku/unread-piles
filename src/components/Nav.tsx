@@ -6,6 +6,7 @@ import { useCustomSession } from "./SessionProvider";
 import Image from "next/image";
 import { signOut } from "@/app/lib/auth-client";
 import { GiHamburgerMenu } from "react-icons/gi";
+import ModdeToggle from "./ModdeToggle";
 
 export function Nav() {
   const session = useCustomSession();
@@ -17,10 +18,11 @@ export function Nav() {
   const { name, email, image } = session.data?.user ?? {};
 
   return (
-    <nav className="flex h-14 w-full items-center justify-between px-6 border-b-2">
+    <nav className="flex h-14 w-full items-center justify-between border-b-2 px-6">
       <Link href="/" className="font-didot text-main text-2xl font-bold">
         Unread Piles
       </Link>
+      <ModdeToggle />
       <button onClick={toggle} className="md:hidden">
         {isOpen ? "Close" : <GiHamburgerMenu size={24} />}
       </button>
@@ -49,12 +51,12 @@ export function Nav() {
           </Link>
         )}
         {isOpen && (
-          <div className="absolute right-5 top-16 z-50 w-56 rounded-lg border border-gray-200 bg-white shadow-lg">
-            <div className="flex flex-col items-center border-b border-gray-300 p-4">
-              <h1 className="text-lg font-semibold text-gray-800">
+          <div className="border-gray-200 bg-white absolute right-5 top-16 z-50 w-56 rounded-lg border shadow-lg">
+            <div className="border-gray-300 flex flex-col items-center border-b p-4">
+              <h1 className="text-gray-800 text-lg font-semibold">
                 {name ?? "User"}
               </h1>
-              <p className="text-sm text-gray-500">
+              <p className="text-gray-500 text-sm">
                 {email ?? "No email available"}
               </p>
             </div>
@@ -62,19 +64,19 @@ export function Nav() {
             <div className="flex flex-col py-2">
               <Link
                 href="/profile"
-                className="block px-4 py-2 text-gray-700 hover:bg-gray-100"
+                className="text-gray-700 hover:bg-gray-100 block px-4 py-2"
               >
                 Profile
               </Link>
               <Link
                 href="/settings"
-                className="block px-4 py-2 text-gray-700 hover:bg-gray-100"
+                className="text-gray-700 hover:bg-gray-100 block px-4 py-2"
               >
                 Settings
               </Link>
               <button
                 onClick={handleSignOut}
-                className="block w-full px-4 py-2 text-left font-semibold text-red-500 hover:bg-gray-100"
+                className="text-red-500 hover:bg-gray-100 block w-full px-4 py-2 text-left font-semibold"
               >
                 Sign Out
               </button>
@@ -85,10 +87,10 @@ export function Nav() {
 
       {/* Small screen */}
       {isOpen && (
-        <div className="text-main absolute left-0 right-0 top-20 z-50 flex flex-col bg-zinc-400 p-5 text-lg md:hidden">
+        <div className="text-main bg-zinc-400 absolute left-0 right-0 top-20 z-50 flex flex-col p-5 text-lg md:hidden">
           {session.data?.user ? (
             <>
-              <div className="flex flex-row items-center gap-2 border-b border-gray-300 py-4">
+              <div className="border-gray-300 flex flex-row items-center gap-2 border-b py-4">
                 {image && (
                   <Image
                     src={image}
@@ -102,19 +104,19 @@ export function Nav() {
               </div>
               <Link
                 href="/profile"
-                className="rounded py-2 text-gray-700 hover:bg-gray-100"
+                className="text-gray-700 hover:bg-gray-100 rounded py-2"
               >
                 Profile
               </Link>
               <Link
                 href="/settings"
-                className="rounded py-2 text-gray-700 hover:bg-gray-100"
+                className="text-gray-700 hover:bg-gray-100 rounded py-2"
               >
                 Settings
               </Link>
               <button
                 onClick={handleSignOut}
-                className="rounded py-2 font-semibold text-red-500 hover:bg-gray-100"
+                className="text-red-500 hover:bg-gray-100 rounded py-2 font-semibold"
               >
                 Sign Out
               </button>
@@ -122,18 +124,18 @@ export function Nav() {
           ) : (
             <Link
               href="/api/auth/sign-in"
-              className="rounded py-2 font-bold text-gray-700 hover:bg-gray-100"
+              className="text-gray-700 hover:bg-gray-100 rounded py-2 font-bold"
             >
               Login / Sign Up
             </Link>
           )}
-          <Link href="/explore" className="rounded py-2 hover:bg-gray-100">
+          <Link href="/explore" className="hover:bg-gray-100 rounded py-2">
             Explore
           </Link>
-          <Link href="/library" className="rounded py-2 hover:bg-gray-100">
+          <Link href="/library" className="hover:bg-gray-100 rounded py-2">
             Library
           </Link>
-          <Link href="/pages" className="rounded py-2 hover:bg-gray-100">
+          <Link href="/pages" className="hover:bg-gray-100 rounded py-2">
             Pages
           </Link>
         </div>
