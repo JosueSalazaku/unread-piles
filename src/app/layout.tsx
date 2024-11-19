@@ -18,10 +18,10 @@ export default function RootLayout({
     <html lang="en">
       <body className="">
         <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
+          // attribute="class"
+          // defaultTheme="system"
+          // enableSystem
+          // disableTransitionOnChange
         >
           <SessionProvider>
             <Nav />
