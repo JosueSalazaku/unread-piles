@@ -19,7 +19,7 @@ export function Nav() {
   const { name, email, image } = session.data?.user ?? {};
 
   return (
-    <nav className="flex h-14 w-full items-center justify-between border-b-2 px-6">
+    <nav className="flex h-14 w-full items-center justify-between px-6">
       <Link href="/" className="font-didot text-main text-2xl font-bold">
         Unread Piles
       </Link>
