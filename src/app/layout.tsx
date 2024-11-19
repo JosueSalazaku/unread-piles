@@ -16,7 +16,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className="bg-blue-800">
+      <body className="">
         <SessionProvider>
           <Nav />
           <main className="flex-1">{children}</main>

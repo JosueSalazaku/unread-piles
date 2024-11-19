@@ -17,7 +17,7 @@ export function Nav() {
   const { name, email, image } = session.data?.user ?? {};
 
   return (
-    <nav className="flex h-20 w-full items-center justify-between px-6">
+    <nav className="flex h-14 w-full items-center justify-between px-6 border-b-2">
       <Link href="/" className="font-didot text-main text-2xl font-bold">
         Unread Piles
       </Link>
@@ -88,7 +88,7 @@ export function Nav() {
         <div className="text-main absolute left-0 right-0 top-20 z-50 flex flex-col bg-zinc-400 p-5 text-lg md:hidden">
           {session.data?.user ? (
             <>
-              <div className="flex flex-row gap-2 items-center border-b border-gray-300 py-4">
+              <div className="flex flex-row items-center gap-2 border-b border-gray-300 py-4">
                 {image && (
                   <Image
                     src={image}
