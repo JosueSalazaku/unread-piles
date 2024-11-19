@@ -11,12 +11,11 @@ import ModdeToggle from "./ModdeToggle";
 
 export function Nav() {
   const session = useCustomSession();
-  const handleSignOut = () => signOut();
-
   const dropdownRef = useRef<HTMLDivElement>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
 
   const [isOpen, setIsOpen] = useState(false);
+
   const toggle = () => setIsOpen(!isOpen);
 
   useEffect(() => {
@@ -30,6 +29,7 @@ export function Nav() {
         setIsOpen(false);
       }
     }
+
     if (isOpen) {
       document.addEventListener("mousedown", handleOutsideClick);
     }
@@ -71,7 +71,7 @@ export function Nav() {
             </button>
           ) : (
             <Link href="/api/auth/sign-in">
-              <button className="font-bold">Login / Sign Up</button>
+              <button className="font-bold border-2 rounded-lg p-2 border-dark-brown">Login / Sign Up</button>
             </Link>
           )}
         </div>
@@ -79,13 +79,17 @@ export function Nav() {
         {/* Small screen: Hamburger menu */}
         <div className="flex items-center space-x-4 md:hidden">
           <ModdeToggle />
-          <button onClick={toggle}>
+          <button
+            onClick={toggle}
+            aria-expanded={isOpen}
+            aria-label="Toggle menu"
+          >
             {isOpen ? <MdClose size={30} /> : <GiHamburgerMenu size={24} />}
           </button>
         </div>
       </div>
 
-      {/* Dropdown Menu for large screens */}
+      {/* Dropdown Menu */}
       {isOpen && session.data?.user && (
         <div
           ref={dropdownRef}
@@ -102,22 +106,24 @@ export function Nav() {
           <div className="flex flex-col py-2">
             <Link
               href="/profile"
-              onClick={() => setIsOpen(false)}
               className="text-gray-700 hover:bg-gray-100 block px-4 py-2"
             >
               Profile
             </Link>
             <Link
               href="/settings"
-              onClick={() => setIsOpen(false)}
               className="text-gray-700 hover:bg-gray-100 block px-4 py-2"
             >
               Settings
             </Link>
             <button
               onClick={async () => {
-                await handleSignOut();
-                setIsOpen(false);
+                try {
+                  await signOut();
+                  window.location.href = "/"; // Redirect
+                } catch (error) {
+                  console.error("Failed to sign out:", error);
+                }
               }}
               className="text-red-500 hover:bg-gray-100 block w-full px-4 py-2 text-left font-semibold"
             >
@@ -130,7 +136,6 @@ export function Nav() {
       {/* Small screen: Dropdown Menu */}
       {isOpen && (
         <div
-          ref={dropdownRef}
           className="bg-zinc-400 absolute left-0 right-0 top-16 z-50 flex flex-col space-y-4 p-4 text-lg md:hidden"
         >
           {session.data?.user ? (
@@ -168,8 +173,12 @@ export function Nav() {
               </Link>
               <button
                 onClick={async () => {
-                  await handleSignOut();
-                  setIsOpen(false);
+                  try {
+                    await signOut();
+                    window.location.href = "/";
+                  } catch (error) {
+                    console.error("Failed to sign out:", error);
+                  }
                 }}
                 className="text-red-500 hover:bg-gray-100 rounded py-2 font-semibold"
               >
