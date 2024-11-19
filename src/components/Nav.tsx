@@ -19,9 +19,9 @@ export function Nav() {
   const { name, email, image } = session.data?.user ?? {};
 
   return (
-    <nav className="flex h-14 w-full items-center justify-between px-6">
-      <Link href="/" className="font-didot text-main text-2xl font-bold">
-        Unread Piles
+    <nav className="flex h-14 w-full items-center justify-between border-b-4 border-dark-brown px-6">
+      <Link href="/" className="text-main text-2xl ">
+       UNREAD PILES
       </Link>
       <div className="flex h-5 items-center gap-2">
         <ModdeToggle />

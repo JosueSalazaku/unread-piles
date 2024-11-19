@@ -20,8 +20,10 @@ const config: Config = {
         "main-blue": "#0008ff",
         "accent-blue": "#4096d4",
       },
+      borderWidth: {
+        1: "1px", 
+      },
     },
-
   },
   plugins: [tailwindcssAnimate],
 };

@@ -9,7 +9,7 @@ export default function ModdeToggle() {
   return (
     <button
       onClick={toggleTheme}
-      className="flex items-center justify-center p-2 rounded-md border"
+      className="flex items-center justify-center rounded-md p-2 hover:bg-dark-brown"
     >
       {theme === "dark" ? (
         <IoSunnySharp size={25} />
