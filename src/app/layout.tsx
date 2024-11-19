@@ -2,7 +2,7 @@ import "@/styles/globals.css";
 import type { Metadata } from "next";
 import { Nav } from "@/components/Nav";
 import { SessionProvider } from "@/components/SessionProvider";
-
+import { ThemeProvider } from "@/components/theme-provider";
 
 export const metadata: Metadata = {
   title: "Unread Piles",
@@ -16,11 +16,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className="">
-        <SessionProvider>
-          <Nav />
-          <main className="flex-1">{children}</main>
-        </SessionProvider>
+      <body className="h-screen bg-background-light  dark:bg-background-dark dark:text-white">
+        <ThemeProvider>
+          <SessionProvider>
+            <Nav />
+            <main className="flex-1">{children}</main>
+          </SessionProvider>
+        </ThemeProvider>
       </body>
     </html>
   );
