@@ -44,7 +44,7 @@ export function Nav() {
   return (
     <nav className="flex h-16 w-full items-center justify-between border-b-2 border-dark-brown px-4 sm:px-6">
       {/* Logo */}
-      <Link href="/" className="text-main text-xl font-bold sm:text-2xl">
+      <Link href="/" className="text-main text-main text-xl font-bold sm:text-2xl">
         UP
       </Link>
 
@@ -83,7 +83,7 @@ export function Nav() {
             </button>
           ) : (
             <Link href="/api/auth/sign-in">
-              <button className="hover:text-white rounded-md border border-dark-brown px-4 py-2 hover:bg-dark-brown">
+              <button className="hover:text-white rounded-md border border-dark-brown px-4 py-2 hover:border-none hover:bg-main-orange">
                 Login / Sign Up
               </button>
             </Link>
