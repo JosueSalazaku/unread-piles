@@ -1,13 +1,14 @@
 "use client";
 import GoogleBooks from "@/components/GoogleBooks";
 import { useCustomSession } from "@/components/SessionProvider";
+import Link from "next/link";
 import React from "react";
 
 export default function Home() {
   const session = useCustomSession();
 
   return (
-    <div className="flex px-12 min-h-screen flex-col items-center justify-center bg-background-light text-dark-brown dark:bg-background-dark dark:text-white">
+    <div className="flex min-h-screen flex-col items-center justify-center bg-background-light px-12 text-dark-brown dark:bg-background-dark dark:text-white">
       {session.data?.user ? (
         <>
           <h1 className="text-2xl font-bold">
@@ -24,9 +25,13 @@ export default function Home() {
           <p className="text-xl">
             Organize, explore and rediscover your favorite reads.
           </p>
-          <button className="rounded-md w-36 border border-dark-brown px-4 py-2 hover:border-transparent hover:bg-main-orange hover:text-white">
-            Login / Sign Up
-          </button>
+
+          <Link
+            href="/api/auth/sign-in"
+            className="w-36 text-center rounded-md border border-dark-brown px-4 py-2 hover:border-transparent hover:bg-main-orange hover:text-white"
+          >
+            Get Started
+          </Link>
         </div>
       )}
     </div>
