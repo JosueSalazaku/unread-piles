@@ -16,27 +16,27 @@ export default function SearchPage() {
   const [startIndex, setStartIndex] = useState(0); // Start position in the API
   const maxResults = 10; // Maximum number of results per request
 
-  async function fetchBooks() {
-    if (!query) return;
-    setLoading(true);
-    setError(null);
-
-    const url = `https://www.googleapis.com/books/v1/volumes?q=${query}&key=${APIKey}&startIndex=${startIndex}&maxResults=${maxResults}`;
-
-    try {
-      const response = await axios.get<{ items: GoogleBook[] }>(url);
-      setBooks(response.data.items || []);
-    } catch (err) {
-      console.error("Error fetching books:", err);
-      setError("Failed to fetch books. Please try again.");
-    } finally {
-      setLoading(false);
-    }
-  }
-
   useEffect(() => {
+    async function fetchBooks() {
+      if (!query) return;
+      setLoading(true);
+      setError(null);
+
+      const url = `https://www.googleapis.com/books/v1/volumes?q=${query}&key=${APIKey}&startIndex=${startIndex}&maxResults=${maxResults}`;
+
+      try {
+        const response = await axios.get<{ items: GoogleBook[] }>(url);
+        setBooks(response.data.items || []);
+      } catch (err) {
+        console.error("Error fetching books:", err);
+        setError("Failed to fetch books. Please try again.");
+      } finally {
+        setLoading(false);
+      }
+    }
+
     void fetchBooks();
-  }, [query, startIndex]);
+  }, [query, startIndex, APIKey]);
 
   const handleNextPage = () => {
     setStartIndex((prevIndex) => prevIndex + maxResults);
