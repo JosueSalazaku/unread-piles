@@ -12,7 +12,6 @@ export default function SearchBooks() {
       try {
         const response = await axios.get(url);
         console.log(response.data);
-        // setSearch(JSON.stringify(response.data));
       } catch (err) {
         console.log(err);
       }
