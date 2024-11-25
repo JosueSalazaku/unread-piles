@@ -6,21 +6,29 @@ import "./src/env.js";
 
 /** @type {import("next").NextConfig} */
 const config = {
-    images: {
-        remotePatterns: [
-          {
-            protocol: 'http', 
-            hostname: 'books.google.com',
-            pathname: '/books/content/**',
-          },
-          {
-            protocol: "https",
-            hostname: "lh3.googleusercontent.com",
-            pathname: "/**", // Allow all paths under this hostname
-          },
-    
-        ],
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'http', 
+        hostname: 'books.google.com',
+        pathname: '/books/content/**',
       },
+      {
+        protocol: "https",
+        hostname: "lh3.googleusercontent.com",
+        pathname: "/**",
+      },
+    ],
+  },
+  async rewrites() {
+    return [
+      {
+        source: '/api/:path*',
+        destination: 'http://localhost:3000/api/:path*', // Proxy API calls during development
+      },
+    ];
+  },
 };
 
 export default config;
+
