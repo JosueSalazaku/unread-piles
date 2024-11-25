@@ -11,8 +11,8 @@ export default function SearchBooks() {
     if (event.key === "Enter") {
       try {
         const response = await axios.get(url);
-        console.log(response.data); // Added console log to see the API data
-        setSearch(JSON.stringify(response.data));
+        console.log(response.data);
+        // setSearch(JSON.stringify(response.data));
       } catch (err) {
         console.log(err);
       }
@@ -26,7 +26,7 @@ export default function SearchBooks() {
         placeholder="Enter your book here"
         value={search}
         onChange={(e) => setSearch(e.target.value)}
-        onKeyPress={searchBook}
+        onKeyDown={searchBook}
         className="bg-transparent text-black dark:text-white h-10 w-72 rounded-md border-2 px-3 py-2 placeholder:text-dark-brown focus:active:*: border-dark-brown"
       />
     </div>
