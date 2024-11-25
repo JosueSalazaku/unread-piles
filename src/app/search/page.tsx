@@ -1,20 +1,20 @@
 "use client";
-import { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import type { GoogleBook } from "@/types";
 import Image from "next/image";
 
 export default function SearchPage() {
   const APIKey = process.env.NEXT_PUBLIC_GOOGLE_BOOKS_API_KEY;
-  const searchParams = useSearchParams();
-  const query = searchParams.get("s");
+  const searchParams = useSearchParams(); // Extract search params
+  const query = searchParams.get("s"); // Get the `s` parameter (search query)
 
   const [books, setBooks] = useState<GoogleBook[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [startIndex, setStartIndex] = useState(0); // Start position in the API
-  const maxResults = 10; // Maximum number of results per request
+  const [startIndex, setStartIndex] = useState(0);
+  const maxResults = 10;
 
   useEffect(() => {
     async function fetchBooks() {
@@ -48,7 +48,9 @@ export default function SearchPage() {
 
   return (
     <div className="p-6 max-w-4xl mx-auto">
-      <h1 className="text-3xl font-bold mb-4">Search Results for &quot;{query}&quot;</h1>
+      <h1 className="text-3xl font-bold mb-4">
+        Search Results for &quot;{query}&quot;
+      </h1>
 
       {loading && <div>Loading...</div>}
       {error && <div className="text-red-500">{error}</div>}
@@ -70,18 +72,24 @@ export default function SearchPage() {
                 />
               )}
               <div className="flex-1">
-                <h2 className="text-2xl font-semibold mb-2">{book.volumeInfo.title}</h2>
+                <h2 className="text-2xl font-semibold mb-2">
+                  {book.volumeInfo.title}
+                </h2>
                 {book.volumeInfo.authors && (
                   <p className="text-gray-700 mb-1">
-                    <strong>Authors:</strong> {book.volumeInfo.authors.join(", ")}
+                    <strong>Authors:</strong>{" "}
+                    {book.volumeInfo.authors.join(", ")}
                   </p>
                 )}
                 {book.volumeInfo.publishedDate && (
                   <p className="text-gray-800 mb-4">
-                    <strong>Published:</strong> {book.volumeInfo.publishedDate}
+                    <strong>Published:</strong>{" "}
+                    {book.volumeInfo.publishedDate}
                   </p>
                 )}
-                <p className="text-gray-500 font-thin">{book.volumeInfo.description}</p>
+                <p className="text-gray-500 font-thin">
+                  {book.volumeInfo.description}
+                </p>
               </div>
             </div>
           </li>
