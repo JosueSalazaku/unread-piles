@@ -10,14 +10,14 @@ export const auth = betterAuth({
   }),
   socialProviders: {
     google: {
-      clientId: process.env.GOOGLE_CLIENT_ID!,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
-      redirectURI: `${process.env.BASE_URL}/api/auth/callback/google`,
+      clientId: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID!,
+      clientSecret: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_SECRET!,
+      redirectURI: `${process.env.NEXT_PUBLIC_BASE_URL}/api/auth/callback/google`,
     },
     github: {
-      clientId: process.env.GITHUB_ID!,
-      clientSecret: process.env.GITHUB_CLIENT_SECRET!,
-      redirectURI: `${process.env.BASE_URL}/api/auth/callback/github`,
+      clientId: process.env.NEXT_PUBLIC_GITHUB_ID!,
+      clientSecret: process.env.NEXT_PUBLIC_GITHUB_SECRET!,
+      redirectURI: `${process.env.NEXT_PUBLIC_BASE_URL}/api/auth/callback/github`,
     },
   },
 });
