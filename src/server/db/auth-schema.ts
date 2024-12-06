@@ -3,7 +3,6 @@ import {
   text,
   timestamp,
   boolean,
-  varchar,
 } from "drizzle-orm/pg-core";
 
 export const user = pgTable("user", {
@@ -46,15 +45,4 @@ export const verification = pgTable("verification", {
   value: text("value").notNull(),
   expiresAt: timestamp("expiresAt").notNull(),
   createdAt: timestamp("createdAt"),
-});
-
-export const books = pgTable("books", {
-  id: text("id").primaryKey(), 
-  title: text("title").notNull(), 
-  authors: text("authors").default("[]"),
-  publishedDate: text("published_date"), 
-  description: text("description"), 
-  thumbnailUrl: varchar("thumbnail_url", { length: 255 }), 
-  createdAt: timestamp("created_at", { withTimezone: true }).defaultNow(),
-  updatedAt: timestamp("updated_at", { withTimezone: true }).defaultNow(),
 });

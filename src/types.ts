@@ -55,20 +55,6 @@ export interface Book {
     updatedAt: Date;
 }
 
-export interface GoogleBook {
-    id: string; 
-    volumeInfo: {
-      title: string;
-      authors?: string[]; 
-      publishedDate?: string; 
-      description?: string;
-      imageLinks?: {
-        thumbnail?: string;
-      };
-    };
-  }
-  
-
 export interface VolumeInfo {
     title: string;
     authors?: string[];

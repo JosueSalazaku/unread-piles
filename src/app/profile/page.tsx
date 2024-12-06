@@ -22,9 +22,9 @@ export default function Profile() {
           <Image
             src={image}
             alt={name}
-            width={70}
-            height={70}
-            className="rounded-full"
+            width={30}
+            height={30}
+            className="h-16 w-16 rounded-full"
           />
         )}
         <div>
