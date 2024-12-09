@@ -53,12 +53,14 @@ export function Nav() {
 
       {/* Right Section */}
       <div className="flex items-center space-x-4">
+        {/* SearchBooks visible on all screen sizes */}
+        <SearchBooks />
+
         {/* Large Screen Nav Items */}
         <div className="hidden items-center space-x-6 md:flex">
           {/* Conditional rendering for logged-in users */}
           {session.data?.user && (
             <>
-              <SearchBooks />
               <Link href="/explore" className="hover:underline">
                 Explore
               </Link>
