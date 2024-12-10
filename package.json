@@ -24,7 +24,7 @@
     "argon2": "^0.41.1",
     "axios": "^1.7.7",
     "bcrypt": "^5.1.1",
-    "better-auth": "^0.8.7-beta.1",
+    "better-auth": "^0.8.8",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
     "crypto": "^1.0.1",
