@@ -1,9 +1,10 @@
-import React from 'react'
+import React, { Suspense } from "react";
+import SearchResults from "@/components/SearchResults";
 
-function page() {
+export default function Page() {
   return (
-    <div>page</div>
-  )
+    <Suspense fallback={<div>Loading search results...</div>}>
+      <SearchResults />
+    </Suspense>
+  );
 }
-
-export default page
