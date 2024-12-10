@@ -43,7 +43,7 @@ export default function GoogleBooks() {
       <h1 className="text-3xl font-bold mb-8 text-center">Google Books</h1>
       <ul>
         {books.map((book) => (
-          <li key={book.id} className="border rounded-md mb-8 shadow-md p-6 hover:shadow-lg transition-shadow duration-300">
+          <li key={book.id} className="border border-dark-brown rounded-md mb-8 shadow-md p-6 hover:shadow-lg transition-shadow duration-300">
             <div className="flex items-start gap-6">
               {book.volumeInfo.imageLinks?.thumbnail && (
                 <Image
@@ -57,16 +57,16 @@ export default function GoogleBooks() {
               <div className="flex-1">
                 <h2 className="text-2xl font-semibold mb-2">{book.volumeInfo.title}</h2>
                 {book.volumeInfo.authors && (
-                  <p className="text-gray-700 mb-1">
+                  <p className="text-main-orange mb-1">
                     <strong>Authors:</strong> {book.volumeInfo.authors.join(', ')}
                   </p>
                 )}
                 {book.volumeInfo.publishedDate && (
-                  <p className="text-gray-800 mb-4">
+                  <p className="text-dark-brown mb-4">
                     <strong>Published:</strong> {book.volumeInfo.publishedDate}
                   </p>
                 )}
-                <p className="text-gray-500 font-thin">{book.volumeInfo.description}</p>
+                <p className="text-dark-brown  font-thin">{book.volumeInfo.description}</p>
               </div>
             </div>
           </li>
