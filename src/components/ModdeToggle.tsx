@@ -9,7 +9,7 @@ export default function ModdeToggle() {
   return (
     <button
       onClick={toggleTheme}
-      className="flex items-center justify-center rounded-md p-2 hover:bg-main-orange dark:hover:bg-dark-brown"
+      className="flex items-center justify-center rounded-md p-2 hover:bg-main-orange"
     >
       {theme === "dark" ? (
         // Sun SVG for dark mode

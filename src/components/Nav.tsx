@@ -111,8 +111,7 @@ export function Nav() {
 
       {/* Dropdown Menu (Large Screen) */}
       {isOpen && session.data?.user && (
-        <div
-          className="absolute right-5 top-16 z-50 w-56 rounded-md border border-gray-200 bg-white shadow-lg"
+        <div className="absolute right-5 top-16 z-50 w-56 rounded-md border border-gray-200 bg-white shadow-lg"
         >
           <div className="border-b border-gray-300 p-4 text-center">
             <h1 className="text-lg font-semibold text-gray-800">
@@ -155,7 +154,9 @@ export function Nav() {
 
       {/* Mobile Dropdown Menu */}
       {isOpen && (
-        <div className="absolute left-0 right-0 top-16 z-50 flex flex-col space-y-4 bg-zinc-400 p-4 text-lg md:hidden">
+        <div
+        ref={dropdownRef}
+          className="absolute left-0 right-0 top-16 z-50 flex flex-col space-y-4 bg-main-orange p-4 text-lg shadow-md md:hidden">
           {session.data?.user ? (
             <>
               <div className="flex items-center border-b border-gray-300 pb-4">
@@ -170,7 +171,7 @@ export function Nav() {
                 )}
                 <div className="ml-2">
                   <h1 className="text-sm font-semibold">{name ?? "User"}</h1>
-                  <p className="text-xs text-gray-500">
+                  <p className="text-xs  text-background-dark">
                     {email ?? "No email available"}
                   </p>
                 </div>
@@ -178,28 +179,44 @@ export function Nav() {
               <Link
                 href="/profile"
                 onClick={() => setIsOpen(false)}
-                className="rounded py-2 hover:bg-gray-100"
+                className="rounded py-2 p-4 hover:bg-light-orange dark:hover:bg-orange-950"
               >
                 Profile
               </Link>
               <Link
                 href="/settings"
                 onClick={() => setIsOpen(false)}
-                className="rounded py-2 hover:bg-gray-100"
+                className="rounded py-2 p-4 hover:bg-light-orange dark:hover:bg-orange-950"
               >
                 Settings
+              </Link>
+              {/* Show Explore and Library only when logged in */}
+              <Link
+                href="/explore"
+                onClick={() => setIsOpen(false)}
+                className="rounded py-2 p-4 hover:bg-light-orange dark:hover:bg-orange-950"
+              >
+                Explore
+              </Link>
+              <Link
+                href="/library"
+                onClick={() => setIsOpen(false)}
+                className="rounded py-2 p-4 hover:bg-light-orange dark:hover:bg-orange-950"
+              >
+                Library
               </Link>
               <button
                 onClick={async () => {
                   try {
                     // eslint-disable-next-line @typescript-eslint/no-unsafe-call
                     await signOut();
+                
                     window.location.href = "/";
                   } catch (error) {
                     console.error("Failed to sign out:", error);
                   }
                 }}
-                className="rounded py-2 text-left text-red-500 hover:bg-gray-100"
+                className="mt-auto rounded py-2 p-4 text-left text-red-500 hover:bg-light-orange dark:hover:bg-orange-950"
               >
                 Sign Out
               </button>
@@ -212,25 +229,6 @@ export function Nav() {
             >
               Login / Sign Up
             </Link>
-          )}
-          {/* Show Explore and Library only when logged in */}
-          {session.data?.user && (
-            <>
-              <Link
-                href="/explore"
-                onClick={() => setIsOpen(false)}
-                className="rounded py-2 hover:bg-gray-100"
-              >
-                Explore
-              </Link>
-              <Link
-                href="/library"
-                onClick={() => setIsOpen(false)}
-                className="rounded py-2 hover:bg-gray-100"
-              >
-                Library
-              </Link>
-            </>
           )}
         </div>
       )}
