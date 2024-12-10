@@ -53,12 +53,14 @@ export function Nav() {
 
       {/* Right Section */}
       <div className="flex items-center space-x-4">
+        {/* SearchBooks component visible on all screen sizes */}
+        <SearchBooks />
+
         {/* Large Screen Nav Items */}
         <div className="hidden items-center space-x-6 md:flex">
           {/* Conditional rendering for logged-in users */}
           {session.data?.user && (
             <>
-              <SearchBooks />
               <Link href="/explore" className="hover:underline">
                 Explore
               </Link>
@@ -110,7 +112,6 @@ export function Nav() {
       {/* Dropdown Menu (Large Screen) */}
       {isOpen && session.data?.user && (
         <div
-          ref={dropdownRef}
           className="absolute right-5 top-16 z-50 w-56 rounded-md border border-gray-200 bg-white shadow-lg"
         >
           <div className="border-b border-gray-300 p-4 text-center">
@@ -137,6 +138,7 @@ export function Nav() {
             <button
               onClick={async () => {
                 try {
+                  // eslint-disable-next-line @typescript-eslint/no-unsafe-call
                   await signOut();
                   window.location.href = "/";
                 } catch (error) {
@@ -190,6 +192,7 @@ export function Nav() {
               <button
                 onClick={async () => {
                   try {
+                    // eslint-disable-next-line @typescript-eslint/no-unsafe-call
                     await signOut();
                     window.location.href = "/";
                   } catch (error) {
