@@ -112,6 +112,7 @@ export function Nav() {
       {/* Dropdown Menu (Large Screen) */}
       {isOpen && session.data?.user && (
         <div
+          ref={dropdownRef}
           className="absolute right-5 top-16 z-50 w-56 rounded-md border border-gray-200 bg-white shadow-lg"
         >
           <div className="border-b border-gray-300 p-4 text-center">
