@@ -41,7 +41,7 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
       }
     }
     void ShowBook();
-  }, [params, router]);
+  }, [id, params, router]);
 
   if (loading) {
     return <div>Loading...</div>;
