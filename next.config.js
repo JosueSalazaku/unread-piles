@@ -11,7 +11,8 @@ const config = {
           {
             protocol: 'http', 
             hostname: 'books.google.com',
-            pathname: '/books/content/**',
+            pathname: '/books/**', // This covers both /books/content/** and /books/**
+
           },
           {
             protocol: "https",
