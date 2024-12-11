@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import type { GoogleBook } from "@/types";
 import Image from "next/image";
+import Link from "next/link";
 
 export default function SearchResults() {
   const APIKey = process.env.NEXT_PUBLIC_GOOGLE_BOOKS_API_KEY;
@@ -61,6 +62,8 @@ export default function SearchResults() {
             key={book.id}
             className="border rounded-md mb-8 shadow-md border-dark-brown p-6 hover:shadow-lg transition-shadow duration-300"
           >
+            
+            <Link href={`/books/${book.id}`}>
             <div className="flex items-start gap-6">
               {book.volumeInfo.imageLinks?.thumbnail && (
                 <Image
@@ -85,7 +88,8 @@ export default function SearchResults() {
                 )}
                 <p className="font-thin text-sm">{book.volumeInfo.description}</p>
               </div>
-            </div>
+              </div>
+              </Link>
           </li>
         ))}
       </ul>
