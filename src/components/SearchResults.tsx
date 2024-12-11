@@ -49,7 +49,7 @@ export default function SearchResults() {
   return (
     <div className="p-6 max-w-4xl mx-auto">
       <h1 className="text-3xl font-bold mb-4">
-        Search Results for &quot;{query}&quot;
+        Search Results for &quot;{query}&quot; 
       </h1>
 
       {loading && <div>Loading...</div>}

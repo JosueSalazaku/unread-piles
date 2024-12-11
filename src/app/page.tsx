@@ -11,7 +11,7 @@ export default function Home() {
     <div className="flex min-h-screen flex-col items-center justify-center bg-background-light px-12 text-dark-brown dark:bg-background-dark dark:text-white">
       {session.data?.user ? (
         <>
-          <h1 className="text-2xl font-bold">
+          <h1 className="pt-5 text-2xl font-bold">
             Welcome back, {session.data.user.name}!
           </h1>
           <p className="mt-2">

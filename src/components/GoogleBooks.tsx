@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import axios from 'axios';
 import type { GoogleBook } from '@/types';
+import Link from 'next/link';
 
 export default function GoogleBooks() {
     const APIKey = process.env.NEXT_PUBLIC_GOOGLE_BOOKS_API_KEY;
@@ -20,7 +21,6 @@ export default function GoogleBooks() {
 
       try {
         const response = await axios.get<{ items: GoogleBook[] }>(url); 
-        console.log(response.data);
         setBooks(response.data.items || []);
       } catch (error) {
         if (axios.isAxiosError(error)) {
@@ -40,10 +40,11 @@ export default function GoogleBooks() {
 
   return (
     <div className="p-6 max-w-4xl mx-auto">
-      <h1 className="text-3xl font-bold mb-8 text-center">Google Books</h1>
       <ul>
+      
         {books.map((book) => (
           <li key={book.id} className="border border-dark-brown rounded-md mb-8 shadow-md p-6 hover:shadow-lg transition-shadow duration-300">
+            <Link href={`/books/${book.id}`}>
             <div className="flex items-start gap-6">
               {book.volumeInfo.imageLinks?.thumbnail && (
                 <Image
@@ -68,9 +69,11 @@ export default function GoogleBooks() {
                 )}
                 <p className="font-thin text-sm">{book.volumeInfo.description}</p>
               </div>
-            </div>
+              </div>
+              </Link>
           </li>
         ))}
+
       </ul>
     </div>
   );
