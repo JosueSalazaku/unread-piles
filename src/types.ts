@@ -157,3 +157,24 @@ export interface PostRating {
   rating: number;
   ratedAt: Date;
 }
+
+export interface PictureDropdownProps {
+    session: {
+      data?: {
+        session?: {
+          id: string;
+          userId: string;
+          expiresAt: Date;
+          ipAddress?: string | null;
+          userAgent?: string | null;
+        } | null;
+        user?: {
+          id: string;
+          name: string;
+          email: string;
+          image?: string | null;
+        } | null;
+      } | null;
+    };
+    toggleDropdown: () => void;
+  }
