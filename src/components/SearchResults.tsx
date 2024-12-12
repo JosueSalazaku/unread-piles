@@ -5,6 +5,7 @@ import axios from "axios";
 import type { GoogleBook } from "@/types";
 import Image from "next/image";
 import Link from "next/link";
+import FadeLoader from "react-spinners/FadeLoader";
 
 export default function SearchResults() {
   const APIKey = process.env.NEXT_PUBLIC_GOOGLE_BOOKS_API_KEY;
@@ -27,7 +28,7 @@ export default function SearchResults() {
 
       try {
         const response = await axios.get<{ items: GoogleBook[] }>(url);
-        console.log(response.data)
+        console.log(response.data);
         setBooks(response.data.items || []);
       } catch (err) {
         console.error("Error fetching books:", err);
@@ -48,13 +49,20 @@ export default function SearchResults() {
     setStartIndex((prevIndex) => Math.max(prevIndex - maxResults, 0));
   };
 
+  if (loading) {
+    return (
+      <div className="flex h-screen w-screen items-center justify-center">
+        <FadeLoader color="#912b12" />
+      </div>
+    );
+  }
+
   return (
     <div className="mx-auto max-w-4xl p-6">
       <h1 className="mb-4 text-3xl font-bold">
         Search Results for &quot;{query}&quot;
       </h1>
 
-      {loading && <div>Loading...</div>}
       {error && <div className="text-red-500">{error}</div>}
 
       <ul>
@@ -88,7 +96,9 @@ export default function SearchResults() {
                   </p>
                 )}
                 {book.volumeInfo.pageCount && (
-                  <p>Pages: {book.volumeInfo.pageCount}</p>
+                  <p className="text-dark-brown">
+                    Pages: {book.volumeInfo.pageCount}
+                  </p>
                 )}
                 {book.volumeInfo.publishedDate && (
                   <p className="mb-4 text-dark-brown">

@@ -14,6 +14,12 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
   const router = useRouter();
   const { id } = React.use(params);
 
+  const booksCover = book?.volumeInfo.imageLinks?.thumbnail;
+  const bookTitle = book?.volumeInfo.title;
+  const bookAuthor = book?.volumeInfo.authors;
+  const publishedDate = book?.volumeInfo.publishedDate;
+  const bookDescription = book?.volumeInfo.description;
+  
   useEffect(() => {
 
     if (!id) {
@@ -44,8 +50,13 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
   }, [id, params, router]);
 
   if (loading) {
-    return <div><FadeLoader color="#912b12" /></div>;
+    return (
+      <div className="flex justify-center items-center h-screen w-screen">
+        <FadeLoader color="#912b12" />
+      </div>
+    );
   }
+  
 
   if (error) {
     return <div>Error: {error}</div>;
@@ -62,7 +73,7 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
           <div className="flex flex-col justify-center items-center gap-4">
             <Image
               src={
-                book?.volumeInfo?.imageLinks?.thumbnail ??
+                booksCover ??
                 "/default-thumbnail.jpg"
               }
               alt={book?.volumeInfo?.title || "Book thumbnail"}
@@ -71,17 +82,17 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
               className="justify-center items-center"
             />
 
-            <h1 className="text-center text-2xl font-bold ">{book.volumeInfo.title}</h1>
+            <h1 className="text-center text-2xl font-bold ">{bookTitle}</h1>
             <p className="text-center text-main-orange">
-              {book.volumeInfo.authors?.join(", ") ??
+              {bookAuthor?.join(", ") ??
                 "Author information not available."}
             </p>
             <p className="text-center">
-              {book.volumeInfo.publishedDate ??
+             Published: {publishedDate ??
                 "Publication date not available"}
             </p>
             <p className="text-center">
-              {book.volumeInfo.description ?? "Description not available"}
+              {bookDescription?? "Description not available"}
             </p>
           </div>
         )}
