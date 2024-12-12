@@ -8,7 +8,7 @@ import type { PictureDropdownProps } from "@/types";
 
   
 
-  export function PictureDropDown({ session, toggleDropdown }: PictureDropdownProps) {
+  export function PictureDropDown({ session }: PictureDropdownProps) {
     const dropdownRef = useRef<HTMLDivElement>(null);
     const buttonRef = useRef<HTMLButtonElement>(null);
     const [isOpen, setIsOpen] = useState(false);
