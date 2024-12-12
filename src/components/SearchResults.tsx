@@ -48,9 +48,9 @@ export default function SearchResults() {
   };
 
   return (
-    <div className="p-6 max-w-4xl mx-auto">
-      <h1 className="text-3xl font-bold mb-4">
-        Search Results for &quot;{query}&quot; 
+    <div className="mx-auto max-w-4xl p-6">
+      <h1 className="mb-4 text-3xl font-bold">
+        Search Results for &quot;{query}&quot;
       </h1>
 
       {loading && <div>Loading...</div>}
@@ -60,52 +60,58 @@ export default function SearchResults() {
         {books.map((book) => (
           <li
             key={book.id}
-            className="border rounded-md mb-8 shadow-md border-dark-brown p-6 hover:shadow-lg transition-shadow duration-300"
+            className="mb-8 rounded-md border border-dark-brown p-6 shadow-md transition-shadow duration-300 hover:shadow-lg"
           >
-            
-            <Link href={`/books/${book.id}`}>
             <div className="flex items-start gap-6">
               {book.volumeInfo.imageLinks?.thumbnail && (
-                <Image
-                  src={book.volumeInfo.imageLinks.thumbnail}
-                  alt={book.volumeInfo.title}
-                  height={75}
-                  width={50}
-                  className="w-32 h-auto object-cover"
-                />
+                <Link href={`/books/${book.id}`}>
+                  <Image
+                    src={book.volumeInfo.imageLinks.thumbnail}
+                    alt={book.volumeInfo.title}
+                    height={75}
+                    width={50}
+                    className="h-auto w-32 object-cover"
+                  />
+                </Link>
               )}
               <div className="flex-1">
-                <h2 className="text-2xl font-semibold mb-2">{book.volumeInfo.title}</h2>
+                <Link href={`/books/${book.id}`}>
+                  <h2 className="mb-2 text-2xl font-semibold">
+                    {book.volumeInfo.title}
+                  </h2>
+                </Link>
                 {book.volumeInfo.authors && (
-                  <p className="text-main-orange mb-1">
-                    <strong>Authors:</strong> {book.volumeInfo.authors.join(", ")}
+                  <p className="mb-1 text-main-orange">
+                    <strong>Authors:</strong>{" "}
+                    {book.volumeInfo.authors.join(", ")}
                   </p>
                 )}
                 {book.volumeInfo.publishedDate && (
-                  <p className="text-dark-brown mb-4">
+                  <p className="mb-4 text-dark-brown">
                     <strong>Published:</strong> {book.volumeInfo.publishedDate}
                   </p>
                 )}
-                <p className="font-thin text-sm">{book.volumeInfo.description}</p>
+                <p className="text-sm font-thin">
+                  {book.volumeInfo.description}
+                </p>
               </div>
-              </div>
-              </Link>
+            </div>
           </li>
         ))}
       </ul>
 
       {/* Pagination Controls */}
-      <div className="flex justify-between mt-4">
+      <div className="mt-4 flex justify-between">
         <button
           onClick={handlePreviousPage}
           disabled={startIndex === 0}
-          className="rounded-md bg-dark-brown text-white px-4 py-2 hover:bg-brown disabled:opacity-50"
+          className="hover:bg-brown rounded-md bg-dark-brown px-4 py-2 text-white disabled:opacity-50"
         >
           Previous
         </button>
         <button
           onClick={handleNextPage}
-          className="rounded-md bg-dark-brown text-white px-4 py-2 hover:bg-brown"
+          className="hover:bg-brown rounded-md bg-dark-brown px-4 py-2 text-white"
         >
           Next
         </button>

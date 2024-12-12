@@ -4,6 +4,8 @@ import type { GoogleBook } from "@/types";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import axios from "axios";
+import FadeLoader from "react-spinners/FadeLoader";
+
 
 export default function Page({ params }: { params: Promise<{ id: string }> }) {
   const [book, setBook] = useState<GoogleBook | null>(null);
@@ -25,8 +27,6 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
         const response = await axios.get<GoogleBook>(
           `https://www.googleapis.com/books/v1/volumes/${id}`,
         );
-        console.log(response.status);
-        console.log(response.data);
         setBook(response.data);
       } catch (error) {
         if (axios.isAxiosError(error)) {
@@ -44,7 +44,7 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
   }, [id, params, router]);
 
   if (loading) {
-    return <div>Loading...</div>;
+    return <div><FadeLoader color="#912b12" /></div>;
   }
 
   if (error) {
