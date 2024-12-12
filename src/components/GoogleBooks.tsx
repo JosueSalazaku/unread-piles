@@ -58,12 +58,15 @@ export default function GoogleBooks() {
               )}
               <div className="flex-1">
               <Link href={`/books/${book.id}`}>
-                  <h2 className="text-2xl font-semibold mb-2">{book.volumeInfo.title}</h2>
+                  <h2 className="text-xl font-semibold mb-2">{book.volumeInfo.title}</h2>
               </Link>
                 {book.volumeInfo.authors && (
-                  <p className="text-main-orange mb-1">
-                    <strong>Authors:</strong> {book.volumeInfo.authors.join(', ')}
-                  </p>
+                  <div>
+                    <p className="text-main-orange mb-1">
+                      <strong>Authors:</strong> {book.volumeInfo.authors.join(', ')}
+                    </p>
+                    <p>Pages: {book.volumeInfo.pageCount}</p>
+                  </div>
                 )}
                 {book.volumeInfo.publishedDate && (
                   <p className="text-dark-brown mb-4">

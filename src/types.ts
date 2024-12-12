@@ -61,7 +61,8 @@ export interface GoogleBook {
       title: string;
       authors?: string[]; 
       publishedDate?: string; 
-      description?: string;
+        description?: string;
+        pageCount?: number;
       imageLinks?: {
         thumbnail?: string;
       };
@@ -74,6 +75,7 @@ export interface VolumeInfo {
     authors?: string[];
     publishedDate?: string;
     description?: string;
+    pageCount?: number;
     imageLinks?: {
         thumbnail?: string;
     };

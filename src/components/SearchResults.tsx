@@ -27,6 +27,7 @@ export default function SearchResults() {
 
       try {
         const response = await axios.get<{ items: GoogleBook[] }>(url);
+        console.log(response.data)
         setBooks(response.data.items || []);
       } catch (err) {
         console.error("Error fetching books:", err);
@@ -85,6 +86,9 @@ export default function SearchResults() {
                     <strong>Authors:</strong>{" "}
                     {book.volumeInfo.authors.join(", ")}
                   </p>
+                )}
+                {book.volumeInfo.pageCount && (
+                  <p>Pages: {book.volumeInfo.pageCount}</p>
                 )}
                 {book.volumeInfo.publishedDate && (
                   <p className="mb-4 text-dark-brown">

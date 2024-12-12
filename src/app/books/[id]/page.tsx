@@ -56,34 +56,33 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
   }
 
   return (
-    <div>
-      <div key={book?.id}>
+    <div className="w-screen flex flex-col justify-center items-center">
+      <div key={book?.id} className="pt-20 w-screen flex flex-col justify-center items-center">
         {book?.volumeInfo && (
-          <div>
-            <div>
-              <Image
-                src={
-                  book?.volumeInfo?.imageLinks?.thumbnail ??
-                  "/default-thumbnail.jpg"
-                }
-                alt={book?.volumeInfo?.title || "Book thumbnail"}
-                width={128}
-                height={192}
-              />
+          <div className="flex flex-col justify-center items-center gap-4">
+            <Image
+              src={
+                book?.volumeInfo?.imageLinks?.thumbnail ??
+                "/default-thumbnail.jpg"
+              }
+              alt={book?.volumeInfo?.title || "Book thumbnail"}
+              width={150}
+              height={192}
+              className="justify-center items-center"
+            />
 
-              <h1>{book.volumeInfo.title}</h1>
-              <p>
-                {book.volumeInfo.authors?.join(", ") ??
-                  "Author information not available."}
-              </p>
-              <p>
-                {book.volumeInfo.publishedDate ??
-                  "Publication date not available"}
-              </p>
-              <p>
-                {book.volumeInfo.description ?? "Description not available"}
-              </p>
-            </div>
+            <h1 className="text-center text-2xl font-bold ">{book.volumeInfo.title}</h1>
+            <p className="text-center text-main-orange">
+              {book.volumeInfo.authors?.join(", ") ??
+                "Author information not available."}
+            </p>
+            <p className="text-center">
+              {book.volumeInfo.publishedDate ??
+                "Publication date not available"}
+            </p>
+            <p className="text-center">
+              {book.volumeInfo.description ?? "Description not available"}
+            </p>
           </div>
         )}
       </div>
