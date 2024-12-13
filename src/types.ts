@@ -47,18 +47,15 @@ export interface Verification {
   createdAt?: Date;
 }
 
-// Book Interface
+
 export interface Book {
   id: string;
   title: string;
-  author: string;
-  isbn: string;
-  publicationDate: Date;
-  genre?: string;
+  author?: string;
   description?: string;
-  totalPages: number;
-  createdAt: Date;
-  updatedAt: Date;
+  pageCount?: number;
+  categorie?: string[];
+  thumbnail?: string;
 }
 
 export interface GoogleBook {
@@ -119,16 +116,6 @@ export interface ReadingList {
   addedAt: Date;
 }
 
-// UserBooks Interface for tracking user-specific book progress
-export interface UserBook {
-  id: string;
-  userId: string;
-  bookId: string;
-  pagesRead: number;
-  completedAt?: Date;
-}
-
-// BookRating Interface for rating books
 export interface BookRating {
   id: number;
   bookId: string;
@@ -137,7 +124,6 @@ export interface BookRating {
   ratedAt: Date;
 }
 
-// BookComment Interface for commenting on books
 export interface BookComment {
   id: number;
   bookId: string;
@@ -146,7 +132,6 @@ export interface BookComment {
   createdAt: Date;
 }
 
-// Post Interface
 export interface Post {
   id: string;
   title: string;
@@ -157,7 +142,6 @@ export interface Post {
   updatedAt: Date;
 }
 
-// PostRating Interface for rating posts
 export interface PostRating {
   id: number;
   postId: string;
