@@ -31,6 +31,14 @@ export interface Account {
   password?: string;
 }
 
+export interface UserBooks {
+  id: string;
+  userId: string;
+  bookId: string;
+  createdAt: Date;
+}
+
+
 export interface Verification {
   id: string;
   identifier: string;
