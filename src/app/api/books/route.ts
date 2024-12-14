@@ -26,7 +26,6 @@ export async function POST(req: NextRequest) {
             return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
         }
 
-
         const body: Book = await req.json() as Book;
         const { id, title, description } = body;
 
@@ -59,6 +58,8 @@ export async function POST(req: NextRequest) {
             id: uuidv4(),
             userId,
             bookId: id,
+            status: '', 
+            createdAt: new Date(),
         });
         console.log(`Book ${id} successfully linked to user ${userId}`);
         return NextResponse.json({ message: 'Book saved and linked to user successfully' }, { status: 201 });
