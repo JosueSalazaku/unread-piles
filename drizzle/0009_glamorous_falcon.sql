@@ -1,0 +1,1 @@
+ALTER TABLE "userBooks" ALTER COLUMN "createdAt" SET DEFAULT now();

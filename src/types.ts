@@ -35,6 +35,7 @@ export interface UserBooks {
   id: string;
   userId: string;
   bookId: string;
+  status: string;
   createdAt: Date;
 }
 
