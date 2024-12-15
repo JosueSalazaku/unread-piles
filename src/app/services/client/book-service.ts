@@ -1,8 +1,7 @@
 import axios from "axios";
-import type { GoogleBook } from "@/types";
+import type { GoogleBook, SaveBookProps } from "@/types";
 
 const APIKey = process.env.NEXT_PUBLIC_GOOGLE_BOOKS_API_KEY;
-const url = `https://www.googleapis.com/books/v1/volumes?q=random&key=${APIKey}`;
 
 export const fetchGeneralBook = async (): Promise<GoogleBook[]> => {
     if (!APIKey) {
@@ -11,7 +10,7 @@ export const fetchGeneralBook = async (): Promise<GoogleBook[]> => {
     }
 
     try {
-        const response = await axios.get<{ items: GoogleBook[] }>(url);
+        const response = await axios.get<{ items: GoogleBook[] }>(`https://www.googleapis.com/books/v1/volumes?q=random&key=${APIKey}`);
         return response.data.items || [];
     } catch (error) {
         console.error("Error fetching general books:", error);
@@ -38,3 +37,4 @@ export const fetchBookByInput = async (query: string, startIndex: number, maxRes
     }
     
 }
+

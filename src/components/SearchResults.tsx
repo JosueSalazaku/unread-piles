@@ -3,7 +3,7 @@ import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import FadeLoader from "react-spinners/FadeLoader";
 import type { GoogleBook } from "@/types";
-import { fetchBookByInput } from "@/app/services/book-service";
+import { fetchBookByInput } from "@/app/services/client/book-service";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -24,7 +24,11 @@ export default function SearchResults() {
       setError(null);
 
       try {
-        const fetchedBooks = await fetchBookByInput(query, startIndex, maxResults);
+        const fetchedBooks = await fetchBookByInput(
+          query,
+          startIndex,
+          maxResults,
+        );
         setBooks(fetchedBooks);
       } catch {
         setError("Failed to fetch books. Please try again.");

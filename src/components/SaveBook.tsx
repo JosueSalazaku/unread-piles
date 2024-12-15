@@ -1,11 +1,9 @@
 import React, { useState } from "react";
 import type { SaveBookProps, Book  } from "@/types";
-import { number } from "zod";
 
 export function SaveBook({ bookId, status }: SaveBookProps) {
     const [saved, setSaved] = useState<boolean>(false);
 
-    const saveData: Book = { id: bookId, title: "", author: "" }
 
     function handleSavingBook() {
         //
