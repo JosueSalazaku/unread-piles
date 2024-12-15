@@ -1,5 +1,5 @@
 "use client";
-import GoogleBooks from "@/components/GoogleBooks";
+import GeneralBooks from "@/components/GeneralBooks";
 import { useCustomSession } from "@/components/SessionProvider";
 import Link from "next/link";
 import React from "react";
@@ -17,7 +17,7 @@ export default function Home() {
           <p className="mt-2">
             Enjoy exploring your personalized book collection!
           </p>
-          <GoogleBooks />
+          <GeneralBooks />
         </>
       ) : (
         <div className="flex flex-col gap-4">
