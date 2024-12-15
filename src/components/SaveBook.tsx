@@ -1,12 +1,19 @@
 import React, { useState } from "react";
-import type { SaveBookProps, Book  } from "@/types";
+import type { SaveBookProps } from "@/types";
+import { saveUserBook } from "@/app/services/backend/book-service";
 
-export function SaveBook({ bookId, status }: SaveBookProps) {
+export function SaveBook({ bookId, title, author, status }: SaveBookProps) {
     const [saved, setSaved] = useState<boolean>(false);
 
 
-    function handleSavingBook() {
-        //
+    async function handleSavingBook() {
+        try {
+            const saveBookByUser = await saveUserBook(bookId, title, author, status);
+
+        } catch (error) {
+            
+        }
+
     }
 
     function handleStatusChange() {

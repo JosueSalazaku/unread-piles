@@ -172,7 +172,7 @@ export interface PictureDropdownProps {
 
 export interface SaveBookProps {
   bookId: string;
-  status: string | null;
+  status: string
   title: string;
-  author?: string;
+  author: string;
 }

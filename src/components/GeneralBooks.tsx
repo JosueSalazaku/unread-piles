@@ -86,7 +86,7 @@ export default function GeneralBooks({ status, bookId }: SaveBookProps) {
                   bookId={book.id}
                   status="later"
                   title={book.volumeInfo.title}
-                  author={book.volumeInfo.authors?.join(", ")}
+                  author={book.volumeInfo.authors?.join(", ") ?? "Unknown Author"}
                 />
 
                 <p className="text-sm font-thin">
