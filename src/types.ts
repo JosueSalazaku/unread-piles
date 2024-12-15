@@ -39,7 +39,6 @@ export interface UserBooks {
   createdAt: Date;
 }
 
-
 export interface Verification {
   id: string;
   identifier: string;
@@ -47,7 +46,6 @@ export interface Verification {
   expiresAt: Date;
   createdAt?: Date;
 }
-
 
 export interface Book {
   id: string;
@@ -152,22 +150,29 @@ export interface PostRating {
 }
 
 export interface PictureDropdownProps {
-    session: {
-      data?: {
-        session?: {
-          id: string;
-          userId: string;
-          expiresAt: Date;
-          ipAddress?: string | null;
-          userAgent?: string | null;
-        } | null;
-        user?: {
-          id: string;
-          name: string;
-          email: string;
-          image?: string | null;
-        } | null;
+  session: {
+    data?: {
+      session?: {
+        id: string;
+        userId: string;
+        expiresAt: Date;
+        ipAddress?: string | null;
+        userAgent?: string | null;
       } | null;
-    };
-    toggleDropdown: () => void;
-  }
+      user?: {
+        id: string;
+        name: string;
+        email: string;
+        image?: string | null;
+      } | null;
+    } | null;
+  };
+  toggleDropdown: () => void;
+}
+
+export interface SaveBookProps {
+  bookId: string;
+  status: string | null;
+  title: string;
+  author?: string;
+}

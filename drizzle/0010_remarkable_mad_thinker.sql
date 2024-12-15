@@ -1,0 +1,1 @@
+ALTER TABLE "userBooks" RENAME COLUMN "status" TO "currentStatus";

@@ -3,13 +3,16 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import FadeLoader from "react-spinners/FadeLoader";
-import type { GoogleBook } from "@/types";
+import type { GoogleBook, SaveBookProps } from "@/types";
 import { fetchGeneralBook } from "@/app/services/book-service";
+import { SaveBook } from "./SaveBook";
 
-export default function GeneralBooks() {
+export default function GeneralBooks({status, bookId} : SaveBookProps) {
     const [books, setBooks] = useState<GoogleBook[]>([]);
     const [error, setError] = useState<string | null>(null);
     const [loading, setLoading] = useState(true);
+
+    
 
     useEffect(() => {
         async function loadBooks() {
@@ -81,6 +84,13 @@ export default function GeneralBooks() {
                                         <strong>Published:</strong> {book.volumeInfo.publishedDate}
                                     </p>
                                 )}
+                                <SaveBook 
+                                    bookId={book.id} 
+                                    status='later'
+                                    title={book.volumeInfo.title} 
+                                    author={book.volumeInfo.authors?.join(", ")} 
+                                />
+
                                 <p className="text-sm font-thin">
                                     {book.volumeInfo.description}
                                 </p>
