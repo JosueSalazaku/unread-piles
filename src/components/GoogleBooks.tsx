@@ -5,6 +5,7 @@ import axios from "axios";
 import type { GoogleBook } from "@/types";
 import Link from "next/link";
 import FadeLoader from "react-spinners/FadeLoader";
+import { SaveBook } from "./SaveBook";
 
 export default function GoogleBooks() {
   const APIKey = process.env.NEXT_PUBLIC_GOOGLE_BOOKS_API_KEY;
@@ -90,6 +91,7 @@ export default function GoogleBooks() {
                     <strong>Published:</strong> {book.volumeInfo.publishedDate}
                   </p>
                 )}
+                <SaveBook />
                 <p className="text-sm font-thin">
                   {book.volumeInfo.description}
                 </p>
