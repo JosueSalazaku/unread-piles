@@ -1,14 +1,13 @@
 "use client";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
-import axios from "axios";
+import FadeLoader from "react-spinners/FadeLoader";
 import type { GoogleBook } from "@/types";
+import { fetchBookByInput } from "@/app/services/book-service";
 import Image from "next/image";
 import Link from "next/link";
-import FadeLoader from "react-spinners/FadeLoader";
 
 export default function SearchResults() {
-  const APIKey = process.env.NEXT_PUBLIC_GOOGLE_BOOKS_API_KEY;
   const searchParams = useSearchParams();
   const query = searchParams.get("s");
 
@@ -19,27 +18,23 @@ export default function SearchResults() {
   const maxResults = 10;
 
   useEffect(() => {
-    async function fetchBooks() {
+    async function loadBooks() {
       if (!query) return;
       setLoading(true);
       setError(null);
 
-      const url = `https://www.googleapis.com/books/v1/volumes?q=${query}&key=${APIKey}&startIndex=${startIndex}&maxResults=${maxResults}`;
-
       try {
-        const response = await axios.get<{ items: GoogleBook[] }>(url);
-        console.log(response.data);
-        setBooks(response.data.items || []);
-      } catch (err) {
-        console.error("Error fetching books:", err);
+        const fetchedBooks = await fetchBookByInput(query, startIndex, maxResults);
+        setBooks(fetchedBooks);
+      } catch {
         setError("Failed to fetch books. Please try again.");
       } finally {
         setLoading(false);
       }
     }
 
-    void fetchBooks();
-  }, [query, startIndex, APIKey]);
+    void loadBooks();
+  }, [query, startIndex]);
 
   const handleNextPage = () => {
     setStartIndex((prevIndex) => prevIndex + maxResults);
