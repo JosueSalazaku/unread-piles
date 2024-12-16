@@ -4,7 +4,7 @@ import { account } from "@/server/db/auth-schema";
 import { eq } from "drizzle-orm";
 import { NextResponse } from 'next/server'
 
-export default async function GET() {
+export async function GET() {
     try {
         const session = await getSession();
         const userId = session.data?.user.id;
