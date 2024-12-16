@@ -1,6 +1,6 @@
 import { type NextRequest, NextResponse } from 'next/server'
 import { db } from '@/server/db'
-import { book, userBooks } from '@/server/db/auth-schema'
+import { account, book, userBooks } from '@/server/db/auth-schema'
 import type { Book } from '@/types';
 import { eq, and } from "drizzle-orm";
 import { getSession } from '@/app/lib/auth-client';
@@ -25,6 +25,17 @@ export async function POST(req: NextRequest) {
             console.warn('Unauthorized access attempt, no user ID found in session');
             return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
         }
+
+        // Query for the access token from the account table using the userId
+        const userAccount = await db.select().from(account).where(eq(account.userId, userId)).limit(1);
+
+        if (userAccount.length === 0) {
+            console.warn('No account found for this user');
+            return NextResponse.json({ error: 'No account found' }, { status: 401 });
+        }
+
+        const accessToken = userAccount[0]?.accessToken;
+        console.log('Access Token:', accessToken);
 
         const body: Book = await req.json() as Book;
         const { id, title, authors } = body;

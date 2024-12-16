@@ -1,12 +1,19 @@
 import React, { useState } from "react";
 import type { SaveBookProps } from "@/types";
 import { saveUserBook } from "@/app/services/backend/book-service";
+import { useCustomSession } from "./SessionProvider";
 
 export function SaveBook({ bookId, title, author, status }: SaveBookProps) {
     const [saved, setSaved] = useState<boolean>(false);
 
+    const session = useCustomSession();
+    const userId = session.data?.user?.id
 
     async function handleSavingBook() {
+        if (!userId) {
+            return <div>Log in to save books</div>
+        }
+
         try {
             const saveBookByUser = await saveUserBook(bookId, title, author, status);
 
