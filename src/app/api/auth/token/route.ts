@@ -4,16 +4,17 @@ import { account } from "@/server/db/auth-schema";
 import { eq } from "drizzle-orm";
 import { NextResponse } from 'next/server'
 
-export default async function getAccessTokens() {
+export default async function GET() {
     try {
         const session = await getSession();
-        const userId = session.data?.user.id
+        const userId = session.data?.user.id;
+
         if (!userId) {
             return NextResponse.json({ error: "Unauthorized: No user ID found" }, { status: 401 });
         }
 
         const userAccount = await db.select().from(account).where(eq(account.userId, userId)).limit(1);
-        
+
         // If no account is found for the user
         if (userAccount.length === 0) {
             console.warn('No account found for this user');
@@ -22,7 +23,7 @@ export default async function getAccessTokens() {
 
         const accessToken = userAccount[0]?.accessToken;
         if (!accessToken) {
-            return NextResponse.json({ error: "Access token not found" }, { status: 404 });
+            return NextResponse.json({ error: "Access token not found" }, { status: 401 }); 
         }
 
         // Return the access token in the response
