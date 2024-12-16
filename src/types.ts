@@ -50,7 +50,7 @@ export interface Verification {
 export interface Book {
   id: string;
   title: string;
-  author?: string;
+  authors?: string;
   description?: string;
   pageCount?: number;
   categorie?: string[];
@@ -87,23 +87,6 @@ export interface VolumeInfo {
 export interface GoogleBook {
   id: string;
   volumeInfo: VolumeInfo;
-}
-
-// Author Interface
-export interface Author {
-  id: string;
-  name: string;
-  bio?: string;
-  createdAt: Date;
-  updatedAt: Date;
-}
-
-// Author-Books Relationship Interface
-export interface AuthorBook {
-  id: number;
-  authorId: string;
-  bookId: string;
-  contributedAt: Date;
 }
 
 // ReadingList Interface for tracking reading status

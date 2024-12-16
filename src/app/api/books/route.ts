@@ -27,7 +27,7 @@ export async function POST(req: NextRequest) {
         }
 
         const body: Book = await req.json() as Book;
-        const { id, title, description } = body;
+        const { id, title, authors } = body;
 
         if (!id || !title) {
             console.warn('Invalid request: Missing required fields', { id, title });
@@ -42,7 +42,7 @@ export async function POST(req: NextRequest) {
             await db.insert(book).values({
                 id,
                 title,
-                description,
+                authors,
             });
         }
 
