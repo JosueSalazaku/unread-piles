@@ -1,3 +1,5 @@
+import { finished } from "stream";
+
 // ReadingStatus Enum definition as a TypeScript Type
 export type ReadingStatus = "reading" | "completed" | "want_to_read";
 
@@ -158,4 +160,13 @@ export interface SaveBookProps {
   status: string
   title: string;
   author: string;
+}
+
+export interface Status {
+  saved: string,
+  currentlyReading: string
+  abandoned: string,
+  didNotFinish: string;
+  finished: string
+  remove: string,
 }

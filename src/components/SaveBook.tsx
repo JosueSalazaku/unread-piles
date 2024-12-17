@@ -27,7 +27,6 @@ export function SaveBook({ id, title, author, status }: SaveBookProps) {
             console.error("Failed to save the book:", error);
             setSaved(false);
         }
-
     }
 
     function handleStatusChange() {
