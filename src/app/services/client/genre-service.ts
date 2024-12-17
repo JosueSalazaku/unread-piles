@@ -30,4 +30,5 @@ export const fetchHistoryBooks = () => fetchBooksByGenre("history");
 export const fetchHorrorBooks = () => fetchBooksByGenre("horror");
 export const fetchPoetryBooks = () => fetchBooksByGenre("poetry");
 export const fetchBiographyBooks = () => fetchBooksByGenre("biography");
-export const fetchYoungAdultBooks = () => fetchBooksByGenre("young-adult");
+export const fetchYoungAdultBooks = () => fetchBooksByGenre("young+adult");
+export const fetchEducationBooks = () => fetchBooksByGenre("education");
