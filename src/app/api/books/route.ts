@@ -1,10 +1,11 @@
 import { type NextRequest, NextResponse } from 'next/server'
 import { db } from '@/server/db'
-import { account, book, userBooks } from '@/server/db/auth-schema'
+import { book, userBooks } from '@/server/db/auth-schema'
 import type { Book } from '@/types';
 import { eq, and } from "drizzle-orm";
-import { getSession } from '@/app/lib/auth-client';
 import { v4 as uuidv4 } from 'uuid';
+import { headers } from 'next/headers';
+import { auth } from '@/app/lib/auth';
 
 export async function GET() {
     try {
@@ -18,31 +19,22 @@ export async function GET() {
 
 export async function POST(req: NextRequest) {
     try {
-        const session = await getSession();
-        const userId = session?.data?.user.id;
+        // Fetch session using headers for authentication
+        const requestHeaders =  await headers();
+        const session = await auth.api.getSession({ headers: requestHeaders });
+        const userId = session?.user?.id;
 
         if (!userId) {
-            console.warn('Unauthorized access attempt, no user ID found in session');
+            console.warn("Unauthorized access attempt, no user ID found in session");
             return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
         }
-
-        // Query for the access token from the account table using the userId
-        const userAccount = await db.select().from(account).where(eq(account.userId, userId)).limit(1);
-
-        if (userAccount.length === 0) {
-            console.warn('No account found for this user');
-            return NextResponse.json({ error: 'No account found' }, { status: 401 });
-        }
-
-        const accessToken = userAccount[0]?.accessToken;
-        console.log('Access Token:', accessToken);
 
         const body: Book = await req.json() as Book;
         const { id, title, authors } = body;
 
         if (!id || !title) {
-            console.warn('Invalid request: Missing required fields', { id, title });
-            return NextResponse.json({ error: 'Missing required fields' }, { status: 400 });
+            console.warn("Invalid request: Missing required fields", { id, title });
+            return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
         }
 
         const existingBook = await db.query.book.findFirst({
@@ -62,18 +54,18 @@ export async function POST(req: NextRequest) {
         });
 
         if (existingUserBook) {
-            return NextResponse.json({ message: 'This book is already linked to the user' }, { status: 400 });
+            return NextResponse.json({ message: "This book is already linked to the user" }, { status: 400 });
         }
 
         await db.insert(userBooks).values({
             id: uuidv4(),
             userId,
             bookId: id,
-            status: '', 
+            status: "", 
             createdAt: new Date(),
         });
         console.log(`Book ${id} successfully linked to user ${userId}`);
-        return NextResponse.json({ message: 'Book saved and linked to user successfully' }, { status: 201 });
+        return NextResponse.json({ message: "Book saved and linked to user successfully" }, { status: 201 });
     } catch (error) {
         console.error("Error saving book:", error);
         return NextResponse.json({ error: "Error saving book" }, { status: 500 });
