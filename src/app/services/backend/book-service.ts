@@ -1,4 +1,4 @@
-import type { SaveBookProps } from "@/types";
+import type { SaveBookProps, UserBooks } from "@/types";
 import axios from "axios";
 
 const fetchAccessToken = async () => {
@@ -36,3 +36,21 @@ export const saveUserBook = async (id: string, title: string, author: string, st
         throw new Error("Could not save the book. Please try again.");
     }
 };
+
+export const fetchUserBooks = async (userId: string, bookId: string)  => {
+    try {
+        const response = await axios.get(`/api/books/${userId}/${bookId}`)
+        if (!response) {
+            throw new Error("Failed to fetch book data")
+        }
+        return response.data as UserBooks;
+    } catch (error) {
+        console.error("Error fetching book data:", error);
+        throw new Error("Could not fetch book data. Please try again.");
+    }
+}
+
+
+export const fetchBookStatus = async (userId: string, bookId: string)  => {
+    //
+}
