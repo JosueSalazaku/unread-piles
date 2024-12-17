@@ -1,14 +1,10 @@
-import { finished } from "stream";
-
-// ReadingStatus Enum definition as a TypeScript Type
-export type ReadingStatus = "reading" | "completed" | "want_to_read";
 
 export interface User {
   id: string;
   name: string | null;
   email: string | null;
   image: string | null;
-  passwordHash?: string; // Add this to the interface
+  passwordHash?: string;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -89,15 +85,6 @@ export interface VolumeInfo {
 export interface GoogleBook {
   id: string;
   volumeInfo: VolumeInfo;
-}
-
-// ReadingList Interface for tracking reading status
-export interface ReadingList {
-  id: string;
-  userId: string;
-  bookId: string;
-  status: ReadingStatus;
-  addedAt: Date;
 }
 
 export interface BookRating {

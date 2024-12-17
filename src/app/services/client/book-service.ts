@@ -1,5 +1,5 @@
 import axios from "axios";
-import type { GoogleBook, SaveBookProps } from "@/types";
+import type { GoogleBook } from "@/types";
 
 const APIKey = process.env.NEXT_PUBLIC_GOOGLE_BOOKS_API_KEY;
 
@@ -37,4 +37,3 @@ export const fetchBookByInput = async (query: string, startIndex: number, maxRes
     }
     
 }
-

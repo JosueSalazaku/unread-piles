@@ -29,18 +29,23 @@ export function SaveBook({ id, title, author, status }: SaveBookProps) {
         }
     }
 
-    function handleStatusChange() {
+    async function handleStatusChange() {
         // handle the changes in status for the readers/ User
+    }
+
+    async function handleBookRemoval() {
+        //
     }
 
     return (
         <>
             {savedBook ? (
                 <select onChange={handleStatusChange} className="bg-main-orange rounded text-white text-sm px-1 py-1" defaultValue={"Read"}>
+                    <option >Read</option>
                     <option>Currently Reading</option>
                     <option>Finished</option>
                     <option>Abandoned</option>
-                    <option>Remove Book</option>
+                    <option onClick={handleBookRemoval}>Remove Book</option>
                 </select>
             ) : (
                 <button onClick={handleSavingBook} className="bg-main-orange rounded text-white  text-sm px-2 py-1">Save to Library</button>
