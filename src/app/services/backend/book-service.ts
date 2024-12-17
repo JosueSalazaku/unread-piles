@@ -4,7 +4,7 @@ import axios from "axios";
 
 const fetchAccessToken = async () => {
     try {
-        const response = await axios.get<{ accessToken: string }>("/api/auth/tokens/access-token");
+        const response = await axios.get<{ accessToken: string }>("api/account/tokens");
         return response.data.accessToken;
     } catch (error) {
         console.error("Error fetching access token:", error);
