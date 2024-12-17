@@ -4,6 +4,7 @@ import { saveUserBook } from "@/app/services/backend/book-service";
 import { useCustomSession } from "./SessionProvider";
 
 export function SaveBook({ bookId, title, author, status }: SaveBookProps) {
+    const [savedBook, setSavedBook] = useState<SaveBookProps | null>(null);
     const [saved, setSaved] = useState<boolean>(false);
 
     const session = useCustomSession();
@@ -16,9 +17,15 @@ export function SaveBook({ bookId, title, author, status }: SaveBookProps) {
 
         try {
             const saveBookByUser = await saveUserBook(bookId, title, author, status);
+            setSavedBook(saveBookByUser)
+
+            if (saveBookByUser) {
+                setSaved(true); 
+            }
 
         } catch (error) {
-            
+            console.error("Failed to save the book:", error);
+            setSaved(false);
         }
 
     }
@@ -29,7 +36,7 @@ export function SaveBook({ bookId, title, author, status }: SaveBookProps) {
 
     return (
         <>
-            {saved ? (
+            {savedBook ? (
                 <select onChange={handleStatusChange} className="bg-main-orange rounded text-white text-sm px-1 py-1" defaultValue={"Read"}>
                     <option>Currently Reading</option>
                     <option>Finished</option>
