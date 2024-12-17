@@ -7,7 +7,7 @@ import type { GoogleBook, SaveBookProps } from "@/types";
 import { fetchGeneralBook } from "@/app/services/client/book-service";
 import { SaveBook } from "./SaveBook";
 
-export default function GeneralBooks({ status, bookId }: SaveBookProps) {
+export default function GeneralBooks({ status, id }: SaveBookProps) {
   const [books, setBooks] = useState<GoogleBook[]>([]);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
@@ -83,8 +83,8 @@ export default function GeneralBooks({ status, bookId }: SaveBookProps) {
                   </p>
                 )}
                 <SaveBook
-                  bookId={book.id}
-                  status="later"
+                  id={book.id}
+                  status=""
                   title={book.volumeInfo.title}
                   author={book.volumeInfo.authors?.join(", ") ?? "Unknown Author"}
                 />

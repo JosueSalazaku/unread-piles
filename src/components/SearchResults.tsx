@@ -6,6 +6,7 @@ import type { GoogleBook } from "@/types";
 import { fetchBookByInput } from "@/app/services/client/book-service";
 import Image from "next/image";
 import Link from "next/link";
+import { SaveBook } from "./SaveBook";
 
 export default function SearchResults() {
   const searchParams = useSearchParams();
@@ -104,6 +105,12 @@ export default function SearchResults() {
                     <strong>Published:</strong> {book.volumeInfo.publishedDate}
                   </p>
                 )}
+                <SaveBook
+                  id={book.id}
+                  status=""
+                  title={book.volumeInfo.title}
+                  author={book.volumeInfo.authors?.join(", ") ?? "Unknown Author"}
+                />
                 <p className="text-sm font-thin">
                   {book.volumeInfo.description}
                 </p>

@@ -57,6 +57,6 @@ export const userBooks = pgTable("userBooks", {
   id: text("id").primaryKey(),
   userId: text("userId").notNull().references(() => user.id),
   bookId: text("bookId").notNull().references(() => book.id),
-  status: text("currentStatus").notNull(),
+  status: text("status").notNull(),
   createdAt: timestamp("createdAt").defaultNow(),
 });

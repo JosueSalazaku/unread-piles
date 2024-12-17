@@ -11,14 +11,14 @@ const fetchAccessToken = async () => {
     }
 };
 
-export const saveUserBook = async (bookId: string, title: string, author: string, status: string): Promise<SaveBookProps> => {
+export const saveUserBook = async (id: string, title: string, author: string, status: string): Promise<SaveBookProps> => {
     try {
         const accessToken = await fetchAccessToken();
         if (!accessToken) {
             throw new Error("Access token not found.");
         }
 
-        const data: SaveBookProps = { bookId, title, author, status };
+        const data: SaveBookProps = { id, title, author, status };
 
         const response = await axios.post("/api/books", data, {
             headers: { Authorization: `Bearer ${accessToken}` },

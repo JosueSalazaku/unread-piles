@@ -22,6 +22,7 @@ export async function POST(req: NextRequest) {
         // Fetch session using headers for authentication
         const requestHeaders =  await headers();
         const session = await auth.api.getSession({ headers: requestHeaders });
+        console.log("Session:", session);
         const userId = session?.user?.id;
 
         if (!userId) {
@@ -30,6 +31,7 @@ export async function POST(req: NextRequest) {
         }
 
         const body: Book = await req.json() as Book;
+        console.log("Received Book Data:", body);
         const { id, title, authors } = body;
 
         if (!id || !title) {
