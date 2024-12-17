@@ -1,8 +1,6 @@
-import { auth } from "@/app/lib/auth";
 import { db } from "@/server/db";
 import { userBooks } from "@/server/db/auth-schema";
 import { NextResponse } from "next/server";
-
 
 export async function GET() {
     try {
