@@ -1,7 +1,7 @@
 "use client";
-import React, { useState, } from "react";
-import { fetchBooksByGenre } from "@/app/services/client/genre-service"; // assuming this is correct
-import { Book, GoogleBook } from "@/types";
+import React, { useState } from "react";
+import { fetchBooksByGenre } from "@/app/services/client/genre-service";
+import { type GoogleBook } from "@/types";
 
 const genres = [
   "fiction", "romance", "science-fiction", "mystery", "thriller",
@@ -35,11 +35,11 @@ export default function ExplorePage() {
       
       <div>
         <h1>Book Genres</h1>
-        <div className="flex gap-4">
+        <div className="flex flex-wrap gap-4 justify-center">
           {genres.map((genre) => (
             <button
               key={genre}
-              className="border gap-3 rounded px-4 "
+              className="border gap-3 rounded px-4 py-2"
               onClick={() => handleGenreClick(genre)}
             >
               {genre}
