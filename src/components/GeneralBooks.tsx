@@ -88,10 +88,6 @@ export default function GeneralBooks({ status, id }: SaveBookProps) {
                   title={book.volumeInfo.title}
                   author={book.volumeInfo.authors?.join(", ") ?? "Unknown Author"}
                 />
-
-                <p className="text-sm font-thin">
-                  {book.volumeInfo.description}
-                </p>
               </div>
             </div>
           </li>
