@@ -37,7 +37,7 @@ export const saveUserBook = async (id: string, title: string, author: string, st
     }
 };
 
-export const fetchUserBooks = async (userId: string, bookId: string)  => {
+export const fetchUserBooks = async (userId: string, bookId: string): Promise<UserBooks>  => {
     try {
         const response = await axios.get(`/api/userBooks/${userId}/${bookId}`)
         if (response.status !== 200) {
@@ -50,7 +50,17 @@ export const fetchUserBooks = async (userId: string, bookId: string)  => {
     }
 }
 
+export const updateUserBookStatus = async (userId: string, bookId: string, status: string): Promise<UserBooks>  => {
+    try {
+        const response = await axios.patch(`/api/userBooks`, { userId, bookId, status });
 
-export const fetchBookStatus = async (userId: string, bookId: string)  => {
-    //
+        if (response.status !== 200) {
+            throw new Error("Failed to update book status");
+        }
+
+        return response.data as UserBooks;
+    } catch (error) {
+        console.error("Error updating book status:", error);
+        throw new Error("Could not update book status. Please try again.");
+    }
 }

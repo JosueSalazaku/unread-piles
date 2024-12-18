@@ -15,12 +15,17 @@ export async function GET() {
 }
 
 export async function PATCH(req: NextRequest) {
-    const { userId, bookId, status } = await req.json() as UserBooks;
     try {
+        const { userId, bookId, status } = await req.json() as UserBooks;
+
+        if (!userId || !bookId || !status) {
+            return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
+        }
+
         await db.update(userBooks)
             .set({ status })
             .where(and(eq(userBooks.userId, userId), eq(userBooks.bookId, bookId)));
-        return NextResponse.json({ message: "Status updated successfully" });
+        return NextResponse.json({ message: "Status updated successfully" } , { status: 200 });
     } catch (error) {
         console.error("Error updating status:", error);
         return NextResponse.json({ error: "Error updating status" }, { status: 500 });
