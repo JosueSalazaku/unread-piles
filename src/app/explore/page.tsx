@@ -3,13 +3,19 @@ import React, { useState } from "react";
 import { fetchBooksByGenre } from "@/app/services/client/genre-service";
 import { type GoogleBook } from "@/types";
 import Image from "next/image";
+import FadeLoader from "react-spinners/FadeLoader";
 
 const genres = [
-  { name: "Fiction", string: "fiction" }, { name: "Romance", string: "romance" },
-  { name: "Science Fiction", string: "science-fiction" }, { name: "Mystery", string: "mystery" },
-  { name: "Thriller", string: "thriller" }, { name: "History", string: "history" },
-  { name: "Horror", string: "horror" }, { name: "Biography", string: "biography" },
-  { name: "Young Adult", string: "young+adults" }, { name: "Education", string: "education" }
+  { name: "Fiction", string: "fiction" },
+  { name: "Romance", string: "romance" },
+  { name: "Science Fiction", string: "science-fiction" },
+  { name: "Mystery", string: "mystery" },
+  { name: "Thriller", string: "thriller" },
+  { name: "History", string: "history" },
+  { name: "Horror", string: "horror" },
+  { name: "Biography", string: "biography" },
+  { name: "Young Adult", string: "young+adults" },
+  { name: "Education", string: "education" },
 ];
 
 export default function ExplorePage() {
@@ -52,15 +58,15 @@ export default function ExplorePage() {
         </div>
       </div>
 
-      {loading && <p>Loading...</p>}
+      {loading && <FadeLoader color="#912b12" />}
       {error && <p className="text-red-500">{error}</p>}
 
       {genreBooks.length > 0 ? (
         <div className="gap-4 mt-4">
           <h2 className="text-xl">Books in {selectedGenre} Genre:</h2>
-          <ul className="space-y-4"> 
+          <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4"> 
             {genreBooks.map((book: GoogleBook, index: number) => (
-              <li key={index} className="p-4 "> 
+              <li key={index} className="p-4">
                 <div className="flex gap-3">
                   <Image
                     src={book?.volumeInfo?.imageLinks?.thumbnail ?? "/path/to/fallback-image.jpg"}
@@ -69,8 +75,8 @@ export default function ExplorePage() {
                     height={150}
                   />
                   <div>
-                  <h1 className="font-bold text-xl">{book.volumeInfo.title}</h1>
-                  <p className="text-lg text-main-orange">{book.volumeInfo.authors}</p>
+                    <h1 className="font-bold text-xl">{book.volumeInfo.title}</h1>
+                    <p className="text-lg text-main-orange">{book.volumeInfo.authors}</p>
                   </div>
                 </div>
               </li>
