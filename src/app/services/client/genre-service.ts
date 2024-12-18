@@ -3,8 +3,7 @@ import axios from "axios";
 
 const APIKey = process.env.NEXT_PUBLIC_GOOGLE_BOOKS_API_KEY;
 
-
-const fetchBooksByGenre = async (genre: string): Promise<GoogleBook[]> => {
+export const fetchBooksByGenre = async (genre: string): Promise<GoogleBook[]> => {
     if (!APIKey) {
         console.error("Google Books API key is missing.");
         return [];
