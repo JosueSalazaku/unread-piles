@@ -44,7 +44,7 @@ export default function ExplorePage() {
       <h1 className="pt-20 text-2xl font-bold">Explore Books</h1>
       
       <div>
-        <h1>Book Genres</h1>
+        <h1 className="px-4 py-2">Book Genres</h1>
         <div className="flex flex-wrap gap-4 justify-center">
           {genres.map((genre) => (
             <button
@@ -63,11 +63,11 @@ export default function ExplorePage() {
 
       {genreBooks.length > 0 ? (
         <div className="gap-4 mt-4">
-          <h2 className="text-xl">Books in {selectedGenre} Genre:</h2>
+          <h2 className="text-xl px-4 py-2">Books in {selectedGenre} Genre:</h2>
           <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4"> 
             {genreBooks.map((book: GoogleBook, index: number) => (
               <li key={index} className="p-4">
-                <div className="flex gap-3">
+                <div className="flex gap-3 px-4">
                   <Image
                     src={book?.volumeInfo?.imageLinks?.thumbnail ?? "/path/to/fallback-image.jpg"}
                     alt={book.volumeInfo.title}
