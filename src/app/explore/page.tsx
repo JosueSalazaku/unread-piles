@@ -25,7 +25,6 @@ export default function ExplorePage() {
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string>("");
 
-  // Fetch books for the default "Fiction" genre on component mount
   useEffect(() => {
     const fetchDefaultBooks = async () => {
       setLoading(true);
@@ -100,6 +99,8 @@ export default function ExplorePage() {
                       <h1 className="font-bold text-xl">{book.volumeInfo.title}</h1>
                     </Link>  
                     <p className="text-lg text-main-orange">{book.volumeInfo.authors}</p>
+                    <p className="text-dark-brown font-medium">Pages: {book.volumeInfo.pageCount}</p>
+                    <p className="text-dark-brown font-medium">Published:  {book.volumeInfo.publishedDate}</p>
                   </div>
                 </div>
               </li>
