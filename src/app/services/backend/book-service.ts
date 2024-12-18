@@ -39,9 +39,9 @@ export const saveUserBook = async (id: string, title: string, author: string, st
 
 export const fetchUserBooks = async (userId: string, bookId: string)  => {
     try {
-        const response = await axios.get(`/api/books/${userId}/${bookId}`)
-        if (!response) {
-            throw new Error("Failed to fetch book data")
+        const response = await axios.get(`/api/userBooks/${userId}/${bookId}`)
+        if (response.status !== 200) {
+            throw new Error("Failed to fetch book data");
         }
         return response.data as UserBooks;
     } catch (error) {

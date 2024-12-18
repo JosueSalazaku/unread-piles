@@ -3,9 +3,11 @@ import type { SaveBookProps } from "@/types";
 import { saveUserBook } from "@/app/services/backend/book-service";
 import { useCustomSession } from "./SessionProvider";
 
-export function SaveBook({ id, title, author, status }: SaveBookProps) {
+export function SaveBook({ id, title, author, status: initialStatus }: SaveBookProps) {
     const [savedBook, setSavedBook] = useState<SaveBookProps | null>(null);
     const [saved, setSaved] = useState<boolean>(false);
+    const [status, setStatus] = useState<string>(initialStatus || "Read"); 
+
 
     const session = useCustomSession();
     const userId = session.data?.user?.id
