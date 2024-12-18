@@ -4,6 +4,7 @@ import { fetchBooksByGenre } from "@/app/services/client/genre-service";
 import { type GoogleBook } from "@/types";
 import Image from "next/image";
 import FadeLoader from "react-spinners/FadeLoader";
+import Link from "next/link";
 
 const genres = [
   { name: "Fiction", string: "fiction" },
@@ -86,14 +87,18 @@ export default function ExplorePage() {
             {genreBooks.map((book: GoogleBook, index: number) => (
               <li key={index} className="p-4 ">
                 <div className="flex gap-3 px-4">
+                <Link href={`/books/${book.id}`}>
                   <Image
                     src={book?.volumeInfo?.imageLinks?.thumbnail ?? "/path/to/fallback-image.jpg"}
                     alt={book.volumeInfo.title}
                     width={100}
                     height={150}
-                  />
+                    />
+                </Link>
                   <div>
-                    <h1 className="font-bold text-xl">{book.volumeInfo.title}</h1>
+                    <Link href={`/books/${book.id}`}>
+                      <h1 className="font-bold text-xl">{book.volumeInfo.title}</h1>
+                    </Link>  
                     <p className="text-lg text-main-orange">{book.volumeInfo.authors}</p>
                   </div>
                 </div>
