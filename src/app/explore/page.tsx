@@ -2,10 +2,14 @@
 import React, { useState } from "react";
 import { fetchBooksByGenre } from "@/app/services/client/genre-service";
 import { type GoogleBook } from "@/types";
+import Image from "next/image";
 
 const genres = [
-  "fiction", "romance", "science-fiction", "mystery", "thriller",
-  "history", "horror", "biography", "young-adult", "education"
+  { name: "Fiction", string: "fiction" }, { name: "Romance", string: "romance" },
+  { name: "Science Fiction", string: "science-fiction" }, { name: "Mystery", string: "mystery" },
+  { name: "Thriller", string: "thriller" }, { name: "History", string: "history" },
+  { name: "Horror", string: "horror" }, { name: "Biography", string: "biography" },
+  { name: "Young Adult", string: "young+adults" }, { name: "Education", string: "education" }
 ];
 
 export default function ExplorePage() {
@@ -38,11 +42,11 @@ export default function ExplorePage() {
         <div className="flex flex-wrap gap-4 justify-center">
           {genres.map((genre) => (
             <button
-              key={genre}
+              key={genre.name}
               className="border gap-3 rounded px-4 py-2"
-              onClick={() => handleGenreClick(genre)}
+              onClick={() => handleGenreClick(genre.string)} 
             >
-              {genre}
+              {genre.name}
             </button>
           ))}
         </div>
@@ -52,11 +56,24 @@ export default function ExplorePage() {
       {error && <p className="text-red-500">{error}</p>}
 
       {genreBooks.length > 0 ? (
-        <div>
-          <h2 className="mt-4 text-xl">Books in {selectedGenre} Genre:</h2>
-          <ul>
+        <div className="gap-4 mt-4">
+          <h2 className="text-xl">Books in {selectedGenre} Genre:</h2>
+          <ul className="space-y-4"> 
             {genreBooks.map((book: GoogleBook, index: number) => (
-              <li key={index}>{book.volumeInfo.title}</li> // Assuming 'volumeInfo.title' exists
+              <li key={index} className="p-4 "> 
+                <div className="flex gap-3">
+                  <Image
+                    src={book?.volumeInfo?.imageLinks?.thumbnail ?? "/path/to/fallback-image.jpg"}
+                    alt={book.volumeInfo.title}
+                    width={100}
+                    height={150}
+                  />
+                  <div>
+                  <h1 className="font-bold text-xl">{book.volumeInfo.title}</h1>
+                  <p className="text-lg text-main-orange">{book.volumeInfo.authors}</p>
+                  </div>
+                </div>
+              </li>
             ))}
           </ul>
         </div>
