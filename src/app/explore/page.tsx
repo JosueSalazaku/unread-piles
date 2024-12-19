@@ -7,8 +7,7 @@ import FadeLoader from "react-spinners/FadeLoader";
 import Link from "next/link";
 import { GrNext } from "react-icons/gr";
 import { GrPrevious } from "react-icons/gr";
-
-
+import { SaveBook } from "@/components/SaveBook";
 
 const genres = [
   { name: "Fiction", string: "fiction" },
@@ -52,7 +51,7 @@ export default function ExplorePage() {
 
   const handleGenreClick = async (genre: string) => {
     setSelectedGenre(genre);
-    setCurrentPage(1); // Reset to first page when genre is changed
+    setCurrentPage(1);
     setLoading(true);
     setError("");
 
@@ -99,25 +98,31 @@ export default function ExplorePage() {
       {genreBooks.length > 0 ? (
         <div className="gap-4 mt-8">
           <h2 className="text-xl px-4 py-2">Books in {selectedGenre} Genre:</h2>
-          <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+          <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
             {genreBooks.map((book, index) => (
               <li key={index} className="p-4">
-                <div className="flex gap-5 px-4">
+                <div className="flex flex-col items-center gap-5 px-4">
                   <Link href={`/books/${book.id}`}>
                     <Image
-                      src={book?.volumeInfo?.imageLinks?.thumbnail ?? "/path/to/fallback-image.jpg"}
-                      alt={book.volumeInfo.title}
-                      width={100}
-                      height={150}
+                      src={book.volumeInfo.imageLinks?.thumbnail ?? "/path/to/default-image.jpg"}
+                      alt={book.volumeInfo.title ?? ""}
+                      width={150} 
+                      height={225} 
+                      className="rounded-md object-cover"
                     />
                   </Link>
-                  <div>
+                  <div className="text-center">
                     <Link href={`/books/${book.id}`}>
-                      <h1 className="font-bold text-xl">{book.volumeInfo.title}</h1>
+                      <h1 className="font-bold text-lg mb-3 sm:text-xl">{book.volumeInfo.title}</h1>
                     </Link>
-                    <p className="text-lg text-main-orange">{book.volumeInfo.authors}</p>
-                    <p className="text-dark-brown font-medium">Pages: {book.volumeInfo.pageCount}</p>
-                    <p className="text-dark-brown font-medium">Published: {book.volumeInfo.publishedDate}</p>
+                    {/* <p className="text-main-orange text-sm sm:text-base">{book.volumeInfo.authors}</p>
+                    <p className="text-dark-brown font-medium text-sm sm:text-base mb-4">Pages: {book.volumeInfo.pageCount}</p> */}
+                    <SaveBook 
+                      id={book.id} 
+                      status={""} 
+                      title={book.volumeInfo.title} 
+                      author={book.volumeInfo.authors?.join(", ") ?? ""} 
+                    />
                   </div>
                 </div>
               </li>
