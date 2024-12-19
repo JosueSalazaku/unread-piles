@@ -71,7 +71,7 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
     <div className="w-screen flex flex-col justify-center items-center">
       <div key={book?.id} className="pt-20 w-screen flex flex-col justify-center items-center">
         {book?.volumeInfo && (
-          <div className="flex flex-col justify-center px-10 gap-4">
+          <div className="flex flex-col justify-center px-14 lg:px-28 gap-4">
             <div className="gap-4 flex">
             <Image
               src={
