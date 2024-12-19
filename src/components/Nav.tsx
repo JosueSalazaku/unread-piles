@@ -23,7 +23,7 @@ export function Nav() {
         href="/"
         className="text-main text-main text-xl font-bold sm:text-2xl"
       >
-        UP
+        <p className="text-sm font-bold">UNREAD <br /> PILES</p>
       </Link>
 
       {/* Right Section */}

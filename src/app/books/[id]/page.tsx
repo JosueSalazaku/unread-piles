@@ -18,6 +18,7 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
   const bookTitle = book?.volumeInfo.title;
   const bookAuthor = book?.volumeInfo.authors;
   const publishedDate = book?.volumeInfo.publishedDate;
+  const pageCount = book?.volumeInfo.pageCount
   const bookDescription = book?.volumeInfo.description;
   
   useEffect(() => {
@@ -70,30 +71,39 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
     <div className="w-screen flex flex-col justify-center items-center">
       <div key={book?.id} className="pt-20 w-screen flex flex-col justify-center items-center">
         {book?.volumeInfo && (
-          <div className="flex flex-col justify-center items-center gap-4">
+          <div className="flex flex-col justify-center px-10 gap-4">
+            <div className="gap-4 flex">
             <Image
               src={
                 booksCover ??
                 "/default-thumbnail.jpg"
               }
               alt={book?.volumeInfo?.title || "Book thumbnail"}
-              width={150}
+              width={250}
               height={192}
               className="justify-center items-center"
-            />
-
-            <h1 className="text-center text-2xl font-bold ">{bookTitle}</h1>
-            <p className="text-center text-main-orange">
+              />
+              <div>
+              <h1 className="text-3xl font-bold ">{bookTitle}</h1>
+              <p className=" text-xl font-bold text-main-orange">
               {bookAuthor?.join(", ") ??
                 "Author information not available."}
             </p>
-            <p className="text-center">
+              </div>
+
+            </div>
+            <div>
+              <p className="font-medium text-xl">Pages: {pageCount}</p>
+            <p className=" font-medium text-xl">
              Published: {publishedDate ??
                 "Publication date not available"}
             </p>
-            <p className="text-center">
+            </div>
+            <div className=" py-4 border-t-1 border-main-orange">
+            <p className="">
               {bookDescription?? "Description not available"}
             </p>
+            </div>
           </div>
         )}
       </div>
