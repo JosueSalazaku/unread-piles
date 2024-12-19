@@ -157,3 +157,9 @@ export interface Status {
   finished: string
   remove: string,
 }
+
+
+export interface GoogleBooksApiResponse {
+  items: GoogleBook[];  // List of books
+  totalItems: number;   // Total number of books in the genre
+}
