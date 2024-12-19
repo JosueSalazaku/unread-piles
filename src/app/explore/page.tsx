@@ -24,31 +24,37 @@ export default function ExplorePage() {
   const [genreBooks, setGenreBooks] = useState<GoogleBook[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string>("");
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const [startIndex, setStartIndex] = useState(0);
+  const maxResults = 20; 
 
   useEffect(() => {
-    const fetchDefaultBooks = async () => {
+    const fetchBooks = async () => {
       setLoading(true);
       try {
-        const books = await fetchBooksByGenre("fiction");
+        const startIndex = (currentPage - 1) * maxResults; 
+        const books = await fetchBooksByGenre(selectedGenre, startIndex);
         setGenreBooks(books);
-      } catch (err) {
-        setError("Error fetching books for Fiction. Please try again.");
+      } catch (error) {
+        setError("Error fetching books. Please try again.");
       } finally {
         setLoading(false);
       }
     };
-    void fetchDefaultBooks();
-  }, []);
+  
+    void fetchBooks();
+  }, [selectedGenre, currentPage]);
 
   const handleGenreClick = async (genre: string) => {
     setSelectedGenre(genre);
+    setStartIndex(0);
     setLoading(true);
     setError("");
 
     try {
-      const books = await fetchBooksByGenre(genre);
+      const books = await fetchBooksByGenre(genre, 0); 
       setGenreBooks(books);
-    } catch (err) {
+    } catch (error) {
       setError(`Error fetching books for ${genre}. Please try again.`);
     } finally {
       setLoading(false);
@@ -80,12 +86,12 @@ export default function ExplorePage() {
       {error && <p className="text-red-500">{error}</p>}
 
       {genreBooks.length > 0 ? (
-        <div className="gap-4 mt-4">
+        <div className="gap-4 mt-8">
           <h2 className="text-xl px-4 py-2">Books in {selectedGenre} Genre:</h2>
           <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
             {genreBooks.map((book: GoogleBook, index: number) => (
               <li key={index} className="p-4 ">
-                <div className="flex gap-3 px-4">
+                <div className="flex gap-5 px-4">
                 <Link href={`/books/${book.id}`}>
                   <Image
                     src={book?.volumeInfo?.imageLinks?.thumbnail ?? "/path/to/fallback-image.jpg"}

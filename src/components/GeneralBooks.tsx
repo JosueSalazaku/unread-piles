@@ -53,7 +53,7 @@ export default function GeneralBooks({ status, id }: SaveBookProps) {
                 <Link href={`/books/${book.id}`}>
                   <Image
                     src={book.volumeInfo.imageLinks.thumbnail}
-                    alt={book.volumeInfo.title}
+                    alt={book.volumeInfo.title ?? ""}
                     width={128}
                     height={192}
                     className="rounded-md"
