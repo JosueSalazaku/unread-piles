@@ -1,5 +1,5 @@
-"use client";
-import { useState } from "react";
+"use client"
+import { useState, useEffect } from "react";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { MdClose } from "react-icons/md";
 import Link from "next/link";
@@ -11,36 +11,33 @@ import { signOut } from "@/app/lib/auth-client";
 
 export function Nav() {
   const session = useCustomSession();
+  const [isClient, setIsClient] = useState(false); 
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
 
   const [isOpen, setIsOpen] = useState(false);
-
   const toggleDropdown = () => setIsOpen(!isOpen);
 
   return (
     <nav className="flex h-16 w-full items-center justify-between border-b-2 border-dark-brown px-4 sm:px-6">
       {/* Logo */}
-      <Link
-        href="/"
-        className="text-main text-main text-xl font-bold sm:text-2xl"
-      >
+      <Link href="/" className="text-main text-main text-xl font-bold sm:text-2xl">
         <p className="text-sm font-bold">UNREAD <br /> PILES</p>
       </Link>
 
       {/* Right Section */}
       <div className="flex items-center space-x-4">
-        {/* SearchBooks component visible on all screen sizes */}
-        <SearchBooks />
+        {/* Render SearchBooks only if on the client side */}
+        {isClient && session.data?.user && <SearchBooks />}
 
         {/* Large Screen Nav Items */}
         <div className="hidden items-center space-x-6 md:flex">
           {session.data?.user && (
             <>
-              <Link href="/explore" className="hover:underline">
-                Explore
-              </Link>
-              <Link href="/library" className="hover:underline">
-                Library
-              </Link>
+              <Link href="/explore" className="hover:underline">Explore</Link>
+              <Link href="/library" className="hover:underline">Library</Link>
             </>
           )}
           <ModdeToggle />
@@ -71,39 +68,13 @@ export function Nav() {
 
       {/* Mobile Dropdown Menu */}
       {isOpen && (
-        <div
-          className="absolute left-0 right-0 top-16 z-50 flex flex-col space-y-4 bg-main-orange p-4 text-lg shadow-md md:hidden"
-        >
+        <div className="absolute left-0 right-0 top-16 z-50 flex flex-col space-y-4 bg-main-orange p-4 text-lg shadow-md md:hidden">
           {session.data?.user ? (
             <>
-              <Link
-                href="/profile"
-                onClick={() => setIsOpen(false)}
-                className="rounded py-2 p-4 hover:bg-light-orange dark:hover:bg-orange-950"
-              >
-                Profile
-              </Link>
-              <Link
-                href="/settings"
-                onClick={() => setIsOpen(false)}
-                className="rounded py-2 p-4 hover:bg-light-orange dark:hover:bg-orange-950"
-              >
-                Settings
-              </Link>
-              <Link
-                href="/explore"
-                onClick={() => setIsOpen(false)}
-                className="rounded py-2 p-4 hover:bg-light-orange dark:hover:bg-orange-950"
-              >
-                Explore
-              </Link>
-              <Link
-                href="/library"
-                onClick={() => setIsOpen(false)}
-                className="rounded py-2 p-4 hover:bg-light-orange dark:hover:bg-orange-950"
-              >
-                Library
-              </Link>
+              <Link href="/profile" onClick={() => setIsOpen(false)} className="rounded py-2 p-4 hover:bg-light-orange dark:hover:bg-orange-950">Profile</Link>
+              <Link href="/settings" onClick={() => setIsOpen(false)} className="rounded py-2 p-4 hover:bg-light-orange dark:hover:bg-orange-950">Settings</Link>
+              <Link href="/explore" onClick={() => setIsOpen(false)} className="rounded py-2 p-4 hover:bg-light-orange dark:hover:bg-orange-950">Explore</Link>
+              <Link href="/library" onClick={() => setIsOpen(false)} className="rounded py-2 p-4 hover:bg-light-orange dark:hover:bg-orange-950">Library</Link>
               <button
                 onClick={async () => {
                   try {
@@ -119,11 +90,7 @@ export function Nav() {
               </button>
             </>
           ) : (
-            <Link
-              href="/api/auth/sign-in"
-              onClick={() => setIsOpen(false)}
-              className="rounded py-2 p-4 font-bold hover:bg-background-dark"
-            >
+            <Link href="/api/auth/sign-in" onClick={() => setIsOpen(false)} className="rounded py-2 p-4 font-bold hover:bg-background-dark">
               Login / Sign Up
             </Link>
           )}
