@@ -5,6 +5,10 @@ import { type GoogleBook } from "@/types";
 import Image from "next/image";
 import FadeLoader from "react-spinners/FadeLoader";
 import Link from "next/link";
+import { GrNext } from "react-icons/gr";
+import { GrPrevious } from "react-icons/gr";
+
+
 
 const genres = [
   { name: "Fiction", string: "fiction" },
@@ -124,13 +128,13 @@ export default function ExplorePage() {
         selectedGenre && <p>No books found for {selectedGenre} genre.</p>
       )}
 
-      <div className="flex justify-center gap-2 mt-8">
+      <div className="flex justify-center gap-2 pb-10">
         <button
           onClick={() => setCurrentPage(currentPage - 1)}
           disabled={currentPage === 1}
           className="px-4 py-2 border rounded"
         >
-          Previous
+          <GrPrevious />
         </button>
 
         {pageButtons.map((page) => (
@@ -148,7 +152,7 @@ export default function ExplorePage() {
           disabled={currentPage === totalPages}
           className="px-4 py-2 border rounded"
         >
-          Next
+          <GrNext />
         </button>
       </div>
     </div>
