@@ -77,13 +77,13 @@ export default function SearchResults() {
                   <Image
                     src={book.volumeInfo.imageLinks.thumbnail}
                     alt={book.volumeInfo.title}
-                    height={75}
-                    width={50}
-                    className="h-auto w-32 object-cover"
+                    height={175}
+                    width={150}
+                    className="h-auto w-64 rounded-md border-1 border-dark-brown drop-shadow-lg sm:h-64 sm:w-48"
                   />
                 </Link>
               )}
-              <div className="flex-1">
+              <div>
                 <Link href={`/books/${book.id}`}>
                   <h2 className="mb-2 text-2xl font-semibold">
                     {book.volumeInfo.title}
@@ -109,7 +109,7 @@ export default function SearchResults() {
                   id={book.id}
                   status=""
                   title={book.volumeInfo.title}
-                  author={book.volumeInfo.authors?.join(", ") ?? "Unknown Author"}
+                  author={book.volumeInfo.authors?.join(", ") ?? ""}
                 />
               </div>
             </div>

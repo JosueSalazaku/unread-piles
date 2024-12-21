@@ -72,15 +72,10 @@ export default function GeneralBooks({ status, id }: SaveBookProps) {
                       <strong>Authors:</strong>{" "}
                       {book.volumeInfo.authors.join(", ")}
                     </p>
-                    <p className="text-dark-brown">
+                    <p className="text-dark-brown py-4">
                       Pages: {book.volumeInfo.pageCount}
                     </p>
                   </div>
-                )}
-                {book.volumeInfo.publishedDate && (
-                  <p className="mb-4 text-dark-brown">
-                    <strong>Published:</strong> {book.volumeInfo.publishedDate}
-                  </p>
                 )}
                 <SaveBook
                   id={book.id}
