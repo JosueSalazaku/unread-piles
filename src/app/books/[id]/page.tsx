@@ -81,7 +81,7 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
               alt={book?.volumeInfo?.title || "Book thumbnail"}
               width={250}
               height={192}
-              className="justify-center items-center shadow-2xl rounded-lg"
+              className="justify-center items-center drop-shadow-md border-1 border-dark-brown rounded-lg"
               />
               <div>
               <h1 className="text-3xl font-bold ">{bookTitle}</h1>

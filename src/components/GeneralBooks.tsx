@@ -56,7 +56,7 @@ export default function GeneralBooks({ status, id }: SaveBookProps) {
                     alt={book.volumeInfo.title ?? ""}
                     width={128}
                     height={192}
-                    className="rounded-md"
+                    className="rounded-md border-1 border-dark-brown drop-shadow-lg"
                   />
                 </Link>
               )}
