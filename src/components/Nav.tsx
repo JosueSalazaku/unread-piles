@@ -23,7 +23,9 @@ export function Nav() {
   return (
     <nav className="flex h-16 w-full items-center justify-between border-b-2 border-dark-brown px-4 sm:px-6">
       <Link href="/" className="text-main text-main text-xl font-bold sm:text-2xl">
-        <p className="text-sm font-bold">UNREAD <br /> PILES</p>
+        <p className="text-xs font-bold sm:hidden">UP</p>
+        <p className="hidden text-xl font-bold sm:block md:hidden">UNREAD PILES</p>
+        <p className="hidden text-xl font-bold md:block">UNREAD PILES</p>
       </Link>
 
       <div className="flex items-center space-x-4">
@@ -49,7 +51,7 @@ export function Nav() {
         </div>
 
         {/* Mobile Nav */}
-        <div className="flex items-center space-x-4 md:hidden">
+        <div className="flex items-center px-1  md:hidden">
           <ModdeToggle />
           <button
             onClick={toggleDropdown}

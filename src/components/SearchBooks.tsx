@@ -21,7 +21,7 @@ export default function SearchBooks() {
         value={search}
         onChange={(e) => setSearch(e.target.value)}
         onKeyDown={handleSearch}
-        className="bg-transparent text-black dark:text-white h-10 w-72 rounded-md border-2 px-3 py-2 placeholder:text-dark-brown focus:active:*: border-dark-brown pr-10"
+        className="bg-transparent text-black dark:text-white h-10 w-64 md:w-72 lg:w-72 rounded-md border-2 px-2 py-2 placeholder:text-dark-brown focus:active:*: border-dark-brown pr-10"
       />
       <button 
         onClick={() => router.push(`/search?s=${encodeURIComponent(search)}`)}
