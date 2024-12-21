@@ -8,7 +8,7 @@ export default function Home() {
   const session = useCustomSession();
 
   return (
-    <div className="flex min-h-screen flex-col items-center justify-center bg-background-light px-12 text-dark-brown dark:bg-background-dark dark:text-white">
+    <div className="flex min-h-screen flex-col items-center justify-center bg-background-light px-12 text-dark-brown dark:bg-background-dark dark:text-white transition-colors duration-1000 ease-in-out">
       {session.data?.user ? (
         <>
           <h1 className="pt-5 text-2xl font-bold">

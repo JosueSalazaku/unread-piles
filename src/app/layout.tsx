@@ -16,11 +16,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className="min-h-screen bg-background-light dark:bg-background-dark dark:text-white">
+      <body className="min-h-screen bg-background-light dark:bg-background-dark dark:text-white transition-colors duration-1000 ease-in-out">
         <ThemeProvider>
           <SessionProvider>
-            <Nav />
-            <main className="flex-1">{children}</main>
+        <Nav />
+        <main className="flex-1">{children}</main>
           </SessionProvider>
         </ThemeProvider>
       </body>
