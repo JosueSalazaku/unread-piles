@@ -22,17 +22,13 @@ export function Nav() {
 
   return (
     <nav className="flex h-16 w-full items-center justify-between border-b-2 border-dark-brown px-4 sm:px-6">
-      {/* Logo */}
       <Link href="/" className="text-main text-main text-xl font-bold sm:text-2xl">
         <p className="text-sm font-bold">UNREAD <br /> PILES</p>
       </Link>
 
-      {/* Right Section */}
       <div className="flex items-center space-x-4">
-        {/* Render SearchBooks only if on the client side */}
         {isClient && session.data?.user && <SearchBooks />}
 
-        {/* Large Screen Nav Items */}
         <div className="hidden items-center space-x-6 md:flex">
           {session.data?.user && (
             <>

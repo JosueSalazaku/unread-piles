@@ -81,7 +81,7 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
               alt={book?.volumeInfo?.title || "Book thumbnail"}
               width={250}
               height={192}
-              className="justify-center items-center"
+              className="justify-center items-center shadow-2xl rounded-lg"
               />
               <div>
               <h1 className="text-3xl font-bold ">{bookTitle}</h1>
@@ -92,7 +92,7 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
               </div>
 
             </div>
-            <div>
+            <div className="py-6">
               <p className="font-medium text-xl">Pages: {pageCount}</p>
             <p className=" font-medium text-xl">
              Published: {publishedDate ??
