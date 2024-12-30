@@ -27,9 +27,9 @@ export function Nav() {
         <Image
           src="/piles.svg"
           alt="Unread Piles Logo"
-          width={35}
+          width={30}
           height={30}
-          className="sm:hidden dark:filter dark:invert"/>
+          className="sm:hidden dark:filter dark:invert px-1"/>
         
         <p className="hidden text-xl font-bold sm:block md:hidden">UNREAD PILES</p>
         <p className="hidden text-xl font-bold md:block">UNREAD PILES</p>
