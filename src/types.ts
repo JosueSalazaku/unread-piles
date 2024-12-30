@@ -47,12 +47,6 @@ export interface Verification {
 
 export interface Book {
   id: string;
-  title: string;
-  authors?: string;
-  description?: string;
-  pageCount?: number;
-  categorie?: string[];
-  thumbnail?: string;
 }
 
 export interface GoogleBook {

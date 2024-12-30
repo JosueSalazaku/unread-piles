@@ -32,10 +32,10 @@ export async function POST(req: NextRequest) {
 
         const body: Book = await req.json() as Book;
         console.log("Received Book Data:", body);
-        const { id, title, authors } = body;
+        const { id } = body;
 
-        if (!id || !title) {
-            console.warn("Invalid request: Missing required fields", { id, title });
+        if (!id ) {
+            console.warn("Invalid request: Missing required fields", { id });
             return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
         }
 
@@ -46,8 +46,6 @@ export async function POST(req: NextRequest) {
         if (!existingBook) {
             await db.insert(book).values({
                 id,
-                title,
-                authors,
             });
         }
 
@@ -63,7 +61,7 @@ export async function POST(req: NextRequest) {
             id: uuidv4(),
             userId,
             bookId: id,
-            status: "", 
+            status: 'active',
             createdAt: new Date(),
         });
         console.log(`Book ${id} successfully linked to user ${userId}`);
