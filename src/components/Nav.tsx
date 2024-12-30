@@ -35,7 +35,7 @@ export function Nav() {
         <p className="hidden text-xl font-bold md:block">UNREAD PILES</p>
       </Link>
 
-      <div className="flex items-center space-x-4">
+      <div className="flex items-center space-x-2">
         {isClient && session.data?.user && <SearchBooks />}
 
         <div className="hidden items-center space-x-6 md:flex">
@@ -73,7 +73,7 @@ export function Nav() {
 
       {/* Mobile Dropdown Menu */}
       {isOpen && (
-        <div className="absolute left-0 right-0 top-16 z-50 flex flex-col space-y-4 bg-main-orange p-4 text-lg shadow-md md:hidden">
+        <div className="absolute left-0 right-0 top-16 z-50 flex flex-col space-y-3 bg-main-orange p-4 text-lg shadow-md md:hidden">
           {session.data?.user ? (
             <>
               <Link href="/profile" onClick={() => setIsOpen(false)} className="rounded py-2 p-4 hover:bg-light-orange dark:hover:bg-orange-950">Profile</Link>
