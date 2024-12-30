@@ -27,7 +27,7 @@ export function Nav() {
         <Image
           src="/piles.svg"
           alt="Unread Piles Logo"
-          width={30}
+          width={35}
           height={30}
           className="sm:hidden dark:filter dark:invert px-1"/>
         
@@ -35,10 +35,10 @@ export function Nav() {
         <p className="hidden text-xl font-bold md:block">UNREAD PILES</p>
       </Link>
 
-      <div className="flex items-center space-x-2">
+      <div className="flex items-center space-x-">
         {isClient && session.data?.user && <SearchBooks />}
 
-        <div className="hidden items-center space-x-6 md:flex">
+        <div className="hidden items-center space-x-6 pl-3 md:flex">
           {session.data?.user && (
             <>
               <Link href="/explore" className="hover:underline">Explore</Link>
