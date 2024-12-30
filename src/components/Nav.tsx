@@ -8,6 +8,7 @@ import { useCustomSession } from "./SessionProvider";
 import ModdeToggle from "./ModdeToggle";
 import { PictureDropDown } from "./PictureDropDown";
 import { signOut } from "@/app/lib/auth-client";
+import Image from "next/image";
 
 export function Nav() {
   const session = useCustomSession();
@@ -23,7 +24,13 @@ export function Nav() {
   return (
     <nav className="flex h-16 w-full items-center justify-between border-b-2 border-dark-brown px-4 sm:px-6">
       <Link href="/" className="text-main text-main text-xl font-bold sm:text-2xl">
-        <p className="text-xs font-bold sm:hidden">UP</p>
+        <Image
+          src="/piles.svg"
+          alt="Unread Piles Logo"
+          width={35}
+          height={30}
+          className="sm:hidden dark:filter dark:invert"/>
+        
         <p className="hidden text-xl font-bold sm:block md:hidden">UNREAD PILES</p>
         <p className="hidden text-xl font-bold md:block">UNREAD PILES</p>
       </Link>
@@ -57,9 +64,9 @@ export function Nav() {
             onClick={toggleDropdown}
             aria-expanded={isOpen}
             aria-label="Toggle menu"
-            className="focus:outline-none"
+            className="focus:outline-none px-1"
           >
-            {isOpen ? <MdClose size={24} /> : <GiHamburgerMenu size={24} />}
+            {isOpen ? <MdClose size={22} /> : <GiHamburgerMenu size={22} />}
           </button>
         </div>
       </div>
