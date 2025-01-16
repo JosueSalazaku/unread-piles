@@ -107,9 +107,6 @@ export default function SearchResults() {
                 )}
                 <SaveBook
                   id={book.id}
-                  status=""
-                  title={book.volumeInfo.title}
-                  author={book.volumeInfo.authors?.join(", ") ?? ""}
                 />
               </div>
             </div>
