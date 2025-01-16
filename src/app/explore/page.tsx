@@ -118,9 +118,7 @@ export default function ExplorePage() {
                     <p className="text-dark-brown font-medium text-sm sm:text-base mb-4">Pages: {book.volumeInfo.pageCount}</p> */}
                     <SaveBook 
                       id={book.id} 
-                      status={""} 
-                      title={book.volumeInfo.title} 
-                      author={book.volumeInfo.authors?.join(", ") ?? ""} 
+                      // status={""} 
                     />
                   </div>
                 </div>
