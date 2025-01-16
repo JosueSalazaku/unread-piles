@@ -20,7 +20,7 @@ export async function GET() {
 export async function POST(req: NextRequest) {
     try {
         // Fetch session using headers for authentication
-        const requestHeaders =  await headers();
+        const requestHeaders = await headers();
         const session = await auth.api.getSession({ headers: requestHeaders });
         console.log("Session:", session);
         const userId = session?.user?.id;
@@ -34,8 +34,8 @@ export async function POST(req: NextRequest) {
         console.log("Received Book Data:", body);
         const { id } = body;
 
-        if (!id ) {
-            console.warn("Invalid request: Missing required fields", { id });
+        if (!id) {
+            console.warn("Invalid request: Missing required fields - id");
             return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
         }
 
@@ -57,13 +57,15 @@ export async function POST(req: NextRequest) {
             return NextResponse.json({ message: "This book is already linked to the user" }, { status: 400 });
         }
 
+
         await db.insert(userBooks).values({
             id: uuidv4(),
             userId,
             bookId: id,
-            status: 'active',
-            createdAt: new Date(),
+            status: '',
+            createdAt: new Date(), 
         });
+
         console.log(`Book ${id} successfully linked to user ${userId}`);
         return NextResponse.json({ message: "Book saved and linked to user successfully" }, { status: 201 });
     } catch (error) {
