@@ -1,13 +1,11 @@
 import React, { useState } from "react";
-import type { SaveBookProps } from "@/types";
+import type { Book } from "@/types";
 import { saveUserBook } from "@/app/services/backend/book-service";
 import { useCustomSession } from "./SessionProvider";
 
-export function SaveBook({ id, title, author, status: initialStatus }: SaveBookProps) {
-    const [savedBook, setSavedBook] = useState<SaveBookProps | null>(null);
+export function SaveBook({ id }: Book) {
+    const [savedBook, setSavedBook] = useState<Book | null>(null);
     const [saved, setSaved] = useState<boolean>(false);
-    const [status, setStatus] = useState<string>(initialStatus || "Read"); 
-
 
     const session = useCustomSession();
     const userId = session.data?.user?.id
@@ -18,7 +16,7 @@ export function SaveBook({ id, title, author, status: initialStatus }: SaveBookP
         }
 
         try {
-            const saveBookByUser = await saveUserBook(id, title, author, status);
+            const saveBookByUser = await saveUserBook(id);
             setSavedBook(saveBookByUser)
 
             if (saveBookByUser) {
