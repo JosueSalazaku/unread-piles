@@ -1,4 +1,4 @@
-import type { SaveBookProps, UserBooks } from "@/types";
+import type { UserBooks, Book } from "@/types";
 import axios from "axios";
 
 const fetchAccessToken = async () => {
@@ -11,21 +11,21 @@ const fetchAccessToken = async () => {
     }
 };
 
-export const saveUserBook = async (id: string, title: string, author: string, status: string): Promise<SaveBookProps> => {
+export const saveUserBook = async(id: string): Promise<Book> => {
     try {
         const accessToken = await fetchAccessToken();
         if (!accessToken) {
             throw new Error("Access token not found.");
         }
 
-        const data: SaveBookProps = { id, title, author, status };
+        const data: Book = { id };
 
         const response = await axios.post("/api/books", data, {
             headers: { Authorization: `Bearer ${accessToken}` },
         });
 
         if (response.status === 201 || response.data) {
-            console.log("Book was successfully saved", response.data);
+            console.log(`Book ${id} was successfully saved`, response.data);
         } else {
             console.error("Failed to save the book, no data returned from the API.");
         }
