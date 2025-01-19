@@ -1,4 +1,3 @@
-
 export interface User {
   id: string;
   name: string | null;
@@ -45,7 +44,7 @@ export interface Verification {
   createdAt?: Date;
 }
 
-export interface Book {
+export interface Books {
   id: string;
 }
 
@@ -138,21 +137,21 @@ export interface PictureDropdownProps {
 
 export interface SaveBookProps {
   id: string;
-  status: string
+  status: string;
   title: string;
   author: string;
 }
 
 export interface Status {
-  saved: string,
-  currentlyReading: string
-  abandoned: string,
+  saved: string;
+  currentlyReading: string;
+  abandoned: string;
   didNotFinish: string;
-  finished: string
-  remove: string,
+  finished: string;
+  remove: string;
 }
 
 export interface GoogleBooksApiResponse {
   items: GoogleBook[];
-  totalItems: number;  
+  totalItems: number;
 }

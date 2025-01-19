@@ -1,7 +1,7 @@
 import { type NextRequest, NextResponse } from 'next/server'
 import { db } from '@/server/db'
-import { book, userBooks } from '@/server/db/auth-schema'
-import type { Book } from '@/types';
+import { books, userBooks } from '@/server/db/auth-schema'
+import type { Books } from '@/types';
 import { eq, and } from "drizzle-orm";
 import { v4 as uuidv4 } from 'uuid';
 import { headers } from 'next/headers';
@@ -9,7 +9,7 @@ import { auth } from '@/app/lib/auth';
 
 export async function GET() {
     try {
-        const data = await db.select().from(book)
+        const data = await db.select().from(books)
         return NextResponse.json(data)
     } catch (error) {
         console.error("Error fetching books:", error);
@@ -30,7 +30,7 @@ export async function POST(req: NextRequest) {
             return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
         }
 
-        const body: Book = await req.json() as Book;
+        const body: Books = await req.json() as Books;
         console.log("Received Book Data:", body);
         const { id } = body;
 
@@ -39,12 +39,12 @@ export async function POST(req: NextRequest) {
             return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
         }
 
-        const existingBook = await db.query.book.findFirst({
-            where: eq(book.id, id),
+        const existingBook = await db.query.books.findFirst({
+            where: eq(books.id, id),
         });
 
         if (!existingBook) {
-            await db.insert(book).values({
+            await db.insert(books).values({
                 id,
             });
         }

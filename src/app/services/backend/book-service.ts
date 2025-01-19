@@ -1,4 +1,4 @@
-import type { UserBooks, Book } from "@/types";
+import type { UserBooks, Books } from "@/types";
 import axios from "axios";
 
 const fetchAccessToken = async () => {
@@ -11,14 +11,14 @@ const fetchAccessToken = async () => {
     }
 };
 
-export const saveUserBook = async(id: string): Promise<Book> => {
+export const saveUserBook = async(id: string ): Promise<Books> => {
     try {
         const accessToken = await fetchAccessToken();
         if (!accessToken) {
             throw new Error("Access token not found.");
         }
 
-        const data: Book = { id };
+        const data: Books = { id };
 
         const response = await axios.post("/api/books", data, {
             headers: { Authorization: `Bearer ${accessToken}` },
@@ -37,12 +37,20 @@ export const saveUserBook = async(id: string): Promise<Book> => {
     }
 };
 
-export const fetchUserBooks = async (userId: string, bookId: string): Promise<UserBooks>  => {
+export const fetchUserBooks = async (userId: string, bookId: string): Promise<UserBooks> => {
+    console.log("userId:", userId);
+    console.log("bookId:", bookId); 
     try {
+
+        if (!userId || !bookId) {
+            throw new Error('User ID or Book ID is missing');
+        }
+
         const response = await axios.get(`/api/userBooks/${userId}/${bookId}`)
-        if (response.status !== 200) {
+        if (response.status !== 200) { 
             throw new Error("Failed to fetch book data");
         }
+        console.log(response.data)
         return response.data as UserBooks;
     } catch (error) {
         console.error("Error fetching book data:", error);

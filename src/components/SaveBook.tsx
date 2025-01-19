@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import type { Book } from "@/types";
+import type { Books } from "@/types";
 import { saveUserBook } from "@/app/services/backend/book-service";
 import { useCustomSession } from "./SessionProvider";
 
-export function SaveBook({ id }: Book) {
-    const [savedBook, setSavedBook] = useState<Book | null>(null);
+export function SaveBook({ id }: Books) {
+    const [savedBook, setSavedBook] = useState<Books | null>(null);
     const [saved, setSaved] = useState<boolean>(false);
 
     const session = useCustomSession();
