@@ -6,40 +6,33 @@ import type { UserBooks } from "@/types";
 import { useCustomSession } from "@/components/SessionProvider";
 import Image from "next/image";
 
-export default function Profile({
-  userId,
-  bookId,
-}: {
-  userId: string;
-  bookId: string;
-}): JSX.Element {
+export default function Profile(): JSX.Element {
   const session = useCustomSession();
-    
   const [bookData, setBookData] = useState<UserBooks | null>(null);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const getUserBookData = async () => {
       try {
-          const data = await fetchUserBooks(userId, bookId);
-          console.log(data);
-        setBookData(data);
+        if (session.data?.user) {
+          const userId = session.data.user.id;  // Getting userId from the session
+          const bookId = ""
+          const data = await fetchUserBooks(userId);
+          setBookData(data);
+        }
       } catch {
         setError("Could not fetch book data");
       }
     };
 
     void getUserBookData();
-  }, [userId, bookId]);
-    
-      if (!session.data?.user) {
-    return (
-      <div>You are not logged in. Please sign in to view your information.</div>
-    );
+  }, [session]);
+
+  if (!session.data?.user) {
+    return <div>You are not logged in. Please sign in to view your information.</div>;
   }
 
-    const { name, email, image } = session.data.user;
-
+  const { name, email, image } = session.data.user;
 
   if (error) return <div>{error}</div>;
   if (!bookData) return <div>Loading...</div>;
@@ -72,4 +65,4 @@ export default function Profile({
       </div>
     </div>
   );
-};
+}

@@ -37,16 +37,17 @@ export const saveUserBook = async(id: string ): Promise<Books> => {
     }
 };
 
-export const fetchUserBooks = async (userId: string, bookId: string): Promise<UserBooks> => {
+export const fetchUserBooks = async (userId: string): Promise<UserBooks> => {
     console.log("userId:", userId);
-    console.log("bookId:", bookId); 
     try {
 
-        if (!userId || !bookId) {
-            throw new Error('User ID or Book ID is missing');
+        if (!userId) {
+            throw new Error('User ID is missing');
         }
 
-        const response = await axios.get(`/api/userBooks/${userId}/${bookId}`)
+        const response = await axios.get(`/api/userBooks/${userId}`)
+
+        
         if (response.status !== 200) { 
             throw new Error("Failed to fetch book data");
         }
