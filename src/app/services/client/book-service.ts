@@ -38,13 +38,17 @@ export const fetchBookByInput = async (query: string, startIndex: number, maxRes
     
 }
 
-export const fetchAllUserBooks = async (bookId: string): Promise<GoogleBook[]> => {
+export const fetchAllUserBooks = async (bookId: string): Promise<GoogleBook | null> => {
+    if (!bookId) {
+        console.error('Invalid bookId:', bookId);
+        return null;
+    }
     try {
-        const response = await axios.get<{ items: GoogleBook[] }>(`https://www.googleapis.com/books/v1/volumes?q=isbn:${bookId}`);
+        const response = await axios.get<{ volumeInfo: GoogleBook }>(`https://www.googleapis.com/books/v1/volumes/${bookId}`);
         console.log(response.data);
-        return response.data.items || [];
+        return response.data.volumeInfo || null; 
     } catch (error) {
         console.error('Error fetching book details:', error);
-        return [];
+        return null;  
     }
 }

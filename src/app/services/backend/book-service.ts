@@ -51,7 +51,7 @@ export const fetchUserBooks = async (userId: string): Promise<UserBooks> => {
         if (response.status !== 200) { 
             throw new Error("Failed to fetch book data");
         }
-        console.log(response.data)
+        // console.log(response.data)
         return response.data as UserBooks;
     } catch (error) {
         console.error("Error fetching book data:", error);
