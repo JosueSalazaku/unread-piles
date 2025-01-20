@@ -1,5 +1,5 @@
 import axios from "axios";
-import type { GoogleBook } from "@/types";
+import type { GoogleBook, UserBooks } from "@/types";
 
 const APIKey = process.env.NEXT_PUBLIC_GOOGLE_BOOKS_API_KEY;
 
@@ -36,4 +36,15 @@ export const fetchBookByInput = async (query: string, startIndex: number, maxRes
         return [];
     }
     
+}
+
+export const fetchAllUserBooks = async (bookId: string): Promise<GoogleBook[]> => {
+    try {
+        const response = await axios.get<{ items: GoogleBook[] }>(`https://www.googleapis.com/books/v1/volumes?q=isbn:${bookId}`);
+        console.log(response.data);
+        return response.data.items || [];
+    } catch (error) {
+        console.error('Error fetching book details:', error);
+        return [];
+    }
 }
