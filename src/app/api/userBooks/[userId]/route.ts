@@ -5,8 +5,8 @@ import { eq } from "drizzle-orm";
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
-export async function GET(req: NextRequest, { params }: { params: { userId: string } }) {
-    const { userId } = params;
+export async function GET(req: NextRequest, { params }: { params: Promise<{ userId: string }> }) {
+    const { userId } = await params;
 
     try {
         const data = await db.select({ bookId: userBooks.bookId }).from(userBooks).where(eq(userBooks.userId, userId));
