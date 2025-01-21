@@ -37,7 +37,7 @@ export const saveUserBook = async(id: string ): Promise<Books> => {
     }
 };
 
-export const fetchUserBooks = async (userId: string): Promise<UserBooks> => {
+export const fetchUserBooks = async (userId: string): Promise<UserBooks[]> => {
     try {
 
         if (!userId) {
@@ -50,7 +50,7 @@ export const fetchUserBooks = async (userId: string): Promise<UserBooks> => {
         if (response.status !== 200) { 
             throw new Error("Failed to fetch book data");
         }
-        return response.data as UserBooks;
+        return response.data as UserBooks[];
     } catch (error) {
         console.error("Error fetching book data:", error);
         throw new Error("Could not fetch book data. Please try again.");
