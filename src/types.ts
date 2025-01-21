@@ -48,20 +48,7 @@ export interface Books {
   id: string;
 }
 
-export interface VolumeInfo {
-  title?: string;
-  authors?: string[];
-  publishedDate?: string;
-  description?: string;
-  pageCount?: number;
-  categories?: string[];
-  imageLinks?: {
-    thumbnail?: string;
-  };
-}
-
-// Define your GoogleBook interface to match the structure
-export interface GoogleBook {
+export interface GoogleBookProfile {
   id: string;
   title: string;
   authors?: string[];
@@ -93,7 +80,32 @@ export interface GoogleBook {
   infoLink?: string;
   canonicalVolumeLink?: string;
 }
+export interface GoogleBook {
+  id: string;
+  volumeInfo: {
+    title: string;
+    authors?: string[];
+    publishedDate?: string;
+    description?: string;
+    pageCount?: number;
+    categories?: string[];
+    imageLinks?: {
+      thumbnail?: string;
+    };
+  };
+}
 
+export interface VolumeInfo {
+  title: string;
+  authors?: string[];
+  publishedDate?: string;
+  description?: string;
+  pageCount?: number;
+  categories?: string[];
+  imageLinks?: {
+    thumbnail?: string;
+  };
+}
 
 export interface BookRating {
   id: number;

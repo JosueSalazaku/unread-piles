@@ -1,6 +1,6 @@
 import axios from "axios";
 import type { AxiosError } from "axios";
-import type { GoogleBook } from "@/types";
+import type { GoogleBook, GoogleBookProfile } from "@/types";
 
 const APIKey = process.env.NEXT_PUBLIC_GOOGLE_BOOKS_API_KEY;
 
@@ -44,7 +44,7 @@ const RETRY_DELAY = 1000; // Initial delay in milliseconds
 
 const sleep = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
 
-export const fetchAllUserBooks = async (bookId: string): Promise<GoogleBook | null> => {
+export const fetchAllUserBooks = async (bookId: string) => {
   if (!bookId) {
     return null;
   }
@@ -53,10 +53,13 @@ export const fetchAllUserBooks = async (bookId: string): Promise<GoogleBook | nu
 
   while (attempts < MAX_RETRIES) {
     try {
-      const response = await axios.get<{ volumeInfo: GoogleBook }>(
+      const response = await axios.get(
         `https://www.googleapis.com/books/v1/volumes/${bookId}`
       );
-      return response.data.volumeInfo || null;
+      console.log(response.data);
+        return response.data as string;
+   
+        
     } catch (error) {
       const axiosError = error as AxiosError;
       if (axiosError.response && axiosError.response.status === 429) {

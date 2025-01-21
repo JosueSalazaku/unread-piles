@@ -34,6 +34,8 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
         const response = await axios.get<GoogleBook>(
           `https://www.googleapis.com/books/v1/volumes/${id}`,
         );
+        console.log(response.data);
+        
         setBook(response.data);
       } catch (error) {
         if (axios.isAxiosError(error)) {

@@ -21,18 +21,18 @@ export default function Profile() {
           const books = await Promise.all(
             userBooks.map(async (userBook) => {
               const book = await fetchAllUserBooks(userBook.bookId);
-              return book;
+              return book as GoogleBook | null;
             })
           );
 
-          const filteredBooks = books.filter(
-            (book): book is GoogleBook => book !== null && book !== undefined
-          );
-
-          setBookData(filteredBooks);
+          setBookData(books.filter((book): book is GoogleBook => book !== null))
         }
       } catch (error) {
-        console.error(error);
+        if (error instanceof Error) {
+          console.error("Error fetching book data:", error.message);
+        } else {
+          console.error("Unknown error:", error);
+        }
         setError("Could not fetch book data");
       }
     };
@@ -51,11 +51,14 @@ export default function Profile() {
   return (
     <div>
       {bookData.map((book, index) => (
-        <div key={book.id ?? index}> 
-          <h2>{book.title ?? "No title available"}</h2>
+        <div key={book.id ?? index}>
+          <h2>{book.volumeInfo.title}</h2>
+          <p>{book.volumeInfo.authors?.join(", ")}</p>
+          <p>{book.volumeInfo.description}</p>
+
           <Image
-            src={book.imageLinks?.thumbnail ?? "/default-thumbnail.jpg"}  
-            alt={book.title ?? "No alt"}  
+            src={book.volumeInfo.imageLinks?.thumbnail ?? "/default-thumbnail.jpg"}
+            alt={book.volumeInfo.title ?? "No alt"}
             width={128}
             height={192}
           />
