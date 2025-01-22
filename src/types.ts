@@ -1,4 +1,3 @@
-
 export interface User {
   id: string;
   name: string | null;
@@ -45,16 +44,42 @@ export interface Verification {
   createdAt?: Date;
 }
 
-export interface Book {
+export interface Books {
   id: string;
-  title: string;
-  authors?: string;
-  description?: string;
-  pageCount?: number;
-  categorie?: string[];
-  thumbnail?: string;
 }
 
+export interface GoogleBookProfile {
+  id: string;
+  title: string;
+  authors?: string[];
+  publisher?: string;
+  publishedDate?: string;
+  description?: string;
+  industryIdentifiers?: {
+    type: string;
+    identifier: string;
+  }[];
+  readingModes?: {
+    text: boolean;
+    image: boolean;
+  };
+  pageCount?: number;
+  printType?: string;
+  categories?: string[];
+  maturityRating?: string;
+  imageLinks?: {
+    smallThumbnail?: string;
+    thumbnail?: string;
+    small?: string;
+    medium?: string;
+    large?: string;
+    extraLarge?: string;
+  };
+  language?: string;
+  previewLink?: string;
+  infoLink?: string;
+  canonicalVolumeLink?: string;
+}
 export interface GoogleBook {
   id: string;
   volumeInfo: {
@@ -80,11 +105,6 @@ export interface VolumeInfo {
   imageLinks?: {
     thumbnail?: string;
   };
-}
-
-export interface GoogleBook {
-  id: string;
-  volumeInfo: VolumeInfo;
 }
 
 export interface BookRating {
@@ -144,21 +164,21 @@ export interface PictureDropdownProps {
 
 export interface SaveBookProps {
   id: string;
-  status: string
+  status: string;
   title: string;
   author: string;
 }
 
 export interface Status {
-  saved: string,
-  currentlyReading: string
-  abandoned: string,
+  saved: string;
+  currentlyReading: string;
+  abandoned: string;
   didNotFinish: string;
-  finished: string
-  remove: string,
+  finished: string;
+  remove: string;
 }
 
 export interface GoogleBooksApiResponse {
   items: GoogleBook[];
-  totalItems: number;  
+  totalItems: number;
 }

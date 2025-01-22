@@ -79,9 +79,9 @@ export default function GeneralBooks({ status, id }: SaveBookProps) {
                 )}
                 <SaveBook
                   id={book.id}
-                  status=""
-                  title={book.volumeInfo.title}
-                  author={book.volumeInfo.authors?.join(", ") ?? "Unknown Author"}
+                  // status=""
+                  // title={book.volumeInfo.title}
+                  // author={book.volumeInfo.authors?.join(", ") ?? "Unknown Author"}
                 />
               </div>
             </div>

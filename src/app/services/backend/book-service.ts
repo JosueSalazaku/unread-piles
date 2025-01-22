@@ -1,4 +1,4 @@
-import type { SaveBookProps, UserBooks } from "@/types";
+import type { UserBooks, Books } from "@/types";
 import axios from "axios";
 
 const fetchAccessToken = async () => {
@@ -11,21 +11,21 @@ const fetchAccessToken = async () => {
     }
 };
 
-export const saveUserBook = async (id: string, title: string, author: string, status: string): Promise<SaveBookProps> => {
+export const saveUserBook = async(id: string ): Promise<Books> => {
     try {
         const accessToken = await fetchAccessToken();
         if (!accessToken) {
             throw new Error("Access token not found.");
         }
 
-        const data: SaveBookProps = { id, title, author, status };
+        const data: Books = { id };
 
         const response = await axios.post("/api/books", data, {
             headers: { Authorization: `Bearer ${accessToken}` },
         });
 
         if (response.status === 201 || response.data) {
-            console.log("Book was successfully saved", response.data);
+            console.log(`Book ${id} was successfully saved`, response.data);
         } else {
             console.error("Failed to save the book, no data returned from the API.");
         }
@@ -37,13 +37,20 @@ export const saveUserBook = async (id: string, title: string, author: string, st
     }
 };
 
-export const fetchUserBooks = async (userId: string, bookId: string): Promise<UserBooks>  => {
+export const fetchUserBooks = async (userId: string): Promise<UserBooks[]> => {
     try {
-        const response = await axios.get(`/api/userBooks/${userId}/${bookId}`)
-        if (response.status !== 200) {
+
+        if (!userId) {
+            throw new Error('User ID is missing');
+        }
+
+        const response = await axios.get(`/api/userBooks/${userId}`)
+
+        
+        if (response.status !== 200) { 
             throw new Error("Failed to fetch book data");
         }
-        return response.data as UserBooks;
+        return response.data as UserBooks[];
     } catch (error) {
         console.error("Error fetching book data:", error);
         throw new Error("Could not fetch book data. Please try again.");

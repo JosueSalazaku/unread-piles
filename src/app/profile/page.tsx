@@ -1,41 +1,69 @@
 "use client";
-
+import React, { useEffect, useState } from "react";
+import { fetchUserBooks } from "../services/backend/book-service";
+import { fetchAllUserBooks } from "../services/client/book-service";
+import type { GoogleBook } from "@/types";
 import { useCustomSession } from "@/components/SessionProvider";
 import Image from "next/image";
 
 export default function Profile() {
   const session = useCustomSession();
+  const [bookData, setBookData] = useState<GoogleBook[]>([]);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const getUserBookData = async () => {
+      try {
+        if (session.data?.user) {
+          const userId = session.data.user.id;
+          const userBooks = await fetchUserBooks(userId);
+
+          const books = await Promise.all(
+            userBooks.map(async (userBook) => {
+              const book = await fetchAllUserBooks(userBook.bookId);
+              return book as GoogleBook | null;
+            })
+          );
+
+          setBookData(books.filter((book): book is GoogleBook => book !== null))
+        }
+      } catch (error) {
+        if (error instanceof Error) {
+          console.error("Error fetching book data:", error.message);
+        } else {
+          console.error("Unknown error:", error);
+        }
+        setError("Could not fetch book data");
+      }
+    };
+
+    void getUserBookData();
+  }, [session]);
 
   if (!session.data?.user) {
-    return (
-      <div>You are not logged in. Please sign in to view your information.</div>
-    );
+    return <div>You are not logged in. Please sign in to view your information.</div>;
   }
 
-  const { name, email, image } = session.data.user;
+  if (error) {
+    return <div>{error}</div>;
+  }
 
   return (
-    <div className="mt-8 flex flex-col items-center space-y-4">
-      <h1 className="text-2xl font-bold">User Information</h1>
-      <div className="flex items-center space-x-4">
-        {image && (
+    <div>
+      {bookData.map((book, index) => (
+        <div key={book.id ?? index}>
+          <h2>{book.volumeInfo.title}</h2>
+          <p>{book.volumeInfo.authors?.join(", ")}</p>
+          <p>{book.volumeInfo.description}</p>
+
           <Image
-            src={image}
-            alt={name}
-            width={30}
-            height={30}
-            className="h-16 w-16 rounded-full"
+            src={book.volumeInfo.imageLinks?.thumbnail ?? "/default-thumbnail.jpg"}
+            alt={book.volumeInfo.title ?? "No alt"}
+            width={128}
+            height={192}
           />
-        )}
-        <div>
-          <p>
-            <strong>Name:</strong> {name}
-          </p>
-          <p>
-            <strong>Email:</strong> {email}
-          </p>
         </div>
-      </div>
+      ))}
     </div>
   );
 }
