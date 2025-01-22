@@ -4,8 +4,8 @@ import { eq, and } from "drizzle-orm";
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
-export async function GET(req: NextRequest, { params }: { params: { userId: string, status: string } }) {
-    const { userId, status } = params
+export async function GET(req: NextRequest, { params }: { params: Promise<{ userId: string, status: string }> }) {
+    const { userId, status } = await params;
     try {
         const data = await db.select().from(userBooks).where(and(eq(userBooks.userId, userId), eq(userBooks.status, status)));
         if (data.length === 0) {
