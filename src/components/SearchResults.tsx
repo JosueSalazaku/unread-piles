@@ -75,7 +75,7 @@ export default function SearchResults() {
               {book.volumeInfo.imageLinks?.thumbnail && (
                 <Link href={`/books/${book.id}`}>
                   <Image
-                    src={book.volumeInfo.imageLinks.thumbnail}
+                    src={book.volumeInfo.imageLinks.thumbnail ?? "No image"}
                     alt={book.volumeInfo.title}
                     height={175}
                     width={150}

@@ -31,11 +31,7 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
 
     async function ShowBook() {
       try {
-        const response = await axios.get<GoogleBook>(
-          `https://www.googleapis.com/books/v1/volumes/${id}`,
-        );
-        console.log(response.data);
-        
+        const response = await axios.get<GoogleBook>(`https://www.googleapis.com/books/v1/volumes/${id}`);        
         setBook(response.data);
       } catch (error) {
         if (axios.isAxiosError(error)) {
@@ -76,10 +72,7 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
           <div className="flex flex-col justify-center px-14 lg:px-28 gap-4">
             <div className="gap-4 flex">
             <Image
-              src={
-                booksCover ??
-                "/default-thumbnail.jpg"
-              }
+              src={booksCover ?? "/default-thumbnail.jpg"}
               alt={book?.volumeInfo?.title || "Book thumbnail"}
               width={250}
               height={192}

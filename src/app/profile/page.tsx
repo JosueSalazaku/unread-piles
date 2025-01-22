@@ -10,7 +10,7 @@ export default function Profile() {
   }
 
   return (
-    <div>
+    <div className="flex mx-auto max-w-4xl p-6">
     <UserBooks />
     </div>
   );
