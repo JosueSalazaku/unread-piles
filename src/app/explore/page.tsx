@@ -39,7 +39,7 @@ export default function ExplorePage() {
         const { items, totalItems } = await fetchBooksByGenre(selectedGenre, startIndex);
         setGenreBooks(items);
         setTotalItems(totalItems);
-      } catch (error) {
+      } catch {
         setError("Error fetching books. Please try again.");
       } finally {
         setLoading(false);
@@ -59,7 +59,7 @@ export default function ExplorePage() {
       const { items, totalItems } = await fetchBooksByGenre(genre, 0);
       setGenreBooks(items);
       setTotalItems(totalItems);
-    } catch (error) {
+    } catch {
       setError(`Error fetching books for ${genre}. Please try again.`);
     } finally {
       setLoading(false);

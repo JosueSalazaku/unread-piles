@@ -1,6 +1,6 @@
 import axios from "axios";
 import type { AxiosError } from "axios";
-import type { GoogleBook, GoogleBookProfile } from "@/types";
+import type { GoogleBook } from "@/types";
 
 const APIKey = process.env.NEXT_PUBLIC_GOOGLE_BOOKS_API_KEY;
 
