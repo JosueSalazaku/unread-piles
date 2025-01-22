@@ -61,6 +61,11 @@ export interface VolumeInfo {
   pageCount?: number;
   categories?: string[];
   imageLinks?: {
+    extraLarge?: string,
+    large?: string,
+    medium?: string,
+    small?: string,
+    smallThubnail?: string,
     thumbnail?: string;
   };
 }
@@ -140,3 +145,5 @@ export interface GoogleBooksApiResponse {
   items: GoogleBook[];
   totalItems: number;
 }
+
+
