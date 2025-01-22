@@ -48,51 +48,9 @@ export interface Books {
   id: string;
 }
 
-export interface GoogleBookProfile {
-  id: string;
-  title: string;
-  authors?: string[];
-  publisher?: string;
-  publishedDate?: string;
-  description?: string;
-  industryIdentifiers?: {
-    type: string;
-    identifier: string;
-  }[];
-  readingModes?: {
-    text: boolean;
-    image: boolean;
-  };
-  pageCount?: number;
-  printType?: string;
-  categories?: string[];
-  maturityRating?: string;
-  imageLinks?: {
-    smallThumbnail?: string;
-    thumbnail?: string;
-    small?: string;
-    medium?: string;
-    large?: string;
-    extraLarge?: string;
-  };
-  language?: string;
-  previewLink?: string;
-  infoLink?: string;
-  canonicalVolumeLink?: string;
-}
 export interface GoogleBook {
   id: string;
-  volumeInfo: {
-    title: string;
-    authors?: string[];
-    publishedDate?: string;
-    description?: string;
-    pageCount?: number;
-    categories?: string[];
-    imageLinks?: {
-      thumbnail?: string;
-    };
-  };
+  volumeInfo: VolumeInfo
 }
 
 export interface VolumeInfo {
