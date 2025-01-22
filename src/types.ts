@@ -145,5 +145,3 @@ export interface GoogleBooksApiResponse {
   items: GoogleBook[];
   totalItems: number;
 }
-
-

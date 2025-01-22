@@ -23,7 +23,7 @@ const genres = [
 ];
 
 export default function ExplorePage() {
-  const [selectedGenre, setSelectedGenre] = useState<string>("fiction");
+  const [selectedGenre, setSelectedGenre] = useState<string>("");
   const [genreBooks, setGenreBooks] = useState<GoogleBook[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string>("");
@@ -80,8 +80,8 @@ export default function ExplorePage() {
           {genres.map((genre) => (
             <button
               key={genre.name}
-              className={`border gap-3 rounded px-4 py-2 ${
-                selectedGenre === genre.string ? "bg-dark-brown border-main text-white" : ""
+              className={`border gap-3 rounded hover:bg-dark-brown px-4 py-2 ${
+                selectedGenre === genre.string ? "bg-main-orange border-main text-white" : ""
               }`}
               onClick={() => handleGenreClick(genre.string)}
             >
@@ -114,8 +114,6 @@ export default function ExplorePage() {
                     <Link href={`/books/${book.id}`}>
                       <h1 className="font-bold text-lg mb-3 sm:text-xl">{book.volumeInfo.title}</h1>
                     </Link>
-                    {/* <p className="text-main-orange text-sm sm:text-base">{book.volumeInfo.authors}</p>
-                    <p className="text-dark-brown font-medium text-sm sm:text-base mb-4">Pages: {book.volumeInfo.pageCount}</p> */}
                     <SaveBook 
                       id={book.id} 
                       // status={""} 

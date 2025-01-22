@@ -41,7 +41,7 @@ export function SaveBook({ id }: Books) {
         <>
             {savedBook ? (
                 <select onChange={handleStatusChange} className="bg-main-orange rounded text-white text-sm px-1 py-1" defaultValue={"Read"}>
-                    <option >Read</option>
+                    <option>Read</option>
                     <option>Currently Reading</option>
                     <option>Finished</option>
                     <option>Abandoned</option>

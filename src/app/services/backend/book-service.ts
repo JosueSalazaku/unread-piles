@@ -25,7 +25,7 @@ export const saveUserBook = async(id: string ): Promise<Books> => {
         });
 
         if (response.status === 201 || response.data) {
-            console.log(`Book ${id} was successfully saved`, response.data);
+            return response.data as Books;
         } else {
             console.error("Failed to save the book, no data returned from the API.");
         }
