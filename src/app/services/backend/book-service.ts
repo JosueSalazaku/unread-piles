@@ -52,34 +52,32 @@ export const fetchUserBooks = async (): Promise<UserBooks[]> => {
     }
 };
 
-export const fetchUserBooksByUser = async (userId: string): Promise<UserBooks>  => {
+export const fetchUserBooksByUser = async (userId: string): Promise<UserBooks[]> => {
     try {
         const response = await axios.get(`/api/userBooks?userId=${userId}`);
-        console.log(response.data)
 
         if (response.status !== 200) {
-            throw new Error("Failed to fetch book by user");
+            throw new Error("Failed to fetch books by user");
         }
 
-        return response.data as UserBooks;
+        return response.data as UserBooks[];
     } catch (error) {
-        console.error("Error fetching book by user", error);
-        throw new Error("Could not Fetch book by user. Please try again.");
+        console.error("Error fetching books by user:", error);
+        throw new Error("Could not fetch books by user. Please try again.");
     }
-}
+};
 
-export const fetchUserBooksByStatus = async (status: string): Promise<UserBooks>  => {
+export const fetchUserBooksByStatus = async (status: string): Promise<UserBooks[]> => {
     try {
         const response = await axios.get(`/api/userBooks?status=${status}`);
-        console.log(response.data)
 
         if (response.status !== 200) {
-            throw new Error("Failed to fetch book by status");
+            throw new Error("Failed to fetch books by status");
         }
 
-        return response.data as UserBooks;
+        return response.data as UserBooks[];
     } catch (error) {
-        console.error("Error fetching book by status:", error);
-        throw new Error("Could not Fetch book by status. Please try again.");
+        console.error("Error fetching books by status:", error);
+        throw new Error("Could not fetch books by status. Please try again.");
     }
-}
+};
