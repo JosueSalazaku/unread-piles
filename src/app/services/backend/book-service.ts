@@ -81,3 +81,14 @@ export const fetchUserBooksByStatus = async (status: string): Promise<UserBooks[
         throw new Error("Could not fetch books by status. Please try again.");
     }
 };
+
+export const updateBookStatus = async (userId: string, bookId: string, status: string) => {
+    try {
+        const data = { userId, bookId, status };
+        const response = await axios.patch('api/userBooks', data)
+        console.log(response.data);
+        
+    } catch (error) {
+        console.error("Error Updating the book status", error)
+    }
+}
