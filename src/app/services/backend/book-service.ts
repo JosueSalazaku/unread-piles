@@ -37,17 +37,12 @@ export const saveUserBook = async(id: string ): Promise<Books> => {
     }
 };
 
-export const fetchUserBooks = async (userId: string): Promise<UserBooks[]> => {
+export const fetchUserBooks = async (): Promise<UserBooks[]> => {
     try {
+        const response = await axios.get('/api/userBooks');
+        console.log(response.data);
 
-        if (!userId) {
-            throw new Error('User ID is missing');
-        }
-
-        const response = await axios.get(`/api/userBooks/${userId}`)
-
-        
-        if (response.status !== 200) { 
+        if (response.status !== 200) {
             throw new Error("Failed to fetch book data");
         }
         return response.data as UserBooks[];
@@ -55,7 +50,7 @@ export const fetchUserBooks = async (userId: string): Promise<UserBooks[]> => {
         console.error("Error fetching book data:", error);
         throw new Error("Could not fetch book data. Please try again.");
     }
-}
+};
 
 export const updateUserBookStatus = async (userId: string, bookId: string, status: string): Promise<UserBooks>  => {
     try {

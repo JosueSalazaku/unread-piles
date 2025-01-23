@@ -9,13 +9,13 @@ export async function GET(req: NextRequest, { params }: { params: Promise<{ user
     try {
         const data = await db.select().from(userBooks).where(and(eq(userBooks.userId, userId), eq(userBooks.status, status)));
         if (data.length === 0) {
-            return NextResponse.json({ error: "Book not found for this user" }, { status: 404 });
+            return NextResponse.json({ error: "Book status not found for this user" }, { status: 404 });
         }
 
         return NextResponse.json(data[0]); 
     } catch (error) {
-        console.error("Error fetching books:", error);
-        return NextResponse.json({ error: "Error fetching books" }, { status: 500 });
+        console.error("Error fetching books status", error);
+        return NextResponse.json({ error: "Error fetching books status" }, { status: 500 });
     }
 }
 

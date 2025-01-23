@@ -24,7 +24,7 @@ export default function Profile() {
         />
         <h1 className="text-xl">{name}</h1>
       </div>
-    <UserBooks />
+      <UserBooks />
     </div>
   );
 }

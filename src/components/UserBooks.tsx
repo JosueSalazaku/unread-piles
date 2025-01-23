@@ -18,8 +18,7 @@ export default function UserBooks() {
         const getUserBookData = async () => {
           try {
             if (session.data?.user) {
-              const userId = session.data.user.id;
-              const userBooks = await fetchUserBooks(userId);
+              const userBooks = await fetchUserBooks();
               setLoading(true);
               
               const books = await Promise.all(

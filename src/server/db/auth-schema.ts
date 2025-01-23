@@ -15,18 +15,14 @@ export const session = pgTable("session", {
   expiresAt: timestamp("expiresAt").notNull(),
   ipAddress: text("ipAddress"),
   userAgent: text("userAgent"),
-  userId: text("userId")
-    .notNull()
-    .references(() => user.id),
+  userId: text("userId").notNull().references(() => user.id),
 });
 
 export const account = pgTable("account", {
   id: text("id").primaryKey(),
   accountId: text("accountId").notNull(),
   providerId: text("providerId").notNull(),
-  userId: text("userId")
-    .notNull()
-    .references(() => user.id),
+  userId: text("userId").notNull().references(() => user.id),
   accessToken: text("accessToken"),
   refreshToken: text("refreshToken"),
   idToken: text("idToken"),
@@ -48,12 +44,8 @@ export const books = pgTable("books", {
 
 export const userBooks = pgTable("userBooks", {
   id: text("id").primaryKey(),
-  userId: text("userId")
-    .notNull()
-    .references(() => user.id),
-  bookId: text("bookId")
-    .notNull()
-    .references(() => books.id),
+  userId: text("userId").notNull().references(() => user.id),
+  bookId: text("bookId").notNull().references(() => books.id),
   status: text("status").notNull(),
   createdAt: timestamp("createdAt").defaultNow(),
 });
