@@ -37,7 +37,7 @@ export const fetchBookByInput = async (query: string, startIndex: number, maxRes
     
 }
 
-export const fetchAllUserBooks = async (bookId: string) => {
+export const fetchGoogleBookById = async (bookId: string) => {
   if (!bookId) {
     console.error("No BookId found", bookId);
     return null;

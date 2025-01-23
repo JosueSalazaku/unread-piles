@@ -18,4 +18,3 @@ export const fetchBooksByGenre = async (genre: string, startIndex = 0): Promise<
         return { items: [], totalItems: 0 }; 
     }
 };
-

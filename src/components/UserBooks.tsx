@@ -1,7 +1,7 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import { fetchUserBooks } from "@/app/services/backend/book-service"; 
-import { fetchAllUserBooks } from "@/app/services/client/book-service";
+import { fetchGoogleBookById } from "@/app/services/client/book-service";
 import type { GoogleBook } from "@/types";
 import { useCustomSession } from "@/components/SessionProvider";
 import Image from "next/image";
@@ -23,7 +23,7 @@ export default function UserBooks() {
               
               const books = await Promise.all(
                 userBooks.map(async (userBook) => {
-                  const book = await fetchAllUserBooks(userBook.bookId);
+                  const book = await fetchGoogleBookById(userBook.bookId);
                   return book as GoogleBook | null;
                 })
               );
