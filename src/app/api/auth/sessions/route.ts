@@ -1,7 +1,7 @@
 import { type NextRequest, NextResponse } from "next/server";
 import { auth } from "@/app/lib/auth";
 
-export default async function GET(req: NextRequest) {
+export async function GET(req: NextRequest) {
     try {
         const session = await auth.api.getSession({ headers: req.headers })
         const user = session?.user;
