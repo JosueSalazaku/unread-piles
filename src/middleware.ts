@@ -1,55 +1,47 @@
-import { NextRequest, NextResponse } from "next/server";
-import { createAuthClient } from "better-auth/react";
-import { auth } from "./app/lib/auth";
-
+import type { NextRequest } from "next/server";
+import { NextResponse } from "next/server";
+import axios from "axios";
 interface Session {
   user: {
     id: string;
     name: string;
-    email: string;
   };
 }
 
 export const config = {
-  matcher: [
-    /*
-     * Match all request paths except for the ones starting with:
-     * - api (API routes)
-     * - _next/static (static files)
-     * - _next/image (image optimization files)
-     * - favicon.ico, sitemap.xml, robots.txt (metadata files)
-     */
-    "/((?!api|_next/static|_next/image|favicon.ico|sitemap.xml|robots.txt).*)",
-
-  ],
+  matcher: "/((?!api|_next/static|_next/image|favicon.ico|sitemap.xml|robots.txt).*)",
 };
 
+const protectedRoutes = ['/explore', '/books', '/profile', '/library', '/search', '/settings'];
+
 export default async function middleware(req: NextRequest) {
-    console.log("Middleware RUNNING!");
-  
-    if (req.nextUrl.pathname.startsWith('/explore')) {
-      // Make sure you're calling the right endpoint for authentication
-      const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/auth/session`);
-  
-      // Check if the response is ok and contains a valid JSON body
-      if (!response.ok) {
-        console.error('Failed to fetch session:', response.statusText);
-        return NextResponse.redirect('/api/auth/sign-in');
+  const path = req.nextUrl.pathname;
+
+  // Check if the requested route is in the protected list
+  if (protectedRoutes.some(route => path.startsWith(route))) {
+    try {
+      const response = await axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/api/auth/session`, {
+        headers: Object.fromEntries(req.headers.entries()),
+      });
+
+      if (response.status !== 200) {
+        console.error("Failed to fetch session: ", response.statusText);
+        return NextResponse.redirect(`${process.env.NEXT_PUBLIC_BASE_URL}/api/auth/sign-in`);
       }
-  
-      try {
-        const session: Session = await response.json() as Session; 
-        console.log("Session:", session);
-  
-        // Perform authentication checks here
-        if (!session.user) {
-          return NextResponse.redirect('/api/auth/sign-in');
-        }
-      } catch (error) {
-        console.error("Failed to parse session JSON:", error);
-        return NextResponse.redirect('/api/auth/sign-in');
+
+      const session: Session = response.data as Session;
+
+      if (!session.user) {
+        return NextResponse.redirect(`${process.env.NEXT_PUBLIC_BASE_URL}/api/auth/sign-in`);
       }
+
+      console.log("Session:", session);
+
+    } catch (error) {
+      console.error("Error fetching session:", error);
+      return NextResponse.redirect(`${process.env.NEXT_PUBLIC_BASE_URL}/api/auth/sign-in`);
     }
-  
-    return NextResponse.next();
   }
+
+  return NextResponse.next();
+}
