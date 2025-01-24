@@ -50,7 +50,7 @@ export interface Books {
 
 export interface GoogleBook {
   id: string;
-  volumeInfo: VolumeInfo
+  volumeInfo: VolumeInfo;
 }
 
 export interface VolumeInfo {
@@ -61,11 +61,11 @@ export interface VolumeInfo {
   pageCount?: number;
   categories?: string[];
   imageLinks?: {
-    extraLarge?: string,
-    large?: string,
-    medium?: string,
-    small?: string,
-    smallThubnail?: string,
+    extraLarge?: string;
+    large?: string;
+    medium?: string;
+    small?: string;
+    smallThubnail?: string;
     thumbnail?: string;
   };
 }
@@ -144,4 +144,12 @@ export interface Status {
 export interface GoogleBooksApiResponse {
   items: GoogleBook[];
   totalItems: number;
+}
+
+export interface Satatus {
+  toRead: string;
+  currentlyReading: string;
+  finished: string;
+  DidNotFinished: string;
+  Remove: string;
 }

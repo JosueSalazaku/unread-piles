@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import type { Books } from "@/types";
 import { saveUserBook } from "@/app/services/backend/book-service";
 import { useCustomSession } from "./SessionProvider";
+import { updateBookStatus } from "@/app/services/backend/book-service";
 
 export function SaveBook({ id }: Books) {
     const [savedBook, setSavedBook] = useState<Books | null>(null);
@@ -35,6 +36,10 @@ export function SaveBook({ id }: Books) {
 
     async function handleBookRemoval() {
         //
+    }
+
+    if (!session.data?.user) {
+        <div>Log in To save books!</div>
     }
 
     return (
