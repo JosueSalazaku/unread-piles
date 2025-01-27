@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import type { Books } from "@/types";
-import { saveUserBook } from "@/services/backend/book-service";
+import { saveUserBook, saveBookStatus, updateBookStatus } from "@/services/backend/book-service";
 import { useCustomSession } from "./SessionProvider";
-import { updateBookStatus } from "@/services/backend/book-service";
 
 export function SaveBook({ id }: Books) {
   const [savedBook, setSavedBook] = useState<Books | null>(null);
@@ -10,7 +9,10 @@ export function SaveBook({ id }: Books) {
 
   const session = useCustomSession();
   const userId = session.data?.user?.id;
+  console.log(userId);
+  
   const status = "";
+  
 
   async function handleSavingBook() {
     if (!userId) {
@@ -30,9 +32,9 @@ export function SaveBook({ id }: Books) {
     }
   }
 
-  async function handleStatusChange() {
-    // const changeBookStatus = await updateBookStatus(userId, status)
-  }
+  // async function handleStatusChange(userId: string) {
+  //   const changeBookStatus = await updateBookStatus(userId, id, status)
+  // }
 
   async function handleBookRemoval() {
     //
@@ -46,7 +48,7 @@ export function SaveBook({ id }: Books) {
     <>
       {savedBook ? (
         <select
-          onChange={handleStatusChange}
+          // onChange={() => userId && handleStatusChange(userId)}
           className="rounded bg-main-orange px-1 py-1 text-sm text-white"
           defaultValue={"Read"}
         >

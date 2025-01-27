@@ -3,7 +3,7 @@ import axios from "axios";
 
 const fetchAccessToken = async () => {
     try {
-        const response = await axios.get<{ accessToken: string }>(`${process.env.NEXT_PUBLIC_API_ROUTE}/account/token`);
+        const response = await axios.get<{ accessToken: string }>(`${process.env.NEXT_PUBLIC_API_ROUTE}/account/tokens`);
         return response.data.accessToken;
     } catch (error) {
         console.error("Error fetching access token:", error);
@@ -69,6 +69,31 @@ export const fetchUserBooksByStatus = async (status: string): Promise<UserBooks[
         throw new Error("Could not fetch books by status. Please try again.");
     }
 };
+
+export const saveBookStatus = async (userId: string, bookId: string, status: string) => {
+    try {
+        const accessToken = await fetchAccessToken();
+        if (!accessToken) {
+            throw new Error("Access token not found.");
+        }    
+        
+        const data = {userId, bookId, status}
+
+        const response = await axios.post(`${process.env.NEXT_PUBLIC_API_ROUTE}/userBooks`, data, {
+            headers: { Authorization: `Bearer ${accessToken}` },
+        })
+
+         if (response.status === 201) {
+            return response.data as UserBooks;
+        } else {
+            throw new Error("Failed to save the book status, unexpected API response.");
+        }
+            
+    } catch (error) {
+        console.error("Error saving the book status:", error);
+        throw new Error("Could not save the book status. Please try again.");
+    }
+} 
 
 export const updateBookStatus = async (userId: string, bookId: string, status: string): Promise<void> => {
     try {
