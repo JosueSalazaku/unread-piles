@@ -13,11 +13,14 @@ export default function UserBooks() {
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
 
+  const userId = session.data?.user?.id
+  console.log(userId);
+
   useEffect(() => {
     const getUserBookData = async () => {
       try {
-        if (session.data?.user) {
-          const userBooks = await fetchUserBooks();
+        if (userId) {
+          const userBooks = await fetchUserBooks(userId);
           setLoading(true);
 
           const books = await Promise.all(
@@ -43,9 +46,9 @@ export default function UserBooks() {
     };
 
     void getUserBookData();
-  }, [session]);
+  }, [userId]);
 
-  if (!session.data?.user) {
+  if (!userId) {
     return (
       <div>You are not logged in. Please sign in to view your information.</div>
     );

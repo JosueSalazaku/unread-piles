@@ -4,9 +4,17 @@ import type { UserBooks } from "@/types";
 import { and, eq } from "drizzle-orm";
 import { type NextRequest, NextResponse } from "next/server";
 
-export async function GET() {
+export async function GET(req:NextRequest) {
+    const userId = req.nextUrl.searchParams.get("userId");
+
+    if (!userId) {
+        return NextResponse.json(
+            { error: "User ID is required" },
+            { status: 400 }
+        );
+    }
     try {
-        const data = await db.select().from(userBooks)
+        const data = await db.select().from(userBooks).where(eq(userBooks.userId, userId))
         return NextResponse.json(data)
     } catch (error) {
         console.error("Error fetching books:", error);
