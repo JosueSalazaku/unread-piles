@@ -1,6 +1,6 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import { fetchBooksByGenre } from "@/app/services/client/genre-service";
+import { fetchBooksByGenre } from "@/services/client/genre-service";
 import { type GoogleBook } from "@/types";
 import Image from "next/image";
 import FadeLoader from "react-spinners/FadeLoader";
@@ -36,7 +36,10 @@ export default function ExplorePage() {
       setLoading(true);
       try {
         const startIndex = (currentPage - 1) * maxResults;
-        const { items, totalItems } = await fetchBooksByGenre(selectedGenre, startIndex);
+        const { items, totalItems } = await fetchBooksByGenre(
+          selectedGenre,
+          startIndex,
+        );
         setGenreBooks(items);
         setTotalItems(totalItems);
       } catch {
@@ -69,19 +72,24 @@ export default function ExplorePage() {
   const totalPages = Math.ceil(totalItems / maxResults);
   const startPage = Math.max(currentPage - 2, 1);
   const endPage = Math.min(currentPage + 2, totalPages);
-  const pageButtons = Array.from({ length: endPage - startPage + 1 }, (_, index) => startPage + index);
+  const pageButtons = Array.from(
+    { length: endPage - startPage + 1 },
+    (_, index) => startPage + index,
+  );
 
   return (
-    <div className="w-screen h-screen flex flex-col justify-start gap-4 items-center">
+    <div className="flex h-screen w-screen flex-col items-center justify-start gap-4">
       <h1 className="pt-20 text-2xl font-bold">Explore Books</h1>
 
       <div>
-        <div className="flex flex-wrap gap-4 justify-center">
+        <div className="flex flex-wrap justify-center gap-4">
           {genres.map((genre) => (
             <button
               key={genre.name}
-              className={`border gap-3 rounded hover:bg-dark-brown px-4 py-2 ${
-                selectedGenre === genre.string ? "bg-main-orange border-main text-white" : ""
+              className={`gap-3 rounded border px-4 py-2 hover:bg-dark-brown ${
+                selectedGenre === genre.string
+                  ? "border-main bg-main-orange text-white"
+                  : ""
               }`}
               onClick={() => handleGenreClick(genre.string)}
             >
@@ -95,28 +103,35 @@ export default function ExplorePage() {
       {error && <p className="text-red-500">{error}</p>}
 
       {genreBooks.length > 0 ? (
-        <div className="gap-4 mt-8">
-          <h2 className="text-xl px-4 py-4 text-center">Books in {selectedGenre} Genre:</h2>
-          <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+        <div className="mt-8 gap-4">
+          <h2 className="px-4 py-4 text-center text-xl">
+            Books in {selectedGenre} Genre:
+          </h2>
+          <ul className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
             {genreBooks.map((book, index) => (
               <li key={index} className="p-4">
                 <div className="flex flex-col items-center gap-5 px-4">
                   <Link href={`/books/${book.id}`}>
                     <Image
-                      src={book.volumeInfo.imageLinks?.thumbnail ?? "/path/to/default-image.jpg"}
+                      src={
+                        book.volumeInfo.imageLinks?.thumbnail ??
+                        "/path/to/default-image.jpg"
+                      }
                       alt={book.volumeInfo.title ?? ""}
-                      width={150} 
-                      height={225} 
+                      width={150}
+                      height={225}
                       className="rounded-md object-cover"
                     />
                   </Link>
                   <div className="text-center">
                     <Link href={`/books/${book.id}`}>
-                      <h1 className="font-bold text-lg mb-3 sm:text-xl">{book.volumeInfo.title}</h1>
+                      <h1 className="mb-3 text-lg font-bold sm:text-xl">
+                        {book.volumeInfo.title}
+                      </h1>
                     </Link>
-                    <SaveBook 
-                      id={book.id} 
-                      // status={""} 
+                    <SaveBook
+                      id={book.id}
+                      // status={""}
                     />
                   </div>
                 </div>
@@ -132,7 +147,7 @@ export default function ExplorePage() {
         <button
           onClick={() => setCurrentPage(currentPage - 1)}
           disabled={currentPage === 1}
-          className="px-4 py-2 border rounded"
+          className="rounded border px-4 py-2"
         >
           <GrPrevious />
         </button>
@@ -141,7 +156,7 @@ export default function ExplorePage() {
           <button
             key={page}
             onClick={() => setCurrentPage(page)}
-            className={`px-4 py-2 border rounded ${page === currentPage ? "bg-dark-brown text-white" : ""}`}
+            className={`rounded border px-4 py-2 ${page === currentPage ? "bg-dark-brown text-white" : ""}`}
           >
             {page}
           </button>
@@ -150,7 +165,7 @@ export default function ExplorePage() {
         <button
           onClick={() => setCurrentPage(currentPage + 1)}
           disabled={currentPage === totalPages}
-          className="px-4 py-2 border rounded"
+          className="rounded border px-4 py-2"
         >
           <GrNext />
         </button>

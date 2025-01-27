@@ -3,7 +3,7 @@ import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import FadeLoader from "react-spinners/FadeLoader";
 import type { GoogleBook } from "@/types";
-import { fetchBookByInput } from "@/app/services/client/book-service";
+import { fetchBookByInput } from "@/services/client/book-service";
 import Image from "next/image";
 import Link from "next/link";
 import { SaveBook } from "./SaveBook";
@@ -105,9 +105,7 @@ export default function SearchResults() {
                     <strong>Published:</strong> {book.volumeInfo.publishedDate}
                   </p>
                 )}
-                <SaveBook
-                  id={book.id}
-                />
+                <SaveBook id={book.id} />
               </div>
             </div>
           </li>

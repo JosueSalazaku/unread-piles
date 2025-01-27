@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import FadeLoader from "react-spinners/FadeLoader";
 import type { GoogleBook, SaveBookProps } from "@/types";
-import { fetchGeneralBook } from "@/app/services/client/book-service";
+import { fetchGeneralBook } from "@/services/client/book-service";
 import { SaveBook } from "./SaveBook";
 
 export default function GeneralBooks({ status, id }: SaveBookProps) {
@@ -72,7 +72,7 @@ export default function GeneralBooks({ status, id }: SaveBookProps) {
                       <strong>Authors:</strong>{" "}
                       {book.volumeInfo.authors.join(", ")}
                     </p>
-                    <p className="text-dark-brown py-4">
+                    <p className="py-4 text-dark-brown">
                       Pages: {book.volumeInfo.pageCount}
                     </p>
                   </div>
