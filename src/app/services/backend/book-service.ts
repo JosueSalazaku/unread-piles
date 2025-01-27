@@ -3,7 +3,7 @@ import axios from "axios";
 
 const fetchAccessToken = async () => {
     try {
-        const response = await axios.get<{ accessToken: string }>("/api/account/tokens");
+        const response = await axios.get<{ accessToken: string }>("/api/protected/data/account/tokens");
         return response.data.accessToken;
     } catch (error) {
         console.error("Error fetching access token:", error);
@@ -20,7 +20,7 @@ export const saveUserBook = async(id: string ): Promise<Books> => {
 
         const data: Books = { id };
 
-        const response = await axios.post("/api/books", data, {
+        const response = await axios.post("/api/protected/data/books", data, {
             headers: { Authorization: `Bearer ${accessToken}` },
         });
 
@@ -39,7 +39,7 @@ export const saveUserBook = async(id: string ): Promise<Books> => {
 
 export const fetchUserBooks = async (): Promise<UserBooks[]> => {
     try {
-        const response = await axios.get('/api/userBooks');
+        const response = await axios.get('/api/protected/data/userBooks');
         console.log(response.data);
 
         if (response.status !== 200) {
@@ -54,7 +54,7 @@ export const fetchUserBooks = async (): Promise<UserBooks[]> => {
 
 export const fetchUserBooksByUser = async (userId: string): Promise<UserBooks[]> => {
     try {
-        const response = await axios.get(`/api/userBooks?userId=${userId}`);
+        const response = await axios.get(`/api/protected/data/userBooks?userId=${userId}`);
 
         if (response.status !== 200) {
             throw new Error("Failed to fetch books by user");
@@ -69,7 +69,7 @@ export const fetchUserBooksByUser = async (userId: string): Promise<UserBooks[]>
 
 export const fetchUserBooksByStatus = async (status: string): Promise<UserBooks[]> => {
     try {
-        const response = await axios.get(`/api/userBooks?status=${status}`);
+        const response = await axios.get(`/api/protected/data/userBooks?status=${status}`);
 
         if (response.status !== 200) {
             throw new Error("Failed to fetch books by status");

@@ -17,8 +17,6 @@ export default async function middleware(req: NextRequest) {
   });
 
   const user = session?.user;
-  console.log("Middleware RUNNING!");
-  console.log(user);
 
   if (protectedRoutes.some(route => path.startsWith(route))) {
     try {
