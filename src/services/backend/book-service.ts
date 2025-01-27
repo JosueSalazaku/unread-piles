@@ -3,7 +3,7 @@ import axios from "axios";
 
 const fetchAccessToken = async () => {
     try {
-        const response = await axios.get<{ accessToken: string }>(`${process.env.TOKEN_API_ROUTE}/token`);
+        const response = await axios.get<{ accessToken: string }>(`${process.env.NEXT_PUBLIC_API_ROUTE}/account/token`);
         return response.data.accessToken;
     } catch (error) {
         console.error("Error fetching access token:", error);
@@ -11,7 +11,7 @@ const fetchAccessToken = async () => {
     }
 };
 
-export const saveUserBook = async(id: string ): Promise<Books> => {
+export const saveUserBook = async (id: string): Promise<Books> => {
     try {
         const accessToken = await fetchAccessToken();
         if (!accessToken) {
@@ -20,17 +20,15 @@ export const saveUserBook = async(id: string ): Promise<Books> => {
 
         const data: Books = { id };
 
-        const response = await axios.post(`${process.env.BOOKS_API_ROUTE}/books`, data, {
+        const response = await axios.post(`${process.env.NEXT_PUBLIC_API_ROUTE}/books`, data, {
             headers: { Authorization: `Bearer ${accessToken}` },
         });
 
-        if (response.status === 201 || response.data) {
+        if (response.status === 201) {
             return response.data as Books;
         } else {
-            console.error("Failed to save the book, no data returned from the API.");
+            throw new Error("Failed to save the book, unexpected API response.");
         }
-
-        return data;
     } catch (error) {
         console.error("Error saving the book:", error);
         throw new Error("Could not save the book. Please try again.");
@@ -39,45 +37,49 @@ export const saveUserBook = async(id: string ): Promise<Books> => {
 
 export const fetchUserBooks = async (userId: string): Promise<UserBooks[]> => {
     try {
-        const response = await axios.get(`${process.env.USERBOOKS_API_ROUTE}/userBooks`, {
+        const response = await axios.get(`${process.env.NEXT_PUBLIC_API_ROUTE}/userBooks`, {
             params: { userId },
         });
-        const data = response.data as UserBooks[]
-        console.log(data);
 
-        if (response.status !== 200) {
-            throw new Error("Failed to fetch book data");
+        if (response.status === 200) {
+            return response.data as UserBooks[];
+        } else {
+            throw new Error("Failed to fetch user books, unexpected API response.");
         }
-        return response.data as UserBooks[];
     } catch (error) {
-        console.error("Error fetching book data:", error);
-        throw new Error("Could not fetch book data. Please try again.");
+        console.error("Error fetching user books:", error);
+        throw new Error("Could not fetch user books. Please try again.");
     }
 };
 
 
 export const fetchUserBooksByStatus = async (status: string): Promise<UserBooks[]> => {
     try {
-        const response = await axios.get(`${process.env.USERBOOKS_API_ROUTE}/userBooks?status=${status}`);
+        const response = await axios.get(`${process.env.NEXT_PUBLIC_API_ROUTE}/userBooks`, {
+            params: { status },
+        });
 
-        if (response.status !== 200) {
-            throw new Error("Failed to fetch books by status");
+        if (response.status === 200) {
+            return response.data as UserBooks[];
+        } else {
+            throw new Error("Failed to fetch books by status, unexpected API response.");
         }
-
-        return response.data as UserBooks[];
     } catch (error) {
         console.error("Error fetching books by status:", error);
         throw new Error("Could not fetch books by status. Please try again.");
     }
 };
 
-export const updateBookStatus = async (userId: string, bookId: string, status: string) => {
+export const updateBookStatus = async (userId: string, bookId: string, status: string): Promise<void> => {
     try {
         const data = { userId, bookId, status };
-        const response = await axios.patch(`${process.env.USERBOOKS_API_ROUTE}/userBooks`, data)
-        console.log(response.data);
-        
+        const response = await axios.patch(`${process.env.NEXT_PUBLIC_API_ROUTE}/userBooks`, data);
+
+        if (response.status !== 200) {
+            throw new Error("Failed to update book status, unexpected API response.");
+        }
     } catch (error) {
-        console.error("Error Updating the book status", error)
+        console.error("Error updating the book status:", error);
+        throw new Error("Could not update the book status. Please try again.");
     }
-}
+};
