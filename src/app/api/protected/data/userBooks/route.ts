@@ -22,6 +22,26 @@ export async function GET(req:NextRequest) {
     }
 }
 
+export async function POST(req: NextRequest) {
+    try {
+        const { userId, bookId, status } = await req.json() as UserBooks;
+
+        if (!userId || !bookId || !status) {
+            return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
+        }
+
+        await db.insert(userBooks).values({
+            id: crypto.randomUUID(),
+            userId,
+            bookId,
+            status
+        });
+    } catch (error) {
+        console.error("Error inserting book:", error);
+        return NextResponse.json({ error: "Error inserting book" }, { status: 500 });
+    }
+}
+
 export async function PATCH(req: NextRequest) {
     try {
         const { userId, bookId, status } = await req.json() as UserBooks;
@@ -32,7 +52,7 @@ export async function PATCH(req: NextRequest) {
 
         await db.update(userBooks)
             .set({ status })
-            .where(and(eq(userBooks.userId, userId), eq(userBooks.bookId, bookId)));
+            .where(and(eq(userBooks.userId, userId), eq(userBooks.status, status)));
         return NextResponse.json({ message: "Status updated successfully" } , { status: 200 });
     } catch (error) {
         console.error("Error updating status:", error);

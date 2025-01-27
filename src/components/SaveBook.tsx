@@ -10,6 +10,7 @@ export function SaveBook({ id }: Books) {
 
   const session = useCustomSession();
   const userId = session.data?.user?.id;
+  const status = "";
 
   async function handleSavingBook() {
     if (!userId) {
@@ -30,7 +31,7 @@ export function SaveBook({ id }: Books) {
   }
 
   async function handleStatusChange() {
-    // handle the changes in status for the readers/ User
+    // const changeBookStatus = await updateBookStatus(userId, status)
   }
 
   async function handleBookRemoval() {
