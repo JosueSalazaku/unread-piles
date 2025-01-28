@@ -24,33 +24,41 @@ export async function GET(req:NextRequest) {
 
 export async function POST(req: NextRequest) {
     try {
-        const { userId, bookId, status } = await req.json() as UserBooks;
-        console.log(`User id: ${userId}, ${bookId}, ${status}`);
-        
+        const { userId, bookId, status } = (await req.json()) as UserBooks;
 
         if (!userId || !bookId || !status) {
             return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
         }
 
-        const existingBook = await db.select().from(userBooks).where(and(eq(userBooks.userId, userId), eq(userBooks.bookId, bookId), eq(userBooks.status, status)));
-        console.log(existingBook);
-        
+        const existingBook = await db.select().from(userBooks).where(
+            and(eq(userBooks.userId, userId), eq(userBooks.bookId, bookId))
+        );
 
         if (existingBook.length > 0) {
-            return NextResponse.json({ error: "This book is already saved with the selected status." }, { status: 400 });
+            // If the status is different, update the status, otherwise return success
+            if (existingBook[0] && existingBook[0].status !== status) {
+                await db.update(userBooks)
+                    .set({ status })
+                    .where(and(eq(userBooks.userId, userId), eq(userBooks.bookId, bookId)));
+                return NextResponse.json({ message: "Book status updated successfully" }, { status: 200 });
+            } else {
+                return NextResponse.json({ message: "This book is already saved with the selected status." }, { status: 400 });
+            }
         }
 
+        // Insert a new record if no existing book status was found
         await db.insert(userBooks).values({
             id: crypto.randomUUID(),
             userId,
             bookId,
-            status
+            status,
+            createdAt: new Date(),
         });
 
         return NextResponse.json({ message: "Book added successfully" }, { status: 200 });
     } catch (error) {
-        console.error("Error inserting book:", error);
-        return NextResponse.json({ error: "Error inserting book" }, { status: 500 });
+        console.error("Error inserting or updating book:", error);
+        return NextResponse.json({ error: "Error inserting or updating book" }, { status: 500 });
     }
 }
 
