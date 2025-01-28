@@ -24,14 +24,15 @@ export async function GET(req:NextRequest) {
 
 export async function POST(req: NextRequest) {
     try {
-        const { id, userId, bookId, status } = await req.json() as UserBooks;
+        const { userId, bookId, status } = await req.json() as UserBooks;
+        console.log(`User id: ${userId}, ${bookId}, ${status}`);
+        
 
         if (!userId || !bookId || !status) {
             return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
         }
 
         const existingBook = await db.select().from(userBooks).where(and(eq(userBooks.userId, userId), eq(userBooks.bookId, bookId), eq(userBooks.status, status)));
-
         console.log(existingBook);
         
 
@@ -40,7 +41,7 @@ export async function POST(req: NextRequest) {
         }
 
         await db.insert(userBooks).values({
-            id,
+            id: crypto.randomUUID(),
             userId,
             bookId,
             status

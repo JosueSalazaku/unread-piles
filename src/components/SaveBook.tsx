@@ -5,9 +5,10 @@ import { useCustomSession } from "./SessionProvider";
 import bookStatus from "./../services/backend/bookStatus.json";
 
 export function SaveBook({ id }: Books) {
+  const [isSaving, setIsSaving] = useState(false);
   const [savedBook, setSavedBook] = useState<Books | null>(null);
   const [saved, setSaved] = useState<boolean>(false);
-  const [savedStatus, setsavedStatus] = useState<string>("");
+  const [savedStatus, setSavedStatus] = useState<string>("");
   const [status, setStatus] = useState<string>("To read")
 
   const session = useCustomSession();
@@ -21,9 +22,13 @@ export function SaveBook({ id }: Books) {
     try {
       const saveBookByUser = await saveUserBook(id);      
       setSavedBook(saveBookByUser);
+
+      const saveStatusByUser = await saveBookStatus(userId, id, status)
+      setSavedStatus(saveStatusByUser)
+
       
-      if ( saveBookByUser) {
-        setSaved(true) 
+      if (saveBookByUser && saveStatusByUser) {
+        setSaved(true);
       }
 
     } catch (error) {
@@ -53,7 +58,7 @@ export function SaveBook({ id }: Books) {
           onClick={handleSavingBook}
           className="rounded  bg-dark-brown px-4 py-1 text-sm text-white dark:text-white"
         >
-          To Read
+          {isSaving ? "Saving..." : "To Read"}
         </button>
       )}
     </>

@@ -83,7 +83,7 @@ export const saveBookStatus = async (userId: string, bookId: string, status: str
             headers: { Authorization: `Bearer ${accessToken}` },
         })
 
-         if (response.status === 201) {
+        if (response.status === 201 || response.status === 200) {
             return response.data as string;
         } else {
             throw new Error("Failed to save the book status, unexpected API response.");
