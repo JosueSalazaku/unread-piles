@@ -84,7 +84,7 @@ export const saveBookStatus = async (userId: string, bookId: string, status: str
         })
 
          if (response.status === 201) {
-            return response.data as UserBooks;
+            return response.data as string;
         } else {
             throw new Error("Failed to save the book status, unexpected API response.");
         }
@@ -95,7 +95,7 @@ export const saveBookStatus = async (userId: string, bookId: string, status: str
     }
 } 
 
-export const updateBookStatus = async (userId: string, bookId: string, status: string): Promise<void> => {
+export const updateBookStatus = async (userId: string, bookId: string, status: string) => {
     try {
         const data = { userId, bookId, status };
         const response = await axios.patch(`${process.env.NEXT_PUBLIC_API_ROUTE}/userBooks`, data);

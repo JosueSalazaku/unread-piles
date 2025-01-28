@@ -14,7 +14,6 @@ export default function UserBooks() {
   const [loading, setLoading] = useState(false);
 
   const userId = session.data?.user?.id
-  console.log(userId);
 
   useEffect(() => {
     const getUserBookData = async () => {

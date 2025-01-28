@@ -24,18 +24,29 @@ export async function GET(req:NextRequest) {
 
 export async function POST(req: NextRequest) {
     try {
-        const { userId, bookId, status } = await req.json() as UserBooks;
+        const { id, userId, bookId, status } = await req.json() as UserBooks;
 
         if (!userId || !bookId || !status) {
             return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
         }
 
+        const existingBook = await db.select().from(userBooks).where(and(eq(userBooks.userId, userId), eq(userBooks.bookId, bookId), eq(userBooks.status, status)));
+
+        console.log(existingBook);
+        
+
+        if (existingBook.length > 0) {
+            return NextResponse.json({ error: "This book is already saved with the selected status." }, { status: 400 });
+        }
+
         await db.insert(userBooks).values({
-            id: crypto.randomUUID(),
+            id,
             userId,
             bookId,
             status
         });
+
+        return NextResponse.json({ message: "Book added successfully" }, { status: 200 });
     } catch (error) {
         console.error("Error inserting book:", error);
         return NextResponse.json({ error: "Error inserting book" }, { status: 500 });

@@ -32,7 +32,7 @@ export interface UserBooks {
   id: string;
   userId: string;
   bookId: string;
-  status: string;
+  status?: string;
   createdAt: Date;
 }
 
@@ -146,10 +146,6 @@ export interface GoogleBooksApiResponse {
   totalItems: number;
 }
 
-export interface Satatus {
-  toRead: string;
-  currentlyReading: string;
-  finished: string;
-  DidNotFinished: string;
-  Remove: string;
+export interface Status {
+  status: string;
 }

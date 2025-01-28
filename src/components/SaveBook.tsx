@@ -1,18 +1,17 @@
 import React, { useState } from "react";
-import type { Books } from "@/types";
-import { saveUserBook, saveBookStatus, updateBookStatus } from "@/services/backend/book-service";
+import type { Books, } from "@/types";
+import { saveUserBook, saveBookStatus } from "@/services/backend/book-service";
 import { useCustomSession } from "./SessionProvider";
+import bookStatus from "./../services/backend/bookStatus.json";
 
 export function SaveBook({ id }: Books) {
   const [savedBook, setSavedBook] = useState<Books | null>(null);
   const [saved, setSaved] = useState<boolean>(false);
+  const [savedStatus, setsavedStatus] = useState<string>("");
+  const [status, setStatus] = useState<string>("To read")
 
   const session = useCustomSession();
-  const userId = session.data?.user?.id;
-  console.log(userId);
-  
-  const status = "";
-  
+  const userId = session.data?.user?.id;  
 
   async function handleSavingBook() {
     if (!userId) {
@@ -20,24 +19,17 @@ export function SaveBook({ id }: Books) {
     }
 
     try {
-      const saveBookByUser = await saveUserBook(id);
+      const saveBookByUser = await saveUserBook(id);      
       setSavedBook(saveBookByUser);
-
-      if (saveBookByUser) {
-        setSaved(true);
+      
+      if ( saveBookByUser) {
+        setSaved(true) 
       }
+
     } catch (error) {
       console.error("Failed to save the book:", error);
       setSaved(false);
     }
-  }
-
-  // async function handleStatusChange(userId: string) {
-  //   const changeBookStatus = await updateBookStatus(userId, id, status)
-  // }
-
-  async function handleBookRemoval() {
-    //
   }
 
   if (!session.data?.user) {
@@ -48,22 +40,20 @@ export function SaveBook({ id }: Books) {
     <>
       {savedBook ? (
         <select
-          // onChange={() => userId && handleStatusChange(userId)}
-          className="rounded bg-main-orange px-1 py-1 text-sm text-white"
-          defaultValue={"Read"}
-        >
-          <option>Read</option>
-          <option>Currently Reading</option>
-          <option>Finished</option>
-          <option>Abandoned</option>
-          <option onClick={handleBookRemoval}>Remove Book</option>
+          className="rounded bg-main-orange px-1 py-1 text-sm text-white">
+          {bookStatus.status.map((status) => (
+            <option key={status} value={status}>
+              {status}
+            </option>
+          ))}
+
         </select>
       ) : (
         <button
           onClick={handleSavingBook}
-          className="rounded bg-main-orange px-2 py-1 text-sm text-white"
+          className="rounded  bg-dark-brown px-4 py-1 text-sm text-white dark:text-white"
         >
-          Save to Library
+          To Read
         </button>
       )}
     </>
