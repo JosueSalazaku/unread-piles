@@ -52,24 +52,6 @@ export const fetchUserBooks = async (userId: string): Promise<UserBooks[]> => {
     }
 };
 
-
-export const fetchUserBooksByStatus = async (status: string): Promise<UserBooks[]> => {
-    try {
-        const response = await axios.get(`${process.env.NEXT_PUBLIC_API_ROUTE}/userBooks`, {
-            params: { status },
-        });
-
-        if (response.status === 200) {
-            return response.data as UserBooks[];
-        } else {
-            throw new Error("Failed to fetch books by status, unexpected API response.");
-        }
-    } catch (error) {
-        console.error("Error fetching books by status:", error);
-        throw new Error("Could not fetch books by status. Please try again.");
-    }
-};
-
 export const saveBookStatus = async (userId: string, bookId: string, status: string) => {
     try {
         const accessToken = await fetchAccessToken();
