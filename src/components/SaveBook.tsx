@@ -1,42 +1,38 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import type { Books } from "@/types";
 import { saveUserBook, saveBookStatus, updateBookStatus, fetchUserBooks } from "@/services/backend/book-service";
 import { useCustomSession } from "./SessionProvider";
 import bookStatus from "./../services/backend/bookStatus.json";
-import { i } from "node_modules/better-auth/dist/auth-BM9xLLak";
 
 export function SaveBook({ id }: Books) {
   const [isSaving, setIsSaving] = useState(false);
   const [savedBook, setSavedBook] = useState<Books | null>(null);
   const [saved, setSaved] = useState<boolean>(false);
-  const [savedStatus, setSavedStatus] = useState<string>("");
   const [status, setStatus] = useState<string>("To read");
-  const [fetchedStatus, setFetchedStatus] = useState<string | null>(null);
-  
+
   const session = useCustomSession();
   const userId = session.data?.user?.id;
 
   useEffect(() => {
-    async function fetchUserBooksByStatus(userId: string) {
+    if (!userId || !id) return;
+  
+    const fetchUserBooksByStatus = async () => {
       try {
         const userBooksStatus = await fetchUserBooks(userId);
-        const book = userBooksStatus.find(book => book.bookId === id)
-        
-        if (book) {
-          setSavedBook(book);
-          setStatus(book.status ?? "");
+        const bookStatus = userBooksStatus.find((book) => book.bookId === id);
+        if (bookStatus) {
+          setSavedBook(bookStatus);
+          setStatus(bookStatus.status ?? "To read");
           setSaved(true);
         }
       } catch (error) {
         console.error("Failed to fetch user books status:", error);
-        setFetchedStatus(null);
       }
-    }
-
-    if (userId) {
-      void fetchUserBooksByStatus(userId);
-    }
-  }, [userId]);
+    };
+  
+    void fetchUserBooksByStatus();
+  }, [userId, id]);
+  
 
   async function handleSavingBook() {
     if (!userId) {
@@ -49,7 +45,7 @@ export function SaveBook({ id }: Books) {
       setSavedBook(saveBookByUser);
 
       const saveStatusByUser = await saveBookStatus(userId, id, status);
-      setSavedStatus(saveStatusByUser);
+      setStatus(saveStatusByUser);
 
       if (saveBookByUser && saveStatusByUser) {
         setSaved(true);
@@ -64,6 +60,10 @@ export function SaveBook({ id }: Books) {
 
   // async function handleStatusChange(userId: string, id: string, status: string) {
   //   const changeStatus = await updateBookStatus(userId, id, status);
+  // }
+
+  // async function removeBook(userId: string, id: string, status: string) {
+
   // }
 
   if (!session.data?.user) {
