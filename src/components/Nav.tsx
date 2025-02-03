@@ -22,7 +22,7 @@ export function Nav() {
   const toggleDropdown = () => setIsOpen(!isOpen);
 
   return (
-    <nav className="flex h-16 w-full items-center justify-between border-b-2 border-dark-brown px-3 sm:px-6">
+    <nav className="flex h-16 w-full items-center justify-between pt-10 py-4 px-6 sm:px-6">
       <Link
         href="/"
         className="text-main text-xl font-bold sm:text-2xl flex items-center"

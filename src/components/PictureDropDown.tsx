@@ -51,7 +51,7 @@ import type { PictureDropdownProps } from "@/types";
               alt={name ?? "User"}
               width={40}
               height={40}
-              className="rounded-full"
+              className="rounded-full  border-2 border-main-orange"
             />
           ) : (
             <div className="w-10 h-10 bg-gray-300 rounded-full flex items-center justify-center">
@@ -82,13 +82,13 @@ import type { PictureDropdownProps } from "@/types";
               >
                 Profile
               </Link>
-              <Link
+              {/* <Link
                 href="/settings"
                 onClick={() => setIsOpen(false)}
                 className="block px-4 py-2 text-gray-700 hover:bg-gray-100"
               >
                 Settings
-              </Link>
+              </Link> */}
               <button
                 onClick={async () => {
                   try {

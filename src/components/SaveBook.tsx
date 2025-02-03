@@ -96,7 +96,7 @@ export function SaveBook({ id }: Books) {
           value={status}
         >
           {bookStatus.status.map((status) => (
-            <option key={status} value={status}>
+            <option key={status} value={status} className="font-bold">
               {status}
             </option>
           ))}
