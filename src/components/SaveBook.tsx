@@ -71,9 +71,18 @@ export function SaveBook({ id }: Books) {
     }
   }
 
-  // async function removeBook(userId: string, id: string, status: string) {
-
-  // }
+  async function removeBook(userId: string, id: string, status: string) {
+    if (status === "Remove") {
+      try {
+      await updateBookStatus(userId, id, "Removed");
+      setSaved(false);
+      setSavedBook(null);
+      setStatus("To read");
+      } catch (error) {
+      console.error("Failed to remove the book:", error);
+      }
+    }
+  }
 
   if (!session.data?.user) {
     <div>Log in To save books!</div>;
