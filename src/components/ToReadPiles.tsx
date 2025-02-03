@@ -3,6 +3,7 @@ import { type GoogleBook } from "@/types";
 import { useCustomSession } from "./SessionProvider";
 import { fetchUserBooks } from "@/services/backend/book-service";
 import { fetchGoogleBookById } from "@/services/client/book-service";
+import FadeLoader from "react-spinners/FadeLoader";
 
 export default function ToReadPiles() {
   const [books, setBooks] = useState<GoogleBook[]>([]);
@@ -13,31 +14,54 @@ export default function ToReadPiles() {
   const userId = session.data?.user?.id;
 
   useEffect(() => {
-      const getUserBookData = async () => {
-          try {
-              if (userId) {
-                  const userBooks = await fetchUserBooks(userId);
-                  setLoading(true)
+    const getUserBookData = async () => {
+      try {
+        if (userId) {
+          const userBooks = await fetchUserBooks(userId);
+          setLoading(true);
 
-                  const books = await Promise.all(
-                      userBooks.map(async (userBook) => {
-                          if (userBook.status === "To read") {
-                              const book = await fetchGoogleBookById(userBook.bookId)
-                              console.log(book, "All books from To read Piles");
-                              return book as GoogleBook | null
-                          }
-                          return null
-                      })
-                  );
-                  setLoading(false);
-                  setBooks(books.filter((book): book is GoogleBook => book != null))
+          const books = await Promise.all(
+            userBooks.map(async (userBook) => {
+              if (userBook.status === "To read") {
+                const book = await fetchGoogleBookById(userBook.bookId);
+                console.log(book, "All books from To read Piles");
+                return book as GoogleBook | null;
               }
-          } catch (error) {
-            
-          }
-      };
-      void getUserBookData()
-  },[userId]);
+              return null;
+            }),
+          );
+          setLoading(false);
+          setBooks(books.filter((book): book is GoogleBook => book != null));
+        }
+      } catch (error) {
+        if (error instanceof Error) {
+          console.error("Error fetching book data:", error.message);
+        } else {
+          console.error("Unknown error:", error);
+        }
+        setError("Could not fetch book data");
+      }
+    };
+    void getUserBookData();
+  }, [userId]);
+
+  if (!userId) {
+    return (
+      <div>You are not logged in. Please sign in to view your information.</div>
+    );
+  }
+
+  if (error) {
+    return <div>{error}</div>;
+  }
+
+  if (loading) {
+    return (
+      <div className="flex h-screen w-screen items-center justify-center">
+        <FadeLoader color="#912b12" />
+      </div>
+    );
+  }
 
   return <div>ToReadPiles</div>;
 }
