@@ -82,7 +82,9 @@ export const updateBookStatus = async (userId: string, bookId: string, status: s
         const data = { userId, bookId, status };
         const response = await axios.patch(`${process.env.NEXT_PUBLIC_API_ROUTE}/userBooks`, data);
 
-        if (response.status !== 200) {
+        if (response.status === 200) {
+            console.log("Book status updated successfully.");
+        } else {
             throw new Error("Failed to update book status, unexpected API response.");
         }
     } catch (error) {

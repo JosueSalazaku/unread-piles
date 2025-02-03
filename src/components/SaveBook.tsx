@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import type { Books } from "@/types";
 import { saveUserBook, saveBookStatus, updateBookStatus, fetchUserBooks } from "@/services/backend/book-service";
 import { useCustomSession } from "./SessionProvider";
@@ -58,9 +58,14 @@ export function SaveBook({ id }: Books) {
     }
   }
 
-  // async function handleStatusChange(userId: string, id: string, status: string) {
-  //   const changeStatus = await updateBookStatus(userId, id, status);
-  // }
+  async function handleStatusChange(event: React.ChangeEvent<HTMLSelectElement>) {
+    const newStatus = event.target.value;
+    if (userId && id) {
+      await updateBookStatus(userId, id, newStatus);
+      setStatus(newStatus);
+      setSaved(true)
+    }
+  }
 
   // async function removeBook(userId: string, id: string, status: string) {
 
@@ -72,8 +77,10 @@ export function SaveBook({ id }: Books) {
 
   return (
     <>
-      {savedBook ? (
-        <select className="rounded bg-main-orange px-1 py-1 text-sm text-white">
+      {savedBook && saved ? (
+        <select className="rounded bg-main-orange px-1 py-1 text-sm text-white"
+        onChange={handleStatusChange}
+        >
           {bookStatus.status.map((status) => (
             <option key={status} value={status}>
               {status}

@@ -86,7 +86,7 @@ export async function POST(req: NextRequest) {
 
 export async function PATCH(req: NextRequest) {
   try {
-    const { userId, bookId, status } = (await req.json()) as UserBooks;
+    const { userId, bookId, status } = (await req.json())  as { userId: string; bookId: string, status: string };;
 
     if (!userId || !bookId || !status) {
       return NextResponse.json(
@@ -98,7 +98,7 @@ export async function PATCH(req: NextRequest) {
     await db
       .update(userBooks)
       .set({ status })
-      .where(and(eq(userBooks.userId, userId), eq(userBooks.status, status)));
+      .where(and(eq(userBooks.userId, userId), eq(userBooks.bookId, bookId)));
     return NextResponse.json(
       { message: "Status updated successfully" },
       { status: 200 },
@@ -114,7 +114,7 @@ export async function PATCH(req: NextRequest) {
 
 export async function DELETE(req: NextRequest) {
   try {
-    const { userId, bookId, status } = (await req.json()) as UserBooks;
+    const { userId, bookId } = (await req.json()) as { userId: string; bookId: string };
     if (!userId || !bookId) {
       return NextResponse.json(
         { error: "Missing required fields" },
