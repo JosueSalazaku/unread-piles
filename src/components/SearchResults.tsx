@@ -25,11 +25,7 @@ export default function SearchResults() {
       setError(null);
 
       try {
-        const fetchedBooks = await fetchBookByInput(
-          query,
-          startIndex,
-          maxResults,
-        );
+        const fetchedBooks = await fetchBookByInput( query, startIndex, maxResults);
         setBooks(fetchedBooks);
       } catch {
         setError("Failed to fetch books. Please try again.");

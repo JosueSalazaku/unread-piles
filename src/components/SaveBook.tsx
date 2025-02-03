@@ -3,6 +3,7 @@ import type { Books } from "@/types";
 import { saveUserBook, saveBookStatus, updateBookStatus, fetchUserBooks } from "@/services/backend/book-service";
 import { useCustomSession } from "./SessionProvider";
 import bookStatus from "./../services/backend/bookStatus.json";
+import { i } from "node_modules/better-auth/dist/auth-BM9xLLak";
 
 export function SaveBook({ id }: Books) {
   const [isSaving, setIsSaving] = useState(false);
@@ -11,6 +12,7 @@ export function SaveBook({ id }: Books) {
   const [savedStatus, setSavedStatus] = useState<string>("");
   const [status, setStatus] = useState<string>("To read");
   const [fetchedStatus, setFetchedStatus] = useState<string | null>(null);
+  
   const session = useCustomSession();
   const userId = session.data?.user?.id;
 
@@ -18,9 +20,13 @@ export function SaveBook({ id }: Books) {
     async function fetchUserBooksByStatus(userId: string) {
       try {
         const userBooksStatus = await fetchUserBooks(userId);
-        console.log(userBooksStatus[0]?.status);
-        const bookStatus = userBooksStatus[0]?.status;
-        setFetchedStatus(bookStatus ?? null);
+        const book = userBooksStatus.find(book => book.bookId === id)
+        
+        if (book) {
+          setSavedBook(book);
+          setStatus(book.status ?? "");
+          setSaved(true);
+        }
       } catch (error) {
         console.error("Failed to fetch user books status:", error);
         setFetchedStatus(null);
@@ -66,7 +72,7 @@ export function SaveBook({ id }: Books) {
 
   return (
     <>
-      {savedBook && fetchedStatus ? (
+      {savedBook ? (
         <select className="rounded bg-main-orange px-1 py-1 text-sm text-white">
           {bookStatus.status.map((status) => (
             <option key={status} value={status}>
