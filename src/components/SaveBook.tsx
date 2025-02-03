@@ -15,7 +15,7 @@ export function SaveBook({ id }: Books) {
 
   useEffect(() => {
     if (!userId || !id) return;
-  
+
     const fetchUserBooksByStatus = async () => {
       try {
         const userBooksStatus = await fetchUserBooks(userId);
@@ -29,7 +29,7 @@ export function SaveBook({ id }: Books) {
         console.error("Failed to fetch user books status:", error);
       }
     };
-  
+
     void fetchUserBooksByStatus();
   }, [userId, id]);
   
@@ -61,9 +61,13 @@ export function SaveBook({ id }: Books) {
   async function handleStatusChange(event: React.ChangeEvent<HTMLSelectElement>) {
     const newStatus = event.target.value;
     if (userId && id) {
-      await updateBookStatus(userId, id, newStatus);
-      setStatus(newStatus);
-      setSaved(true)
+      try {
+        await updateBookStatus(userId, id, newStatus);
+        setStatus(newStatus);
+        setSaved(true);
+      } catch (error) {
+        console.error("Failed to update book status:", error);
+      }
     }
   }
 
@@ -79,7 +83,8 @@ export function SaveBook({ id }: Books) {
     <>
       {savedBook && saved ? (
         <select className="rounded bg-main-orange px-1 py-1 text-sm text-white"
-        onChange={handleStatusChange}
+          onChange={handleStatusChange}
+          value={status}
         >
           {bookStatus.status.map((status) => (
             <option key={status} value={status}>
