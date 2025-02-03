@@ -92,3 +92,20 @@ export const updateBookStatus = async (userId: string, bookId: string, status: s
         throw new Error("Could not update the book status. Please try again.");
     }
 };
+
+export const removeUserBooks = async ( userId: string, bookId: string) => {
+    try {
+        const response = await axios.delete(`${process.env.NEXT_PUBLIC_API_ROUTE}/userBooks`, {
+            data: { userId, bookId }
+        });
+
+        if (response.status === 200) {
+            console.log("Book deleted successfully.", response.data);
+        } else {
+            throw new Error("Failed to deleted book, unexpected API response.");
+        }
+    } catch (error) {
+        console.error("Error Deleting the book:", error);
+        throw new Error("Could not Delete the book. Please try again.");
+    }
+}
