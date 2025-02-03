@@ -84,3 +84,49 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "Error saving book" }, { status: 500 });
   }
 }
+
+export async function DELETE(req: NextRequest) {
+  try {
+    const requestHeaders = req.headers;
+    const session = await auth.api.getSession({ headers: requestHeaders });
+    console.log("Session:", session);
+    const userId = session?.user?.id;
+
+    if (!userId) {
+      console.warn("Unauthorized access attempt, no user ID found in session");
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+
+    const { id } = await req.json() as { id: string };
+
+    if (!id) {
+      console.warn("Invalid request: Missing required fields - id");
+      return NextResponse.json(
+        { error: "Missing required fields" },
+        { status: 400 },
+      );
+    }
+
+    const existingBook = await db.query.books.findFirst({
+      where: eq(books.id, id),
+    });
+
+    if (!existingBook) {
+      return NextResponse.json(
+        { error: "Book not found" },
+        { status: 404 },
+      );
+    }
+
+    await db.delete(books).where(eq(books.id, id));
+
+    console.log(`Book ${id} successfully deleted`);
+    return NextResponse.json(
+      { message: "Book deleted successfully" },
+      { status: 200 },
+    );
+  } catch (error) {
+    console.error("Error deleting book:", error);
+    return NextResponse.json({ error: "Error deleting book" }, { status: 500 });
+  }
+}
