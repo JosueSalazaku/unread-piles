@@ -30,8 +30,8 @@ export function Nav() {
         <Image
           src="/piles.svg"
           alt="Unread Piles Logo"
-          width={50}
-          height={45}
+          width={42}
+          height={40}
           className="px-1 dark:invert dark:filter sm:hidden"
         />
 
