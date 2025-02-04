@@ -17,7 +17,7 @@ export default function Home() {
           <p className="mt-2">
             Enjoy exploring your personalized book collection!
           </p>
-          <GeneralBooks id="1" status="" title="" author="Author Name" />
+          <GeneralBooks />
         </>
       ) : (
         <div className="flex flex-col gap-4">
