@@ -69,7 +69,7 @@ export default function SearchResults() {
         {books.map((book) => (
           <li
             key={book.id}
-            className="border-dark-gray mb-8 rounded-md border p-6 shadow-md transition-shadow duration-300 hover:shadow-lg"
+            className="border-dark-gray mb-8  border-b p-6 shadow-md transition-shadow duration-300 hover:shadow-lg"
           >
             <div className="flex items-start gap-6">
               {book.volumeInfo.imageLinks?.thumbnail && (
@@ -77,35 +77,32 @@ export default function SearchResults() {
                   <Image
                     src={book.volumeInfo.imageLinks.thumbnail ?? "No image"}
                     alt={book.volumeInfo.title}
-                    height={175}
-                    width={150}
-                    className="border-dark-gray h-auto w-64 rounded-md border-1 drop-shadow-lg sm:h-64 sm:w-48"
+                    height={108}
+                    width={122}
+                    className="border-dark-gray"
                   />
                 </Link>
               )}
               <div>
                 <Link href={`/books/${book.id}`}>
-                  <h2 className="mb-2 text-2xl font-semibold">
+                  <h2 className="text-xl font-semibold">
                     {book.volumeInfo.title}
                   </h2>
                 </Link>
                 {book.volumeInfo.authors && (
-                  <p className="mb-1 text-main-orange">
-                    <strong>Authors:</strong>{" "}
+                  <p className="text-main-orange">
                     {book.volumeInfo.authors.join(", ")}
                   </p>
                 )}
                 {book.volumeInfo.pageCount && (
                   <p className="text-dark-gray">
-                    Pages: {book.volumeInfo.pageCount}
+                    {book.volumeInfo.pageCount} pages
                   </p>
                 )}
-                {book.volumeInfo.publishedDate && (
-                  <p className="text-dark-gray mb-4">
-                    <strong>Published:</strong> {book.volumeInfo.publishedDate}
-                  </p>
-                )}
-                <SaveBook id={book.id} />
+
+                <div className="py-4">
+                  <SaveBook id={book.id} />
+                </div>
               </div>
             </div>
           </li>

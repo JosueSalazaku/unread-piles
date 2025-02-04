@@ -26,7 +26,6 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
     bookCategory?.flatMap((cat: string) =>
       cat.split("/").map((c) => c.trim()),
     ) ?? [];
-  console.log(categories);
 
   useEffect(() => {
     if (!id) {
