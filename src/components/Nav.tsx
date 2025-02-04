@@ -22,10 +22,10 @@ export function Nav() {
   const toggleDropdown = () => setIsOpen(!isOpen);
 
   return (
-    <nav className="flex h-16 w-full items-center justify-between pt-10 py-4 px-6 sm:px-6">
+    <nav className="flex h-16 w-full items-center justify-between px-6 py-4 pt-10 sm:px-6">
       <Link
         href="/"
-        className="text-main text-xl font-bold sm:text-2xl flex items-center"
+        className="text-main flex items-center text-xl font-bold sm:text-2xl"
       >
         <Image
           src="/piles.svg"
@@ -40,7 +40,7 @@ export function Nav() {
           alt="Unread Piles Logo"
           width={120}
           height={70}
-          className="hidden sm:block px-1 dark:invert dark:filter"
+          className="hidden px-1 dark:invert dark:filter sm:block"
         />
       </Link>
 
@@ -66,7 +66,7 @@ export function Nav() {
             />
           ) : (
             <Link href="/api/auth/sign-in">
-              <button className="rounded-md border border-dark-brown px-4 py-2 hover:border-transparent hover:bg-main-orange hover:text-white">
+              <button className="border-dark-gray rounded-md border px-4 py-2 hover:border-transparent hover:bg-main-orange hover:text-white">
                 Login / Sign Up
               </button>
             </Link>

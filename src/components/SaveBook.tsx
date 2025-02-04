@@ -1,6 +1,11 @@
 import React, { useEffect, useState } from "react";
 import type { Books } from "@/types";
-import { saveUserBook, saveBookStatus, updateBookStatus, fetchUserBooks } from "@/services/backend/book-service";
+import {
+  saveUserBook,
+  saveBookStatus,
+  updateBookStatus,
+  fetchUserBooks,
+} from "@/services/backend/book-service";
 import { useCustomSession } from "./SessionProvider";
 import bookStatus from "./../services/backend/bookStatus.json";
 
@@ -32,7 +37,6 @@ export function SaveBook({ id }: Books) {
 
     void fetchUserBooksByStatus();
   }, [userId, id]);
-  
 
   async function handleSavingBook() {
     if (!userId) {
@@ -58,7 +62,9 @@ export function SaveBook({ id }: Books) {
     }
   }
 
-  async function handleStatusChange(event: React.ChangeEvent<HTMLSelectElement>) {
+  async function handleStatusChange(
+    event: React.ChangeEvent<HTMLSelectElement>,
+  ) {
     const newStatus = event.target.value;
     if (userId && id) {
       try {
@@ -71,18 +77,18 @@ export function SaveBook({ id }: Books) {
     }
   }
 
-  async function removeBook(userId: string, id: string, status: string) {
-    if (status === "Remove") {
-      try {
-      await updateBookStatus(userId, id, "Removed");
-      setSaved(false);
-      setSavedBook(null);
-      setStatus("To read");
-      } catch (error) {
-      console.error("Failed to remove the book:", error);
-      }
-    }
-  }
+  // async function removeBook(userId: string, id: string, status: string) {
+  //   if (status === "Remove") {
+  //     try {
+  //     await updateBookStatus(userId, id, "Removed");
+  //     setSaved(false);
+  //     setSavedBook(null);
+  //     setStatus("To read");
+  //     } catch (error) {
+  //     console.error("Failed to remove the book:", error);
+  //     }
+  //   }
+  // }
 
   if (!session.data?.user) {
     <div>Log in To save books!</div>;
@@ -91,7 +97,8 @@ export function SaveBook({ id }: Books) {
   return (
     <>
       {savedBook && saved ? (
-        <select className="rounded bg-main-orange px-1 py-1 text-sm text-white"
+        <select
+          className="rounded bg-main-orange px-1 py-1 text-sm text-white"
           onChange={handleStatusChange}
           value={status}
         >
@@ -104,7 +111,7 @@ export function SaveBook({ id }: Books) {
       ) : (
         <button
           onClick={handleSavingBook}
-          className="rounded bg-dark-brown px-4 py-1 text-sm text-white dark:text-white"
+          className="bg-dark-gray rounded px-4 py-1 text-sm text-white dark:text-white"
         >
           {isSaving ? "Saving..." : "Save Book"}
         </button>

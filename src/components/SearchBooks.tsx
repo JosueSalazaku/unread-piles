@@ -4,8 +4,8 @@ import { useRouter } from "next/navigation";
 import { LuSearch } from "react-icons/lu";
 
 export default function SearchBooks() {
-  const [search, setSearch] = useState(""); 
-  const router = useRouter(); 
+  const [search, setSearch] = useState("");
+  const router = useRouter();
 
   function handleSearch(event: React.KeyboardEvent<HTMLInputElement>) {
     if (event.key === "Enter" && search.trim() !== "") {
@@ -21,13 +21,13 @@ export default function SearchBooks() {
         value={search}
         onChange={(e) => setSearch(e.target.value)}
         onKeyDown={handleSearch}
-        className="bg-transparent text-black dark:text-white h-10 w-64 md:w-72 lg:w-72 rounded-md border-2 px-2 py-2 placeholder:text-dark-brown focus:active:*: border-dark-brown pr-10"
+        className="placeholder:text-dark-gray focus:active:*: border-dark-gray h-10 w-64 rounded-md border-2 bg-transparent px-2 py-2 pr-10 text-black dark:text-white md:w-72 lg:w-72"
       />
-      <button 
+      <button
         onClick={() => router.push(`/search?s=${encodeURIComponent(search)}`)}
-        className="absolute right-0 top-0 h-full px-4 text-black dark:text-dark-brown dark:bg-light-brown rounded-r-md text-lg"
+        className="dark:text-dark-gray dark:bg-light-brown absolute right-0 top-0 h-full rounded-r-md px-4 text-lg text-black"
       >
-       <LuSearch size={24} />
+        <LuSearch size={24} />
       </button>
     </div>
   );

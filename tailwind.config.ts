@@ -13,7 +13,7 @@ const config: Config = {
       colors: {
         "background-dark": "#161B1E",
         "background-light": "white",
-        "dark-brown": "#303d44",
+        "dark-gray": "#303d44",
         "main-orange": "#eb5d1d",
         "light-orange": "#ed876e",
         "dark-blue": "#0A054B",
@@ -24,12 +24,12 @@ const config: Config = {
         1: "1px",
       },
       screens: {
-        'xs': '480px', // Extra small devices
-        'sm': '640px', // Small devices
-        'md': '768px', // Medium devices
-        'lg': '1024px', // Large devices
-        'xl': '1280px', // Extra large devices
-        '2xl': '1536px', // 2X large devices
+        xs: "480px", // Extra small devices
+        sm: "640px", // Small devices
+        md: "768px", // Medium devices
+        lg: "1024px", // Large devices
+        xl: "1280px", // Extra large devices
+        "2xl": "1536px", // 2X large devices
       },
     },
   },

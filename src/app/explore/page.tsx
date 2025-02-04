@@ -86,7 +86,7 @@ export default function ExplorePage() {
           {genres.map((genre) => (
             <button
               key={genre.name}
-              className={`gap-3 rounded border px-4 py-2 hover:bg-dark-brown ${
+              className={`hover:bg-dark-gray gap-3 rounded border px-4 py-2 ${
                 selectedGenre === genre.string
                   ? "border-main bg-main-orange text-white"
                   : ""
@@ -156,7 +156,7 @@ export default function ExplorePage() {
           <button
             key={page}
             onClick={() => setCurrentPage(page)}
-            className={`rounded border px-4 py-2 ${page === currentPage ? "bg-dark-brown text-white" : ""}`}
+            className={`rounded border px-4 py-2 ${page === currentPage ? "bg-dark-gray text-white" : ""}`}
           >
             {page}
           </button>

@@ -25,7 +25,11 @@ export default function SearchResults() {
       setError(null);
 
       try {
-        const fetchedBooks = await fetchBookByInput( query, startIndex, maxResults);
+        const fetchedBooks = await fetchBookByInput(
+          query,
+          startIndex,
+          maxResults,
+        );
         setBooks(fetchedBooks);
       } catch {
         setError("Failed to fetch books. Please try again.");
@@ -65,7 +69,7 @@ export default function SearchResults() {
         {books.map((book) => (
           <li
             key={book.id}
-            className="mb-8 rounded-md border border-dark-brown p-6 shadow-md transition-shadow duration-300 hover:shadow-lg"
+            className="border-dark-gray mb-8 rounded-md border p-6 shadow-md transition-shadow duration-300 hover:shadow-lg"
           >
             <div className="flex items-start gap-6">
               {book.volumeInfo.imageLinks?.thumbnail && (
@@ -75,7 +79,7 @@ export default function SearchResults() {
                     alt={book.volumeInfo.title}
                     height={175}
                     width={150}
-                    className="h-auto w-64 rounded-md border-1 border-dark-brown drop-shadow-lg sm:h-64 sm:w-48"
+                    className="border-dark-gray h-auto w-64 rounded-md border-1 drop-shadow-lg sm:h-64 sm:w-48"
                   />
                 </Link>
               )}
@@ -92,12 +96,12 @@ export default function SearchResults() {
                   </p>
                 )}
                 {book.volumeInfo.pageCount && (
-                  <p className="text-dark-brown">
+                  <p className="text-dark-gray">
                     Pages: {book.volumeInfo.pageCount}
                   </p>
                 )}
                 {book.volumeInfo.publishedDate && (
-                  <p className="mb-4 text-dark-brown">
+                  <p className="text-dark-gray mb-4">
                     <strong>Published:</strong> {book.volumeInfo.publishedDate}
                   </p>
                 )}
@@ -113,13 +117,13 @@ export default function SearchResults() {
         <button
           onClick={handlePreviousPage}
           disabled={startIndex === 0}
-          className="hover:bg-brown rounded-md bg-dark-brown px-4 py-2 text-white disabled:opacity-50"
+          className="hover:bg-brown bg-dark-gray rounded-md px-4 py-2 text-white disabled:opacity-50"
         >
           Previous
         </button>
         <button
           onClick={handleNextPage}
-          className="hover:bg-brown rounded-md bg-dark-brown px-4 py-2 text-white"
+          className="hover:bg-brown bg-dark-gray rounded-md px-4 py-2 text-white"
         >
           Next
         </button>

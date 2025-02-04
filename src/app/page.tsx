@@ -8,7 +8,7 @@ export default function Home() {
   const session = useCustomSession();
 
   return (
-    <div className="flex min-h-screen flex-col items-center justify-center bg-background-light px-12 text-dark-brown dark:bg-background-dark dark:text-white transition-colors duration-1000 ease-in-out">
+    <div className="text-dark-gray flex min-h-screen flex-col items-center justify-center bg-background-light px-12 transition-colors duration-1000 ease-in-out dark:bg-background-dark dark:text-white">
       {session.data?.user ? (
         <>
           <h1 className="pt-5 text-2xl font-bold">
@@ -28,7 +28,7 @@ export default function Home() {
 
           <Link
             href="/api/auth/sign-in"
-            className="w-36 text-center rounded-md border border-dark-brown px-4 py-2 hover:border-transparent hover:bg-main-orange hover:text-white"
+            className="border-dark-gray w-36 rounded-md border px-4 py-2 text-center hover:border-transparent hover:bg-main-orange hover:text-white"
           >
             Get Started
           </Link>

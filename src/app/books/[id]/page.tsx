@@ -5,7 +5,7 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import axios from "axios";
 import FadeLoader from "react-spinners/FadeLoader";
-
+import { SaveBook } from "@/components/SaveBook";
 
 export default function Page({ params }: { params: Promise<{ id: string }> }) {
   const [book, setBook] = useState<GoogleBook | null>(null);
@@ -18,11 +18,17 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
   const bookTitle = book?.volumeInfo.title;
   const bookAuthor = book?.volumeInfo.authors;
   const publishedDate = book?.volumeInfo.publishedDate;
-  const pageCount = book?.volumeInfo.pageCount
+  const bookCategory = book?.volumeInfo.categories;
+  const pageCount = book?.volumeInfo.pageCount;
   const bookDescription = book?.volumeInfo.description;
-  
-  useEffect(() => {
 
+  const categories: string[] =
+    bookCategory?.flatMap((cat: string) =>
+      cat.split("/").map((c) => c.trim()),
+    ) ?? [];
+  console.log(categories);
+
+  useEffect(() => {
     if (!id) {
       setError("No books found");
       router.push("/");
@@ -31,7 +37,11 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
 
     async function ShowBook() {
       try {
-        const response = await axios.get<GoogleBook>(`https://www.googleapis.com/books/v1/volumes/${id}`);        
+        const response = await axios.get<GoogleBook>(
+          `https://www.googleapis.com/books/v1/volumes/${id}`,
+        );
+        console.log(response.data);
+
         setBook(response.data);
       } catch (error) {
         if (axios.isAxiosError(error)) {
@@ -50,12 +60,11 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
 
   if (loading) {
     return (
-      <div className="flex justify-center items-center h-screen w-screen">
+      <div className="flex h-screen w-screen items-center justify-center">
         <FadeLoader color="#912b12" />
       </div>
     );
   }
-  
 
   if (error) {
     return <div>Error: {error}</div>;
@@ -66,38 +75,50 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
   }
 
   return (
-    <div className="w-screen flex flex-col justify-center items-center">
-      <div key={book?.id} className="pt-20 w-screen flex flex-col justify-center items-center">
+    <div className="flex w-screen flex-col items-center justify-center">
+      <div
+        key={book?.id}
+        className="flex w-screen flex-col items-center justify-center pt-10"
+      >
         {book?.volumeInfo && (
-          <div className="flex flex-col justify-center px-14 lg:px-28 gap-4">
-            <div className="gap-4 flex">
-            <Image
-              src={booksCover ?? "/default-thumbnail.jpg"}
-              alt={book?.volumeInfo?.title || "Book thumbnail"}
-              width={250}
-              height={192}
-              className="justify-center items-center drop-shadow-md border-1 border-dark-brown rounded-lg"
+          <div className="flex flex-col justify-center gap-4 px-8 lg:px-28">
+            <div className="flex gap-4">
+              <Image
+                src={booksCover ?? "/default-thumbnail.jpg"}
+                alt={book?.volumeInfo?.title || "Book thumbnail"}
+                width={170}
+                height={192}
+                className="border-dark-gray items-center justify-center border-1 drop-shadow-md"
               />
-              <div>
-              <h1 className="text-3xl font-bold ">{bookTitle}</h1>
-              <p className=" text-xl font-bold text-main-orange">
-              {bookAuthor?.join(", ") ??
-                "Author information not available."}
-            </p>
-              </div>
+              <div className="flex flex-col gap-1">
+                <h1 className="text-2xl font-bold">{bookTitle}</h1>
+                <p className="text-l font-bold text-main-orange">
+                  {bookAuthor?.join(", ") ??
+                    "Author information not available."}
+                </p>
 
+                <p className="text-l font-medium">{pageCount} pages </p>
+                <p>
+                  published: {publishedDate ?? "Publication date not available"}
+                </p>
+
+                <SaveBook id={book.id} />
+              </div>
             </div>
-            <div className="py-6">
-              <p className="font-medium text-xl">Pages: {pageCount}</p>
-            <p className=" font-medium text-xl">
-             Published: {publishedDate ??
-                "Publication date not available"}
-            </p>
+            <div className="flex gap-2 border-t-1 border-dark-gray py-3">
+              {categories?.map((category) => (
+                <span
+                  key={category}
+                  className="border border-main-orange px-2 py-1 text-sm"
+                >
+                  {category}
+                </span>
+              ))}
             </div>
-            <div className=" py-4 border-t-1 border-main-orange">
-            <p className="">
-              {bookDescription?? "Description not available"}
-            </p>
+            <div className="border-t-1 border-dark-gray py-4">
+              <p className="">
+                {bookDescription ?? "Description not available"}
+              </p>
             </div>
           </div>
         )}

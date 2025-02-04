@@ -46,7 +46,7 @@ export default function GeneralBooks({ status, id }: SaveBookProps) {
         {books.map((book) => (
           <li
             key={book.id}
-            className="mb-8 rounded-md border border-dark-brown p-6 shadow-md transition-shadow duration-300 hover:shadow-lg"
+            className="border-dark-gray mb-8 rounded-md border p-6 shadow-md transition-shadow duration-300 hover:shadow-lg"
           >
             <div className="flex items-start gap-6">
               {book.volumeInfo.imageLinks?.thumbnail && (
@@ -56,7 +56,7 @@ export default function GeneralBooks({ status, id }: SaveBookProps) {
                     alt={book.volumeInfo.title ?? ""}
                     width={128}
                     height={192}
-                    className="rounded-md border-1 border-dark-brown drop-shadow-lg"
+                    className="border-dark-gray rounded-md border-1 drop-shadow-lg"
                   />
                 </Link>
               )}
@@ -72,7 +72,7 @@ export default function GeneralBooks({ status, id }: SaveBookProps) {
                       <strong>Authors:</strong>{" "}
                       {book.volumeInfo.authors.join(", ")}
                     </p>
-                    <p className="py-4 text-dark-brown">
+                    <p className="text-dark-gray py-4">
                       Pages: {book.volumeInfo.pageCount}
                     </p>
                   </div>

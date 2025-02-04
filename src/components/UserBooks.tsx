@@ -13,7 +13,7 @@ export default function UserBooks() {
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
 
-  const userId = session.data?.user?.id
+  const userId = session.data?.user?.id;
 
   useEffect(() => {
     const getUserBookData = async () => {
@@ -81,7 +81,7 @@ export default function UserBooks() {
               alt={book.volumeInfo.title ?? "No alt"}
               width={128}
               height={192}
-              className="rounded-lg border-1 border-dark-brown drop-shadow-md"
+              className="border-dark-gray rounded-lg border-1 drop-shadow-md"
             />
             <h2 className="mt-2 text-lg font-semibold">
               {book.volumeInfo.title}
