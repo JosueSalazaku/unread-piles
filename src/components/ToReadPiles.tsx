@@ -64,27 +64,30 @@ export default function ToReadPiles() {
     );
   }
 
-  return (
-    <div className="flex flex-col">
-      <h1>To read</h1>
-      {books ? (
-        <ul className="item-center flex flex-row justify-center gap-5">
-          {books.map((book) => (
-            <li key={book.id}>
-              <Image
-                src={
-                  book.volumeInfo.imageLinks?.thumbnail ?? "/default-image.jpg"
-                }
-                alt={book.volumeInfo.imageLinks?.medium ?? ""}
-                width={140}
-                height={50}
-              />
-            </li>
-          ))}
-        </ul>
-      ) : (
-        <div>No books yet</div>
-      )}
+return (
+    <div className="flex flex-col items-center">
+        <div className="flex flex-col items-center">
+            <h1 className="text-center py-4">To read</h1>
+            {books ? (
+                <ul className="flex flex-row justify-center gap-5">
+                    {books.map((book) => (
+                        <li key={book.id}>
+                            <Image
+                                src={
+                                    book.volumeInfo.imageLinks?.thumbnail ??
+                                    "/default-image.jpg"
+                                }
+                                alt={book.volumeInfo.imageLinks?.medium ?? ""}
+                                width={140}
+                                height={50}
+                            />
+                        </li>
+                    ))}
+                </ul>
+            ) : (
+                <div>No books yet</div>
+            )}
+        </div>
     </div>
-  );
+);
 }

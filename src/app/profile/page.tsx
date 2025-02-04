@@ -15,8 +15,8 @@ export default function Profile() {
   const {name, image} = session.data.user
 
   return (
-    <div className="flex flex-col mx-auto max-w-4xl p-6">
-      <div className="flex gap-3 items-center">
+    <div className="flex flex-col mx-auto max-w-4xl gap-5  p-6">
+      <div className="flex gap-5 items-center">
         <Image
         src={image ?? "No image"}
         alt={name ?? "No name"}  
