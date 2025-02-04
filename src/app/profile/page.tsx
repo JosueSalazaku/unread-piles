@@ -1,7 +1,7 @@
 "use client";
 import { useCustomSession } from "@/components/SessionProvider";
 import ToReadPiles from "@/components/ToReadPiles";
-import UserBooks from "@/components/UserBooks";
+// import UserBooks from "@/components/UserBooks";
 import Image from "next/image";
 
 export default function Profile() {
@@ -25,7 +25,7 @@ export default function Profile() {
         />
         <h1 className="text-xl">{name}</h1>
       </div>
-      <UserBooks />
+      {/* <UserBooks /> */}
       <ToReadPiles />
     </div>
   );
