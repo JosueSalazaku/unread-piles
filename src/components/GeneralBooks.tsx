@@ -17,8 +17,6 @@ export default function GeneralBooks() {
       setLoading(true);
       try {
         const fetchedBooks = await fetchGeneralBook();
-        console.log(fetchedBooks);
-        
         setBooks(fetchedBooks);
       } catch {
         setError("Failed to fetch books.");
@@ -26,7 +24,6 @@ export default function GeneralBooks() {
         setLoading(false);
       }
     }
-
     void loadBooks();
   }, []);
 
@@ -48,7 +45,7 @@ export default function GeneralBooks() {
         {books.map((book) => (
           <li
             key={book.id}
-            className="border-dark-gray mb-8 border-b p-6 shadow-md transition-shadow duration-300 hover:shadow-lg"
+            className="border-dark-gray mb-8 border-b p-6 transition-shadow duration-300"
           >
             <div className="flex items-start gap-6">
               {book.volumeInfo.imageLinks?.thumbnail && (
@@ -58,7 +55,7 @@ export default function GeneralBooks() {
                     alt={book.volumeInfo.title ?? ""}
                     width={128}
                     height={192}
-                    className="border-dark-gray border-1 drop-shadow-lg"
+                    className="border-dark-gray border-1"
                   />
                 </Link>
               )}
