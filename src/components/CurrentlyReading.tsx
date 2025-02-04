@@ -5,6 +5,7 @@ import { fetchUserBooks } from "@/services/backend/book-service";
 import { fetchGoogleBookById } from "@/services/client/book-service";
 import FadeLoader from "react-spinners/FadeLoader";
 import Image from "next/image";
+import Link from "next/link";
 
 export default function CurrentlyReading() {
   const [books, setBooks] = useState<GoogleBook[]>([]);
@@ -72,15 +73,17 @@ export default function CurrentlyReading() {
           <ul className="flex flex-row justify-center gap-5">
             {books.map((book) => (
               <li key={book.id}>
-                <Image
-                  src={
-                    book.volumeInfo.imageLinks?.thumbnail ??
-                    "/default-image.jpg"
-                  }
-                  alt={book.volumeInfo.imageLinks?.medium ?? ""}
-                  width={140}
-                  height={50}
-                />
+                <Link href={`/books/${book.id}`}>
+                  <Image
+                    src={
+                      book.volumeInfo.imageLinks?.thumbnail ??
+                      "/default-image.jpg"
+                    }
+                    alt={book.volumeInfo.imageLinks?.medium ?? ""}
+                    width={140}
+                    height={50}
+                  />
+                </Link>
               </li>
             ))}
           </ul>

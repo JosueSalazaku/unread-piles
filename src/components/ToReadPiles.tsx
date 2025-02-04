@@ -5,6 +5,7 @@ import { fetchUserBooks } from "@/services/backend/book-service";
 import { fetchGoogleBookById } from "@/services/client/book-service";
 import FadeLoader from "react-spinners/FadeLoader";
 import Image from "next/image";
+import Link from "next/link";
 
 export default function ToReadPiles() {
   const [books, setBooks] = useState<GoogleBook[]>([]);
@@ -64,30 +65,32 @@ export default function ToReadPiles() {
     );
   }
 
-return (
+  return (
     <div className="flex flex-col items-center">
-        <div className="flex flex-col items-center">
-            <h1 className="text-center py-4">To read</h1>
-            {books ? (
-                <ul className="flex flex-row justify-center gap-5">
-                    {books.map((book) => (
-                        <li key={book.id}>
-                            <Image
-                                src={
-                                    book.volumeInfo.imageLinks?.thumbnail ??
-                                    "/default-image.jpg"
-                                }
-                                alt={book.volumeInfo.imageLinks?.medium ?? ""}
-                                width={140}
-                                height={50}
-                            />
-                        </li>
-                    ))}
-                </ul>
-            ) : (
-                <div>No books yet</div>
-            )}
-        </div>
+      <div className="flex flex-col items-center">
+        <h1 className="py-4 text-center">To read</h1>
+        {books ? (
+          <ul className="flex flex-row justify-center gap-5">
+            {books.map((book) => (
+              <li key={book.id}>
+                <Link href={`/books/${book.id}`}>
+                  <Image
+                    src={
+                      book.volumeInfo.imageLinks?.thumbnail ??
+                      "/default-image.jpg"
+                    }
+                    alt={book.volumeInfo.imageLinks?.medium ?? ""}
+                    width={140}
+                    height={50}
+                  />
+                </Link>
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <div>No books yet</div>
+        )}
+      </div>
     </div>
-);
+  );
 }
