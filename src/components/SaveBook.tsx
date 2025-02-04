@@ -8,6 +8,7 @@ import {
 } from "@/services/backend/book-service";
 import { useCustomSession } from "./SessionProvider";
 import bookStatus from "./../services/backend/bookStatus.json";
+import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@/components/ui/select";
 
 export function SaveBook({ id }: Books) {
   const [isSaving, setIsSaving] = useState(false);
@@ -62,10 +63,7 @@ export function SaveBook({ id }: Books) {
     }
   }
 
-  async function handleStatusChange(
-    event: React.ChangeEvent<HTMLSelectElement>,
-  ) {
-    const newStatus = event.target.value;
+  async function handleStatusChange(newStatus: string) {
     if (userId && id) {
       try {
         await updateBookStatus(userId, id, newStatus);
@@ -97,17 +95,18 @@ export function SaveBook({ id }: Books) {
   return (
     <>
       {savedBook && saved ? (
-        <select
-          className="rounded bg-main-orange px-1 py-1 text-sm text-white"
-          onChange={handleStatusChange}
-          value={status}
-        >
-          {bookStatus.status.map((status) => (
-            <option key={status} value={status} className="font-bold">
-              {status}
-            </option>
-          ))}
-        </select>
+        <Select value={status} onValueChange={handleStatusChange}>
+          <SelectTrigger className="rounded bg-main-orange px-1 py-1 text-sm text-white">
+            <SelectValue placeholder="Select status" />
+          </SelectTrigger>
+          <SelectContent>
+            {bookStatus.status.map((status) => (
+              <SelectItem key={status} value={status} className="font-bold">
+                {status}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
       ) : (
         <button
           onClick={handleSavingBook}
