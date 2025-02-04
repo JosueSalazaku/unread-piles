@@ -1,4 +1,5 @@
 "use client";
+import CurrentlyReading from "@/components/CurrentlyReading";
 import { useCustomSession } from "@/components/SessionProvider";
 import ToReadPiles from "@/components/ToReadPiles";
 // import UserBooks from "@/components/UserBooks";
@@ -27,6 +28,7 @@ export default function Profile() {
       </div>
       {/* <UserBooks /> */}
       <ToReadPiles />
+      <CurrentlyReading/>
     </div>
   );
 }
