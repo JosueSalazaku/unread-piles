@@ -7,7 +7,6 @@ import FadeLoader from "react-spinners/FadeLoader";
 import Link from "next/link";
 import { GrNext } from "react-icons/gr";
 import { GrPrevious } from "react-icons/gr";
-import { SaveBook } from "@/components/SaveBook";
 
 const genres = [
   { name: "Fiction", string: "fiction" },
@@ -79,8 +78,7 @@ export default function ExplorePage() {
 
   return (
     <div className="flex h-screen w-screen flex-col items-center justify-start gap-4">
-      <h1 className="pt-20 text-2xl font-bold">Explore Books</h1>
-
+      <h1 className="pt-10 text-2xl font-bold">Explore Books</h1>
       <div>
         <div className="flex flex-wrap justify-center gap-4">
           {genres.map((genre) => (
@@ -118,21 +116,17 @@ export default function ExplorePage() {
                         "/path/to/default-image.jpg"
                       }
                       alt={book.volumeInfo.title ?? ""}
-                      width={150}
+                      width={120}
                       height={225}
-                      className="rounded-md object-cover"
+                      className="object-cover"
                     />
                   </Link>
                   <div className="text-center">
                     <Link href={`/books/${book.id}`}>
-                      <h1 className="mb-3 text-lg font-bold sm:text-xl">
+                      <h1 className="mb-2 font-bold ">
                         {book.volumeInfo.title}
                       </h1>
                     </Link>
-                    <SaveBook
-                      id={book.id}
-                      // status={""}
-                    />
                   </div>
                 </div>
               </li>

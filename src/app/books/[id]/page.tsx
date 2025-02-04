@@ -37,11 +37,7 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
 
     async function ShowBook() {
       try {
-        const response = await axios.get<GoogleBook>(
-          `https://www.googleapis.com/books/v1/volumes/${id}`,
-        );
-        console.log(response.data);
-
+        const response = await axios.get<GoogleBook>(`https://www.googleapis.com/books/v1/volumes/${id}`);
         setBook(response.data);
       } catch (error) {
         if (axios.isAxiosError(error)) {
