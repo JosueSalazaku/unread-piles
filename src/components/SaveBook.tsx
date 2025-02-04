@@ -96,8 +96,8 @@ export function SaveBook({ id }: Books) {
     <>
       {savedBook && saved ? (
         <Select value={status} onValueChange={handleStatusChange}>
-          <SelectTrigger className="rounded bg-main-orange px-1 py-1 text-sm text-white">
-            <SelectValue placeholder="Select status" />
+          <SelectTrigger className="rounded bg-main-orange px-2 py-1 text-sm text-white">
+            <SelectValue placeholder="To read" />
           </SelectTrigger>
           <SelectContent>
             {bookStatus.status.map((status) => (
