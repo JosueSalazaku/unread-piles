@@ -80,8 +80,9 @@ export default function ToReadPiles() {
                       "/default-image.jpg"
                     }
                     alt={book.volumeInfo.imageLinks?.medium ?? ""}
-                    width={140}
-                    height={50}
+                    width={190}
+                    height={40}
+                    className="w-24 h-36"
                   />
                 </Link>
               </li>
