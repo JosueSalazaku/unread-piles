@@ -33,7 +33,7 @@ export function Nav() {
           alt="Unread Piles Logo"
           width={42}
           height={40}
-          className="px-1 dark:invert dark:filter sm:hidden"
+          className="pr-2 px-2 dark:invert dark:filter sm:hidden"
         />
 
         <Image
