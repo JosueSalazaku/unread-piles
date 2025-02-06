@@ -9,6 +9,7 @@ import ModdeToggle from "./ModdeToggle";
 import { PictureDropDown } from "./PictureDropDown";
 import { signOut } from "@/app/lib/auth-client";
 import Image from "next/image";
+import { Telescope, Settings, LibraryBig, LogOut } from "lucide-react";
 
 export function Nav() {
   const session = useCustomSession();
@@ -74,7 +75,7 @@ export function Nav() {
         </div>
 
         {/* Mobile Nav */}
-        <div className="flex items-center px-1 md:hidden">
+        <div className="flex items-center px-2 md:hidden">
           <ModdeToggle />
           <button
             onClick={toggleDropdown}
@@ -92,26 +93,37 @@ export function Nav() {
         <div className="absolute left-0 right-0 top-20 z-50 flex flex-col space-y-3 bg-main-orange p-4 text-lg shadow-md md:hidden">
           {session.data?.user ? (
             <>
+              <div className="flex gap-3 pl-4 py-2 items-center">
+                <Image
+                  src={session.data.user.image ?? ""}
+                  alt={name ?? ""}
+                  width={50}
+                  height={40}
+                  className="rounded-full"
+                />
+                <h1>{session.data.user.email}</h1>
+              </div>
               <Link
                 href="/library"
                 onClick={() => setIsOpen(false)}
-                className="rounded p-4 py-2 hover:bg-light-orange dark:hover:bg-orange-950"
+                className="flex gap-2 rounded p-4 py-2 hover:bg-light-orange dark:hover:bg-orange-950"
               >
-                Library
+                <LibraryBig strokeWidth={1} /> Library
               </Link>
               <Link
                 href="/explore"
                 onClick={() => setIsOpen(false)}
-                className="rounded p-4 py-2 hover:bg-light-orange dark:hover:bg-orange-950"
+                className="flex gap-2 rounded p-4 py-2 hover:bg-light-orange dark:hover:bg-orange-950"
               >
-                Explore
+                <Telescope strokeWidth={1} /> Explore
               </Link>
 
               <Link
                 href="/settings"
                 onClick={() => setIsOpen(false)}
-                className="rounded p-4 py-2 hover:bg-light-orange dark:hover:bg-orange-950"
+                className="flex gap-2 rounded p-4 py-2 hover:bg-light-orange dark:hover:bg-orange-950"
               >
+                <Settings strokeWidth={1} />
                 Settings
               </Link>
               <button
@@ -123,8 +135,9 @@ export function Nav() {
                     console.error("Failed to sign out:", error);
                   }
                 }}
-                className="mt-auto rounded p-4 py-2 text-left text-red-500 hover:bg-light-orange dark:hover:bg-orange-950"
+                className="mt-auto flex gap-2 rounded p-4 py-2 text-left hover:bg-light-orange dark:hover:bg-orange-950"
               >
+                <LogOut strokeWidth={1} />
                 Sign Out
               </button>
             </>
