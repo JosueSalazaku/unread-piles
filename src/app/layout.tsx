@@ -7,6 +7,7 @@ import { ThemeProvider } from "@/components/theme-provider";
 export const metadata: Metadata = {
   title: "Unread Piles",
   description: "Read, search and track your favorite books!",
+  icons: [{ rel: "icon", url: "/piles.svg" }],
 };
 
 export default function RootLayout({

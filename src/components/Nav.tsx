@@ -66,7 +66,7 @@ export function Nav() {
             />
           ) : (
             <Link href="/api/auth/sign-in">
-              <button className="border-dark-gray rounded-md border px-4 py-2 hover:border-transparent hover:bg-main-orange hover:text-white">
+              <button className="rounded-md border border-dark-gray px-4 py-2 hover:border-transparent hover:bg-main-orange hover:text-white">
                 Login / Sign Up
               </button>
             </Link>
@@ -89,22 +89,15 @@ export function Nav() {
 
       {/* Mobile Dropdown Menu */}
       {isOpen && (
-        <div className="absolute left-0 right-0 top-16 z-50 flex flex-col space-y-3 bg-main-orange p-4 text-lg shadow-md md:hidden">
+        <div className="absolute left-0 right-0 top-20 z-50 flex flex-col space-y-3 bg-main-orange p-4 text-lg shadow-md md:hidden">
           {session.data?.user ? (
             <>
               <Link
-                href="/profile"
+                href="/library"
                 onClick={() => setIsOpen(false)}
                 className="rounded p-4 py-2 hover:bg-light-orange dark:hover:bg-orange-950"
               >
-                Profile
-              </Link>
-              <Link
-                href="/settings"
-                onClick={() => setIsOpen(false)}
-                className="rounded p-4 py-2 hover:bg-light-orange dark:hover:bg-orange-950"
-              >
-                Settings
+                Library
               </Link>
               <Link
                 href="/explore"
@@ -113,12 +106,13 @@ export function Nav() {
               >
                 Explore
               </Link>
+
               <Link
-                href="/library"
+                href="/settings"
                 onClick={() => setIsOpen(false)}
                 className="rounded p-4 py-2 hover:bg-light-orange dark:hover:bg-orange-950"
               >
-                Library
+                Settings
               </Link>
               <button
                 onClick={async () => {
