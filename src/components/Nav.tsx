@@ -23,7 +23,7 @@ export function Nav() {
   const toggleDropdown = () => setIsOpen(!isOpen);
 
   return (
-    <nav className="flex h-16 w-full items-center justify-between px-6 py-4 pt-10 sm:px-6">
+    <nav className="flex gap-2 h-16 w-full items-center justify-between px-6 py-4 pt-10 sm:px-6">
       <Link
         href="/"
         className="text-main flex items-center text-xl font-bold sm:text-2xl"
@@ -31,9 +31,9 @@ export function Nav() {
         <Image
           src="/piles.svg"
           alt="Unread Piles Logo"
-          width={42}
-          height={40}
-          className="pr-2 px-2 dark:invert dark:filter sm:hidden"
+          width={36}
+          height={38}
+          className=" dark:invert dark:filter sm:hidden"
         />
 
         <Image

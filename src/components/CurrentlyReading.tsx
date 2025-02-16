@@ -26,7 +26,6 @@ export default function CurrentlyReading() {
             userBooks.map(async (userBook) => {
               if (userBook.status === "Currently Reading") {
                 const book = await fetchGoogleBookById(userBook.bookId);
-                console.log(book, "All books from Currently Reading Piles");
                 return book as GoogleBook | null;
               }
               return null;

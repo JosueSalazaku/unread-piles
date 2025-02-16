@@ -26,7 +26,6 @@ export default function ToReadPiles() {
             userBooks.map(async (userBook) => {
               if (userBook.status === "To read") {
                 const book = await fetchGoogleBookById(userBook.bookId);
-                console.log(book, "All books from To read Piles");
                 return book as GoogleBook | null;
               }
               return null;
