@@ -9,7 +9,7 @@ import ModdeToggle from "./ModdeToggle";
 import { PictureDropDown } from "./PictureDropDown";
 import { signOut } from "@/app/lib/auth-client";
 import Image from "next/image";
-import { Telescope, Settings, LibraryBig, LogOut } from "lucide-react";
+import { Telescope, Settings, LibraryBig, LogOut, CalendarCog } from "lucide-react";
 
 export function Nav() {
   const session = useCustomSession();
@@ -125,6 +125,14 @@ export function Nav() {
               >
                 <Settings strokeWidth={1} />
                 Settings
+              </Link>
+              <Link
+                href="/features"
+                onClick={() => setIsOpen(false)}
+                className="flex gap-2 rounded p-4 py-2 hover:bg-light-orange dark:hover:bg-orange-950"
+              >
+                <CalendarCog strokeWidth={1} />
+                Upcomming features
               </Link>
               <button
                 onClick={async () => {
