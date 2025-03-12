@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { Nav } from "@/components/Nav";
 import { SessionProvider } from "@/components/SessionProvider";
 import { ThemeProvider } from "@/components/provider/theme-provider";
+import TanstackProvider from "@/components/provider/tanstack-provider";
 
 export const metadata: Metadata = {
   title: "Unread Piles",
@@ -21,7 +22,9 @@ export default function RootLayout({
         <ThemeProvider>
           <SessionProvider>
             <Nav />
-            <main className="flex-1">{children}</main>
+            <TanstackProvider>
+              <main className="flex-1">{children}</main>
+            </TanstackProvider>
           </SessionProvider>
         </ThemeProvider>
       </body>
