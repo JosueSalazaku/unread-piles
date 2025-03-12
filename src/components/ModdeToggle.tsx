@@ -1,5 +1,5 @@
 "use client";
-import { useTheme } from "./theme-provider";
+import { useTheme } from "./provider/theme-provider";
 
 export default function ModdeToggle() {
   const { theme, toggleTheme } = useTheme();

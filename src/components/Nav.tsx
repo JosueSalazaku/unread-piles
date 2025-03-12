@@ -132,7 +132,7 @@ export function Nav() {
                 className="flex gap-2 rounded p-4 py-2 hover:bg-light-orange dark:hover:bg-orange-950"
               >
                 <CalendarCog strokeWidth={1} />
-                Upcomming features
+                Features
               </Link>
               <button
                 onClick={async () => {
