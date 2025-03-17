@@ -1,62 +1,32 @@
-import React, { useEffect, useState } from "react";
-import { type GoogleBook } from "@/types";
+import React from "react";
 import { useCustomSession } from "./SessionProvider";
-import { fetchUserBooks } from "@/services/backend/book-service";
-import { fetchGoogleBookById } from "@/services/client/book-service";
+import { useFetchUserBooks } from "@/app/util/hooks/useFetchUserBooks";
+import { useFetchGoogleBooksById } from "@/app/util/hooks/useFetchGoogleBooksById";
 import FadeLoader from "react-spinners/FadeLoader";
 import Image from "next/image";
 import Link from "next/link";
 
 export default function CurrentlyReading() {
-  const [books, setBooks] = useState<GoogleBook[]>([]);
-  const [error, setError] = useState<string | null>(null);
-  const [loading, setLoading] = useState(false);
-
   const session = useCustomSession();
   const userId = session.data?.user?.id;
 
-  useEffect(() => {
-    const getUserBookData = async () => {
-      try {
-        if (userId) {
-          const userBooks = await fetchUserBooks(userId);
-          setLoading(true);
+  const { data: userBooks, error: userBooksError, isLoading: isUserBooksLoading } = useFetchUserBooks(userId ?? "");
 
-          const books = await Promise.all(
-            userBooks.map(async (userBook) => {
-              if (userBook.status === "Currently Reading") {
-                const book = await fetchGoogleBookById(userBook.bookId);
-                return book as GoogleBook | null;
-              }
-              return null;
-            }),
-          );
-          setLoading(false);
-          setBooks(books.filter((book): book is GoogleBook => book != null));
-        }
-      } catch (error) {
-        if (error instanceof Error) {
-          console.error("Error fetching book data:", error.message);
-        } else {
-          console.error("Unknown error:", error);
-        }
-        setError("Could not fetch book data");
-      }
-    };
-    void getUserBookData();
-  }, [userId]);
+  // Filter userBooks by status "Currently Reading"
+  const bookIds = userBooks?.filter((userBook) => userBook.status === "Currently Reading").map((userBook) => userBook.bookId) ?? [];
+  const validBookIds = bookIds.filter((id): id is string => id !== undefined);
+
+  const { data: googleBooks, error: googleBooksError, isLoading: isGoogleBooksLoading } = useFetchGoogleBooksById(validBookIds);
 
   if (!userId) {
-    return (
-      <div>You are not logged in. Please sign in to view your information.</div>
-    );
+    return <div>You are not logged in. Please sign in to view your information.</div>;
   }
 
-  if (error) {
-    return <div>{error}</div>;
+  if (userBooksError) {
+    return <div>{userBooksError.message}</div>;
   }
 
-  if (loading) {
+  if (isUserBooksLoading || isGoogleBooksLoading) {
     return (
       <div className="flex h-screen w-screen items-center justify-center">
         <FadeLoader color="#912b12" />
@@ -64,21 +34,22 @@ export default function CurrentlyReading() {
     );
   }
 
+  if (googleBooksError) {
+    return <div>{googleBooksError.message}</div>;
+  }
+
   return (
     <div className="flex flex-col items-center">
       <div className="flex flex-col items-center">
         <h1 className="py-4 text-center">Currently Reading</h1>
-        {books ? (
+        {googleBooks && googleBooks.length > 0 ? (
           <ul className="flex flex-row justify-center gap-5">
-            {books.map((book) => (
+            {googleBooks.map((book) => (
               <li key={book.id}>
                 <Link href={`/books/${book.id}`}>
                   <Image
-                    src={
-                      book.volumeInfo.imageLinks?.thumbnail ??
-                      "/default-image.jpg"
-                    }
-                    alt={book.volumeInfo.imageLinks?.medium ?? ""}
+                    src={book.volumeInfo?.imageLinks?.thumbnail ?? "/default-image.jpg"}
+                    alt={book.volumeInfo?.title ?? ""}
                     width={190}
                     height={40}
                     className="w-24 h-36"
