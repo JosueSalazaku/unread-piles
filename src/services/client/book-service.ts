@@ -37,15 +37,15 @@ export const fetchBookByInput = async (query: string, startIndex: number, maxRes
     
 }
 
-export const fetchGoogleBookById = async (bookId: string) => {
+export const fetchGoogleBookById = async (bookId: string) : Promise<GoogleBook | null> => {
   if (!bookId) {
     console.error("No BookId found", bookId);
     return null;
   }
 
   try {
-    const response = await axios.get(`https://www.googleapis.com/books/v1/volumes/${bookId}`);
-    return response.data as string;
+    const response = await axios.get<GoogleBook>(`https://www.googleapis.com/books/v1/volumes/${bookId}`);
+    return response.data;
   } catch (error) {
       console.error("Error fetching UserBooks by bookId", error)
     return null;
