@@ -25,7 +25,7 @@ export default function UserBooks() {
           const books = await Promise.all(
             userBooks.map(async (userBook) => {
               const book = await fetchGoogleBookById(userBook.bookId);
-              return book as GoogleBook | null;
+              return book;
             }),
           );
 
