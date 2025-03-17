@@ -3,7 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 
 export const useFetchUserBooks = (id: string) => {
     return useQuery({
-      queryKey: ["todos"],
+      queryKey: ["userBooks"],
       queryFn: () => fetchUserBooks(id),
     });
   };
